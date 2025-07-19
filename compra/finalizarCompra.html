@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MercadoNEA - Finalizar Compra</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        xintegrity="sha512-SnH5WK+bZxgPHs44jOVpLqN2Y/NoLpYkS1jB+x7jXyG2W3I6/N9t/JcK7D7FhM2J44zF3C+G3G3wG3G3w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Fuentes de Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        /* Barra de Navegación Principal */
+        .ne-barra-navegacion {
+            background-color: #444;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .ne-barra-navegacion .navbar-brand img {
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+
+        .ne-barra-navegacion .form-control {
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            height: 40px;
+            font-size: 16px;
+            padding-left: 15px;
+            background-color: #fff;
+        }
+
+        .ne-barra-navegacion .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        .ne-barra-navegacion .btn-search {
+            background-color: #FF7F00;
+            border: none;
+            color: #fff;
+            padding: 0 15px;
+            height: 40px;
+            border-radius: 0 4px 4px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        .ne-barra-navegacion .nav-link {
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            padding: 0.5rem 0.8rem;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .ne-texto-pequeno {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .ne-barra-navegacion .ne-icono-ubicacion {
+            font-size: 18px;
+            margin-right: 5px;
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .input-group .form-control {
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .ne-barra-navegacion .input-group .input-group-text {
+            background-color: #FF7F00;
+            border: 1px solid #FF7F00;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        /* Carrito de Compras en la Navegación */
+        .ne-cart-icon-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Adjust spacing as needed */
+        }
+
+        .ne-cart-icon-container .fa-shopping-cart {
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .ne-cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #FF7F00;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+            line-height: 1;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Contenedor de enlaces de usuario en la barra principal */
+        .ne-user-links {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Espacio entre el carrito y los enlaces */
+        }
+
+        .ne-user-links .nav-link {
+            padding: 0.5rem 0.8rem;
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-user-links .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-user-links .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+
+        /* Barra de Navegación Secundaria */
+        .ne-barra-navegacion-secundaria {
+            background-color: #f8f9fa;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid #eee;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link {
+            font-size: 14px;
+            color: #666;
+            padding: 0.3rem 0.8rem;
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio i {
+            font-size: 16px;
+            margin-right: 5px;
+            color: #00a650;
+        }
+
+        /* Contenedor principal de Finalizar Compra */
+        .ne-contenedor-finalizar-compra {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .ne-contenedor-finalizar-compra h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .ne-contenedor-finalizar-compra h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .ne-contenedor-finalizar-compra .form-label {
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .ne-contenedor-finalizar-compra .form-control,
+        .ne-contenedor-finalizar-compra .form-select {
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            height: auto;
+        }
+
+        .ne-contenedor-finalizar-compra .form-control:focus,
+        .ne-contenedor-finalizar-compra .form-select:focus {
+            border-color: #FF7F00;
+            /* Naranja original */
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        /* Secciones de la compra (Estilo ML) */
+        .ne-seccion-compra {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .ne-seccion-compra h5 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .ne-seccion-compra .btn-modificar {
+            color: #3483fa;
+            /* Azul de ML */
+            font-size: 0.9rem;
+            text-decoration: none;
+            float: right;
+        }
+
+        .ne-seccion-compra .btn-modificar:hover {
+            text-decoration: underline;
+        }
+
+        /* Opciones de envío y pago (Estilo ML) */
+        .ne-opcion {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .ne-opcion:hover {
+            border-color: #3483fa;
+            /* Azul de ML */
+            box-shadow: 0 0 0 0.15rem rgba(52, 131, 250, 0.15);
+        }
+
+        .ne-opcion.selected {
+            border-color: #3483fa;
+            /* Azul de ML */
+            background-color: #e7f1ff;
+            /* Azul claro de ML */
+            box-shadow: 0 0 0 0.2rem rgba(52, 131, 250, 0.25);
+        }
+
+        .ne-opcion label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .ne-opcion p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0;
+        }
+
+        .ne-opcion .precio-envio {
+            font-weight: 700;
+            color: #00a650;
+            /* Verde de éxito */
+        }
+
+        .ne-opcion input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        /* Resumen del pedido (Estilo ML) */
+        .ne-resumen-pedido {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 20px;
+            /* Para que se quede pegado al hacer scroll */
+        }
+
+        .ne-resumen-pedido h5 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .ne-resumen-pedido .linea-resumen {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .ne-resumen-pedido .linea-resumen.total {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        .ne-resumen-pedido .btn-confirmar-compra {
+            background-color: #3483fa;
+            /* Azul de ML */
+            border-color: #3483fa;
+            color: #fff;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .ne-resumen-pedido .btn-confirmar-compra:hover {
+            background-color: #2968c8;
+            /* Azul más oscuro al pasar el ratón */
+            border-color: #2968c8;
+        }
+
+        /* Detalles de los productos en el resumen */
+        .ne-resumen-pedido .lista-productos-resumen img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .ne-resumen-pedido .lista-productos-resumen .list-group-item {
+            padding: 10px 0;
+            border-color: #eee;
+        }
+
+        /* Estilos para la tarjeta de crédito visual */
+        .tarjeta-credito-visual {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            border-radius: 10px;
+            padding: 20px;
+            color: white;
+            font-family: 'Consolas', 'monospace';
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            max-width: 350px;
+            width: 100%;
+            /* Ensure it takes full width of its container up to max-width */
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            /* Needed for absolute positioning of logo */
+            box-sizing: border-box;
+            /* Include padding in width calculation */
+        }
+
+        .tarjeta-credito-visual .chip-tarjeta {
+            width: 50px;
+            height: 35px;
+            background-color: #d4af37;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .tarjeta-credito-visual .numero-tarjeta-visual {
+            font-size: 1.5rem;
+            /* Default font size */
+            letter-spacing: 2px;
+            /* Default letter spacing */
+            margin-bottom: 10px;
+            min-width: 280px;
+            /* Set a minimum width to prevent shrinking */
+            white-space: nowrap;
+            /* Prevent wrapping */
+            overflow: hidden;
+            /* Hide overflow if text is too long */
+        }
+
+        .tarjeta-credito-visual .nombre-titular-visual,
+        .tarjeta-credito-visual .vencimiento-tarjeta-visual {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .tarjeta-credito-visual .vencimiento-tarjeta-visual {
+            float: right;
+        }
+
+        .tarjeta-credito-visual .logo-tipo-tarjeta {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 1.2em;
+            /* Adjusted size */
+        }
+
+        /* Card type specific colors */
+        .tarjeta-credito-visual.tipo-tarjeta-visa {
+            background: linear-gradient(45deg, #1a1a1a, #4a4a4a);
+            /* Dark grey/black */
+        }
+
+        .tarjeta-credito-visual.tipo-tarjeta-mastercard {
+            background: linear-gradient(45deg, #eb001b, #f79e1b);
+            /* Red/Orange */
+        }
+
+        .tarjeta-credito-visual.tipo-tarjeta-amex {
+            background: linear-gradient(45deg, #007bc1, #34a8eb);
+            /* Blue */
+        }
+
+        .tarjeta-credito-visual.tipo-tarjeta-discover {
+            background: linear-gradient(45deg, #ff6600, #ff9933);
+            /* Orange */
+        }
+
+        .tarjeta-credito-visual.tipo-tarjeta-nbch-tuya {
+            background: linear-gradient(45deg, #007bff, #28a745);
+            /* Blue to Green gradient */
+        }
+
+        /* New bank card styles */
+        .tarjeta-credito-visual.tipo-tarjeta-santander-rio {
+            background: linear-gradient(45deg, #ec0000, #ff4d4d);
+            /* Red tones for Santander */
+        }
+
+        .tarjeta-credito-visual.tipo-tarjeta-galicia {
+            background: linear-gradient(45deg, #0033a0, #0056b3);
+            /* Blue tones for Galicia */
+        }
+
+        .tarjeta-credito-visual.tipo-tarjeta-macro {
+            background: linear-gradient(45deg, #ffcc00, #ffaa00);
+            /* Yellow/Orange tones for Macro */
+        }
+
+        .tarjeta-credito-visual.tipo-tarjeta-nacion {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            /* Blue tones for Nación, similar to default but distinct */
+        }
+
+        /* Default color if no type detected or for unknown types */
+        .tarjeta-credito-visual.tipo-tarjeta-desconocida {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            /* Default blue */
+        }
+
+
+        /* Estilos para la información de transferencia bancaria */
+        .info-transferencia-bancaria {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #555;
+            display: none;
+            /* Oculto por defecto */
+        }
+
+        .info-transferencia-bancaria strong {
+            color: #333;
+        }
+
+        /* Pie de Página (Diseño original) */
+        .ne-pie-pagina {
+            background-color: #333;
+            padding: 40px 0 20px;
+            border-top: 1px solid #444;
+            color: #ddd;
+        }
+
+        .ne-pie-pagina .titulo-pie-pagina {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #FF7F00;
+            /* Naranja original */
+        }
+
+        .ne-pie-pagina ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .ne-pie-pagina ul li {
+            margin-bottom: 8px;
+        }
+
+        .ne-pie-pagina ul li a {
+            color: #ccc;
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina ul li a:hover {
+            color: #FF7F00;
+            /* Naranja original */
+        }
+
+        .ne-pie-pagina .iconos-sociales-pie-pagina a {
+            color: #FF7F00;
+            /* Naranja original */
+            font-size: 20px;
+            margin-right: 15px;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina .iconos-sociales-pie-pagina a:hover {
+            color: #fff;
+        }
+
+        .ne-pie-pagina .derechos-autor-pie-pagina {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .ne-pie-pagina .enlaces-inferiores-pie-pagina a {
+            color: #ccc;
+            font-size: 12px;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .ne-pie-pagina .enlaces-inferiores-pie-pagina a:hover {
+            color: #FF7F00;
+            /* Naranja original */
+        }
+
+        /* Estilos del Modal de Ubicación */
+        #locationModal .modal-content {
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        #locationModal .modal-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            padding: 15px 20px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        #locationModal .modal-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.25rem;
+        }
+
+        #locationModal .btn-close {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        #locationModal .btn-close:hover {
+            opacity: 1;
+        }
+
+        #locationModal .modal-body {
+            padding: 20px;
+        }
+
+        #locationModal .form-label {
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        #locationModal .form-control {
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            height: auto;
+        }
+
+        #locationModal .form-control:focus {
+            border-color: #FF7F00;
+            /* Naranja original */
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        #locationModal .input-group .btn-primary {
+            background-color: #FF7F00;
+            /* Naranja original */
+            border-color: #FF7F00;
+            /* Naranja original */
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 0 4px 4px 0;
+            font-weight: 600;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        #locationModal .input-group .btn-primary:hover {
+            background-color: #E66E00;
+            /* Naranja más oscuro */
+            border-color: #E66E00;
+            /* Naranja más oscuro */
+        }
+
+        #locationModal #dontKnowCodeLink {
+            color: #FF7F00;
+            /* Naranja original */
+            font-weight: 500;
+            margin-top: 15px;
+            display: block;
+            text-align: center;
+            transition: color 0.2s ease;
+        }
+
+        #locationModal #dontKnowCodeLink:hover {
+            color: #E66E00;
+            /* Naranja más oscuro */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Barra de Navegación Principal -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion">
+        <div class="container-fluid container">
+            <a class="navbar-brand" href="#">
+                <img src="https://placehold.co/150x40/FF7F00/ffffff?text=MercadoNEA+Logo" alt="MercadoNEA Logo">
+            </a>
+            <form class="d-flex flex-grow-1 mx-3 position-relative">
+                <input class="form-control" type="search" placeholder="Buscar productos, marcas y más..."
+                    aria-label="Search">
+                <button class="btn btn-search" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <!-- Contenedor de enlaces de usuario y carrito para pantallas grandes -->
+            <div class="d-none d-lg-flex align-items-center">
+                <div class="ne-user-links">
+                    <a class="nav-link bold" href="crearCuenta.html">Crea tu cuenta</a>
+                    <a class="nav-link" href="iniciarSesion.html">Ingresa</a>
+                </div>
+                <!-- Carrito de compras con contador -->
+                <div class="ne-cart-icon-container">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="ne-cart-count" id="cartItemCount">0</span>
+                </div>
+            </div>
+            <button class="navbar-toggler mt-2 bg-light-subtle" type="button" data-bs-toggle="collapse"
+                data-bs-target="#neNavbarNav" aria-controls="neNavbarNav" aria-expanded="false"
+                aria-label="Toggle navigation" id="botonMenuMovil">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Barra de Navegación Secundaria (sin modificaciones de enlaces) -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion-secundaria">
+        <div class="container-fluid container">
+            <a class="ne-info-envio me-auto d-none d-lg-flex align-items-center" href="#" data-bs-toggle="modal"
+                data-bs-target="#modalUbicacion" id="botonModalUbicacion">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    Enviar a <span class="ne-texto-pequeno text-warning" id="textoUbicacionActual">Resistencia,
+                        Chaco</span>
+                </div>
+            </a>
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCategorias" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategorias">
+                        <li><a class="dropdown-item" href="#">Electrónica</a></li>
+                        <li><a class="dropdown-item" href="#">Moda y Accesorios</a></li>
+                        <li><a class="dropdown-item" href="#">Hogar y Muebles</a></li>
+                        <li><a class="dropdown-item" href="#">Deportes y Fitness</a></li>
+                        <li><a class="dropdown-item" href="#">Herramientas y Construcción</a></li>
+                        <li><a class="dropdown-item" href="#">Libros, Revistas y Comics</a></li>
+                        <li><a class="dropdown-item" href="#">Juguetes y Bebés</a></li>
+                        <li><a class="dropdown-item" href="#">Belleza y Cuidado Personal</a></li>
+                        <li><a class="dropdown-item" href="#">Accesorios para Vehículos</a></li>
+                        <li><a class="dropdown-item" href="#">Animales y Mascotas</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Ver todas las categorías</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+            </ul>
+            <div class="d-none d-lg-flex align-items-center ms-auto">
+                <!-- "Mis compras" se mantiene aquí o se puede mover si se desea -->
+                <a class="nav-link" href="#"><i class="fas fa-shopping-cart fa-lg"></i> Mis compras</a>
+            </div>
+            <!-- Contenido para móvil -->
+            <div class="collapse navbar-collapse" id="neNavbarNav">
+                <ul class="navbar-nav ms-auto d-lg-none">
+                    <li class="nav-item"><a class="nav-link bold" href="crearCuenta.html">Crea tu cuenta</a></li>
+                    <li class="nav-item"><a class="nav-link" href="iniciarSesion.html">Ingresa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mis compras</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mi carrito</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Categorías</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="row mt-4">
+            <!-- Columna izquierda: Detalles de la compra -->
+            <div class="col-lg-8">
+                <h2 class="mb-4">Finalizar Compra</h2>
+
+                <!-- Sección de Dirección de Envío -->
+                <div class="ne-seccion-compra">
+                    <h5 class="d-flex justify-content-between align-items-center">
+                        Dirección de Envío
+                        <a href="#" class="btn-modificar" data-bs-toggle="modal"
+                            data-bs-target="#addressModal">Modificar</a>
+                    </h5>
+                    <div id="displayAddress">
+                        <p>No se ha ingresado ninguna dirección.</p>
+                    </div>
+                </div>
+
+                <!-- Modal para Dirección de Envío -->
+                <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addressModalLabel">Ingresar Dirección de Envío</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="addressForm" novalidate>
+                                    <div class="mb-3">
+                                        <label for="nombreCompleto" class="form-label">Nombre Completo</label>
+                                        <input type="text" class="form-control" id="nombreCompleto"
+                                            placeholder="Tu nombre y apellido" required>
+                                        <div class="invalid-feedback">
+                                            Por favor, ingresa tu nombre completo.
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="calleNumero" class="form-label">Calle y Número</label>
+                                        <input type="text" class="form-control" id="calleNumero"
+                                            placeholder="Ej: Av. Principal 123" required>
+                                        <div class="invalid-feedback">
+                                            Por favor, ingresa la calle y número.
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="ciudad" class="form-label">Ciudad</label>
+                                            <input type="text" class="form-control" id="ciudad"
+                                                placeholder="Ej: Resistencia" required>
+                                            <div class="invalid-feedback">
+                                                Por favor, ingresa la ciudad.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="provincia" class="form-label">Provincia</label>
+                                            <input type="text" class="form-control" id="provincia"
+                                                placeholder="Ej: Chaco" required>
+                                            <div class="invalid-feedback">
+                                                Por favor, ingresa la provincia.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="codigoPostal" class="form-label">Código Postal</label>
+                                        <input type="text" class="form-control" id="codigoPostal" placeholder="Ej: 3500"
+                                            required pattern="[0-9]{4,5}">
+                                        <div class="invalid-feedback">
+                                            Por favor, ingresa un código postal válido (4 o 5 dígitos).
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary">Guardar Dirección</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección de Método de Envío -->
+                <div class="ne-seccion-compra">
+                    <h5>Método de Envío</h5>
+                    <div id="shippingOptions">
+                        <div class="ne-opcion" data-shipping-cost-threshold="200000" data-shipping-free-cost="0"
+                            data-shipping-paid-cost="5000" data-shipping-name="Envío Estándar">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="metodoEnvio" id="envioEstandar"
+                                    value="estandar">
+                                <label class="form-check-label" for="envioEstandar">
+                                    Envío Estándar <span class="precio-envio" id="envioEstandarCosto"></span>
+                                </label>
+                            </div>
+                            <p>Recibe tu pedido en 3-5 días hábiles.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección de Método de Pago -->
+                <div class="ne-seccion-compra">
+                    <h5>Método de Pago</h5>
+                    <div id="paymentOptions">
+                        <div class="ne-opcion selected" data-payment-method="tarjeta"
+                            data-payment-name="Tarjeta de Crédito / Débito">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="metodoPago" id="pagoTarjeta"
+                                    value="tarjeta" checked>
+                                <label class="form-check-label" for="pagoTarjeta">
+                                    Tarjeta de Crédito / Débito
+                                </label>
+                            </div>
+                            <div id="cardDetails" class="mt-3">
+                                <!-- Visual de la tarjeta de crédito -->
+                                <div class="tarjeta-credito-visual mb-4" id="creditCardVisual">
+                                    <div class="chip-tarjeta"></div>
+                                    <div class="logo-tipo-tarjeta" id="cardTypeLogo">
+                                        <!-- Card icon will go here -->
+                                    </div>
+                                    <div class="numero-tarjeta-visual" id="cardVisualNumber">XXXX XXXX XXXX XXXX</div>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div class="nombre-titular-visual" id="cardVisualHolder">NOMBRE DEL TITULAR
+                                        </div>
+                                        <div class="vencimiento-tarjeta-visual" id="cardVisualExpiry">MM/AA</div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="numeroTarjeta" class="form-label">Número de Tarjeta</label>
+                                    <input type="text" class="form-control" id="numeroTarjeta"
+                                        placeholder="XXXX XXXX XXXX XXXX" required pattern="[0-9]{13,16}"
+                                        maxlength="19">
+                                    <div class="invalid-feedback">
+                                        Por favor, ingresa un número de tarjeta válido.
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="fechaVencimiento" class="form-label">Fecha de Vencimiento
+                                            (MM/AA)</label>
+                                        <input type="text" class="form-control" id="fechaVencimiento"
+                                            placeholder="MM/AA" required pattern="(0[1-9]|1[0-2])\/[0-9]{2}"
+                                            maxlength="5">
+                                        <div class="invalid-feedback">
+                                            Formato: MM/AA.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="cvv" class="form-label">CVV</label>
+                                        <input type="text" class="form-control" id="cvv" placeholder="XXX" required
+                                            pattern="[0-9]{3,4}" maxlength="4">
+                                        <div class="invalid-feedback">
+                                            Por favor, ingresa un CVV válido (3 o 4 dígitos).
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nombreTitular" class="form-label">Nombre del Titular</label>
+                                    <input type="text" class="form-control" id="nombreTitular"
+                                        placeholder="Como aparece en la tarjeta" required>
+                                    <div class="invalid-feedback">
+                                        Por favor, ingresa el nombre del titular.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ne-opcion" data-payment-method="mercadopago" data-payment-name="Mercado Pago">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="metodoPago" id="pagoMercadoPago"
+                                    value="mercadopago">
+                                <label class="form-check-label" for="pagoMercadoPago">
+                                    Mercado Pago
+                                </label>
+                            </div>
+                            <p class="mt-2">Serás redirigido a Mercado Pago para completar tu compra.</p>
+                        </div>
+                        <div class="ne-opcion" data-payment-method="transferencia"
+                            data-payment-name="Transferencia Bancaria">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="metodoPago" id="pagoTransferencia"
+                                    value="transferencia">
+                                <label class="form-check-label" for="pagoTransferencia">
+                                    Transferencia Bancaria
+                                </label>
+                            </div>
+                            <div class="info-transferencia-bancaria">
+                                <p>Para completar tu compra, realiza una transferencia bancaria a los siguientes datos:
+                                </p>
+                                <p><strong>Banco:</strong> BancoNEA</p>
+                                <p><strong>Número de Cuenta:</strong> 1234-5678-9012-3456</p>
+                                <p><strong>CBU:</strong> 0000000000000000000000</p>
+                                <p><strong>Alias:</strong> MERCADONEA.COMPRA</p>
+                                <p><strong>Monto:</strong> <span id="transferAmount">$250.000</span></p>
+                                <p class="mt-2">Una vez realizada la transferencia, envía el comprobante a <a
+                                        href="mailto:pagos@mercadonea.com">pagos@mercadonea.com</a> indicando tu número
+                                    de pedido.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna derecha: Resumen del Pedido -->
+            <div class="col-lg-4">
+                <div class="ne-resumen-pedido">
+                    <h5>Resumen de Compra</h5>
+                    <div class="linea-resumen">
+                        <span>Productos (<span id="cantidadProductosResumen">4</span>)</span>
+                        <span id="subtotalResumen">$250.000</span>
+                    </div>
+                    <div class="linea-resumen">
+                        <span>Envío</span>
+                        <span id="costoEnvioResumen" class="text-success">Gratis</span>
+                    </div>
+                    <div class="linea-resumen total">
+                        <span>Total</span>
+                        <span id="totalFinal">$250.000</span>
+                    </div>
+
+                    <button class="btn btn-confirmar-compra mt-3" id="confirmPurchaseBtn">Confirmar Compra</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Pie de Página -->
+    <footer class="ne-pie-pagina">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Acerca de MercadoNEA</h5>
+                    <ul>
+                        <li><a href="#">Nuestra Empresa</a></li>
+                        <li><a href="#">Inversores</a></li>
+                        <li><a href="#">Sustentabilidad</a></li>
+                        <li><a href="#">Novedades</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Mi Cuenta</h5>
+                    <ul>
+                        <li><a href="#">Ingresar</a></li>
+                        <li><a href="#">Registrarse</a></li>
+                        <li><a href="#">Mis pedidos</a></li>
+                        <li><a href="#">Configuración</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Ayuda y Soporte</h5>
+                    <ul>
+                        <li><a href="#">Centro de Ayuda</a></li>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                        <li><a href="#">Envíos y Devoluciones</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Conéctate</h5>
+                    <div class="iconos-sociales-pie-pagina">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="enlaces-inferiores-pie-pagina text-center">
+                <a href="#">Trabaja con nosotros</a>
+                <a href="#">Términos y Condiciones</a>
+                <a href="#">Política de Privacidad</a>
+                <a href="#">Aviso Legal</a>
+            </div>
+            <p class="derechos-autor-pie-pagina">Copyright © 2024 MercadoNEA S.A. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modal de Ubicación (Mantener por si se usa en el futuro) -->
+    <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title" id="locationModalLabel">Elegí dónde recibir tus compras</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <p class="text-muted mb-3">Podrás ver costos y tiempos de entrega precisos en todo lo que busques.
+                    </p>
+                    <div class="mb-3">
+                        <label for="postalCodeInput" class="form-label">Código Postal</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="postalCodeInput"
+                                placeholder="Ingresar un código postal">
+                            <button class="btn btn-primary" type="button" id="usePostalCodeBtn">Usar</button>
+                        </div>
+                    </div>
+                    <a href="#" id="dontKnowCodeLink" class="text-decoration-none d-block text-center">No sé mi
+                        código</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (bundle con Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Inicialización del modal de ubicación (si se mantiene)
+            const currentLocationText = document.getElementById('currentLocationText');
+            const postalCodeInput = document.getElementById('postalCodeInput');
+            const usePostalCodeBtn = document.getElementById('usePostalCodeBtn');
+            const dontKnowCodeLink = document.getElementById('dontKnowCodeLink');
+            const locationModal = new bootstrap.Modal(document.getElementById('locationModal'));
+
+            function updateLocation(location) {
+                currentLocationText.textContent = location;
+            }
+
+            usePostalCodeBtn.addEventListener('click', function () {
+                const postalCode = postalCodeInput.value.trim();
+                if (postalCode) {
+                    updateLocation(postalCode);
+                    locationModal.hide();
+                } else {
+                    alert('Por favor, ingresa un código postal.');
+                }
+            });
+
+            dontKnowCodeLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                alert('Puedes buscar tu código postal en el sitio web del correo local.');
+                locationModal.hide();
+            });
+
+            document.getElementById('locationModal').addEventListener('show.bs.modal', function () {
+                postalCodeInput.value = currentLocationText.textContent === 'Resistencia, Chaco' ? '' : currentLocationText.textContent;
+            });
+
+            // Simulación de productos en el carrito
+            const productsInCart = [
+                { name: 'Smart TV 4K UHD 50"', quantity: 1, price: 180000, image: 'https://placehold.co/50x50/FF7F00/ffffff?text=TV' },
+                { name: 'Auriculares Bluetooth', quantity: 2, price: 12500, image: 'https://placehold.co/50x50/444/ffffff?text=HP' },
+                { name: 'Cafetera espresso', quantity: 1, price: 45000, image: 'https://placehold.co/50x50/00a650/ffffff?text=CF' }
+            ];
+
+            // Elementos del DOM para el resumen de compra
+            const cantidadProductosResumenEl = document.getElementById('cantidadProductosResumen');
+            const subtotalResumenEl = document.getElementById('subtotalResumen');
+            const costoEnvioResumenEl = document.getElementById('costoEnvioResumen');
+            const totalFinalEl = document.getElementById('totalFinal');
+            const displayAddressEl = document.getElementById('displayAddress');
+            const envioEstandarCostoEl = document.getElementById('envioEstandarCosto');
+            const transferAmountEl = document.getElementById('transferAmount');
+
+            // Variables para almacenar los datos de la compra
+            let shippingAddress = null;
+            let selectedShippingMethod = null;
+            let selectedPaymentMethod = { method: 'tarjeta', name: 'Tarjeta de Crédito / Débito' }; // Default to card
+
+            // --- Lógica de la Dirección de Envío ---
+            const addressForm = document.getElementById('addressForm');
+            const addressModal = new bootstrap.Modal(document.getElementById('addressModal'));
+
+            addressForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                if (addressForm.checkValidity()) {
+                    shippingAddress = {
+                        nombreCompleto: document.getElementById('nombreCompleto').value,
+                        calleNumero: document.getElementById('calleNumero').value,
+                        ciudad: document.getElementById('ciudad').value,
+                        provincia: document.getElementById('provincia').value,
+                        codigoPostal: document.getElementById('codigoPostal').value
+                    };
+                    updateDisplayAddress();
+                    addressModal.hide();
+                    updateOrderSummary(); // Actualizar resumen después de guardar dirección
+                }
+                addressForm.classList.add('was-validated');
+            });
+
+            // Función para actualizar la dirección mostrada
+            function updateDisplayAddress() {
+                if (displayAddressEl) {
+                    if (shippingAddress) {
+                        displayAddressEl.innerHTML = `
+                            <p><strong>${shippingAddress.nombreCompleto}</strong></p>
+                            <p>${shippingAddress.calleNumero}</p>
+                            <p>${shippingAddress.ciudad}, ${shippingAddress.provincia}, ${shippingAddress.codigoPostal}</p>
+                        `;
+                    } else {
+                        displayAddressEl.innerHTML = `<p>No se ha ingresado ninguna dirección.</p>`;
+                    }
+                }
+            }
+
+            // --- Lógica de Método de Envío ---
+            document.querySelectorAll('.ne-opcion[data-shipping-cost-threshold]').forEach(option => {
+                option.addEventListener('click', function () {
+                    document.querySelectorAll('.ne-opcion[data-shipping-cost-threshold]').forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    const radio = this.querySelector('input[type="radio"]');
+                    if (radio) {
+                        radio.checked = true; // Select the radio button
+                    }
+
+                    // Recalcular el costo de envío basado en el subtotal
+                    const subtotalProductos = productsInCart.reduce((sum, p) => sum + p.price * p.quantity, 0);
+                    const threshold = parseFloat(this.dataset.shippingCostThreshold);
+                    const freeCost = parseFloat(this.dataset.shippingFreeCost);
+                    const paidCost = parseFloat(this.dataset.shippingPaidCost);
+
+                    let currentShippingCost = (subtotalProductos >= threshold) ? freeCost : paidCost;
+
+                    selectedShippingMethod = {
+                        cost: currentShippingCost,
+                        name: this.dataset.shippingName
+                    };
+                    updateOrderSummary();
+                });
+            });
+
+
+            // --- Lógica de Método de Pago ---
+            const tarjetaCreditoVisualEl = document.getElementById('creditCardVisual'); // Renamed ID in HTML, still using old ID in JS for now
+            const numeroTarjetaVisual = document.getElementById('cardVisualNumber');
+            const nombreTitularVisual = document.getElementById('cardVisualHolder');
+            const vencimientoTarjetaVisual = document.getElementById('cardVisualExpiry');
+            const numeroTarjetaInput = document.getElementById('numeroTarjeta');
+            const fechaVencimientoInput = document.getElementById('fechaVencimiento');
+            const nombreTitularInput = document.getElementById('nombreTitular');
+            const infoTransferenciaBancariaDiv = document.querySelector('.info-transferencia-bancaria');
+            const logoTipoTarjetaEl = document.getElementById('cardTypeLogo');
+
+
+            document.querySelectorAll('.ne-opcion[data-payment-method]').forEach(option => {
+                option.addEventListener('click', function () {
+                    document.querySelectorAll('.ne-opcion[data-payment-method]').forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    const radio = this.querySelector('input[type="radio"]');
+                    if (radio) {
+                        radio.checked = true; // Select the radio button
+                        radio.dispatchEvent(new Event('change')); // Trigger change event
+                    }
+                });
+            });
+
+            document.querySelectorAll('input[name="metodoPago"]').forEach(radio => {
+                radio.addEventListener('change', function () {
+                    selectedPaymentMethod = {
+                        method: this.value,
+                        name: this.closest('.ne-opcion').dataset.paymentName
+                    };
+
+                    const cardDetails = document.getElementById('cardDetails');
+                    if (cardDetails) {
+                        if (selectedPaymentMethod.method === 'tarjeta') {
+                            cardDetails.style.display = 'block';
+                            if (infoTransferenciaBancariaDiv) infoTransferenciaBancariaDiv.style.display = 'none';
+                            updateCardVisual(); // Update card visual on selection
+                        } else if (selectedPaymentMethod.method === 'transferencia') {
+                            if (infoTransferenciaBancariaDiv) infoTransferenciaBancariaDiv.style.display = 'block';
+                            if (cardDetails) cardDetails.style.display = 'none';
+                        }
+                        else {
+                            cardDetails.style.display = 'none';
+                            if (infoTransferenciaBancariaDiv) infoTransferenciaBancariaDiv.style.display = 'none';
+                            // Limpiar validación al ocultar detalles de tarjeta
+                            cardDetails.querySelectorAll('input').forEach(input => {
+                                input.setCustomValidity('');
+                                input.classList.remove('is-invalid');
+                            });
+                            // Quitar la clase was-validated del contenedor de la opción de pago
+                            const parentOption = this.closest('.ne-opcion');
+                            if (parentOption && parentOption.classList.contains('was-validated')) {
+                                parentOption.classList.remove('was-validated');
+                            }
+                        }
+                    }
+                    updateOrderSummary();
+                });
+            });
+
+            // Función para determinar el tipo de tarjeta
+            function getCardType(cardNumber) {
+                const cleanCardNumber = cardNumber.replace(/\D/g, ''); // Remove all non-digit characters
+
+                if (/^4/.test(cleanCardNumber)) {
+                    return 'Visa';
+                }
+                if (/^5[1-5]/.test(cleanCardNumber)) {
+                    return 'Mastercard';
+                }
+                if (/^3[47]/.test(cleanCardNumber)) {
+                    return 'Amex';
+                }
+                if (/^6(?:011|5|4[4-9])/.test(cleanCardNumber)) {
+                    return 'Discover';
+                }
+                // NBCH Tuya detection (example prefix)
+                if (/^5893/.test(cleanCardNumber)) {
+                    return 'NBCH Tuya';
+                }
+                // New: Santander Río detection (example prefix)
+                if (/^4123/.test(cleanCardNumber)) { // Placeholder prefix
+                    return 'Santander Río';
+                }
+                // New: Galicia detection (example prefix)
+                if (/^4234/.test(cleanCardNumber)) { // Placeholder prefix
+                    return 'Galicia';
+                }
+                // New: Macro detection (example prefix)
+                if (/^4345/.test(cleanCardNumber)) { // Placeholder prefix
+                    return 'Macro';
+                }
+                // New: Nación detection (example prefix)
+                if (/^4456/.test(cleanCardNumber)) { // Placeholder prefix
+                    return 'Nación';
+                }
+                return 'Unknown'; // Default to unknown
+            }
+
+            // Función para actualizar la visual de la tarjeta
+            function updateCardVisual() {
+                const cardNumber = numeroTarjetaInput.value.replace(/\s/g, ''); // Remove spaces
+                const expiryDate = fechaVencimientoInput.value;
+                const cardHolder = nombreTitularInput.value.toUpperCase();
+
+                // Update card number visual
+                let formattedCardNumber = cardNumber.match(/.{1,4}/g);
+                if (formattedCardNumber) {
+                    formattedCardNumber = formattedCardNumber.join(' ');
+                } else {
+                    formattedCardNumber = 'XXXX XXXX XXXX XXXX';
+                }
+                if (numeroTarjetaVisual) numeroTarjetaVisual.textContent = formattedCardNumber;
+
+                // Adjust font size based on card number length
+                const cleanCardNumber = cardNumber.replace(/\s/g, '');
+                if (cleanCardNumber.length > 16) {
+                    numeroTarjetaVisual.style.fontSize = '1.2rem'; // Smaller font size
+                    numeroTarjetaVisual.style.letterSpacing = '1px'; // Reduce letter spacing
+                } else {
+                    numeroTarjetaVisual.style.fontSize = '1.5rem'; // Default font size
+                    numeroTarjetaVisual.style.letterSpacing = '2px'; // Default letter spacing
+                }
+
+
+                // Update expiry date visual
+                if (vencimientoTarjetaVisual) vencimientoTarjetaVisual.textContent = expiryDate || 'MM/AA';
+
+                // Update card holder name visual
+                if (nombreTitularVisual) nombreTitularVisual.textContent = cardHolder || 'NOMBRE DEL TITULAR';
+
+                // Determine card type and update visual
+                const cardType = getCardType(cardNumber);
+
+                // Reset classes and add new one
+                if (tarjetaCreditoVisualEl) {
+                    tarjetaCreditoVisualEl.className = 'tarjeta-credito-visual mb-4'; // Reset to base class
+                    tarjetaCreditoVisualEl.classList.add(`tipo-tarjeta-${cardType.toLowerCase().replace(/\s/g, '-')}`); // Handle spaces in class name
+                }
+
+                // Update card logo
+                if (logoTipoTarjetaEl) {
+                    logoTipoTarjetaEl.innerHTML = ''; // Clear previous icon
+                    let iconHtml = '';
+                    switch (cardType) {
+                        case 'Visa':
+                            iconHtml = '<i class="fab fa-cc-visa fa-2x"></i>';
+                            break;
+                        case 'Mastercard':
+                            iconHtml = '<i class="fab fa-cc-mastercard fa-2x"></i>';
+                            break;
+                        case 'Amex':
+                            iconHtml = '<i class="fab fa-cc-amex fa-2x"></i>';
+                            break;
+                        case 'Discover':
+                            iconHtml = '<i class="fab fa-cc-discover fa-2x"></i>';
+                            break;
+                        case 'NBCH Tuya':
+                        case 'Santander Río':
+                        case 'Galicia':
+                        case 'Macro':
+                        case 'Nación':
+                            iconHtml = '<i class="fa-solid fa-building-columns fa-2x"></i>'; // Generic bank icon for national banks
+                            break;
+                        default:
+                            iconHtml = '<i class="far fa-credit-card fa-2x"></i>'; // Generic card icon
+                    }
+                    logoTipoTarjetaEl.innerHTML = iconHtml;
+                }
+            }
+
+
+            // Event listeners for card input fields to update visual
+            if (numeroTarjetaInput) numeroTarjetaInput.addEventListener('input', updateCardVisual);
+            if (fechaVencimientoInput) fechaVencimientoInput.addEventListener('input', updateCardVisual);
+            if (nombreTitularInput) nombreTitularInput.addEventListener('input', updateCardVisual);
+
+
+            // --- Función para actualizar el resumen de compra ---
+            function updateOrderSummary() {
+                let subtotalProductos = 0;
+                productsInCart.forEach(product => {
+                    subtotalProductos += product.price * product.quantity;
+                });
+
+                // Determinar el costo de envío dinámicamente
+                let costoEnvio = 0;
+                const envioEstandarOption = document.querySelector('.ne-opcion[data-shipping-cost-threshold]');
+                if (envioEstandarOption) {
+                    const threshold = parseFloat(envioEstandarOption.dataset.shippingCostThreshold);
+                    const freeCost = parseFloat(envioEstandarOption.dataset.shippingFreeCost);
+                    const paidCost = parseFloat(envioEstandarOption.dataset.shippingPaidCost);
+                    costoEnvio = (subtotalProductos >= threshold) ? freeCost : paidCost;
+
+                    if (envioEstandarCostoEl) {
+                        envioEstandarCostoEl.textContent = (costoEnvio === 0) ? '(Gratis)' : `($${costoEnvio.toLocaleString('es-AR')})`;
+                    }
+                }
+
+                // Si no hay un método de envío seleccionado, el costo es 0 (o se podría dejar como "No seleccionado")
+                if (!selectedShippingMethod) {
+                    costoEnvio = 0; // O un valor que indique que no se ha seleccionado
+                } else {
+                    // Si ya hay un método seleccionado, usar su costo dinámico
+                    costoEnvio = selectedShippingMethod.cost;
+                }
+
+                const total = subtotalProductos + costoEnvio;
+
+                if (cantidadProductosResumenEl) {
+                    cantidadProductosResumenEl.textContent = productsInCart.reduce((sum, p) => sum + p.quantity, 0);
+                }
+                if (subtotalResumenEl) {
+                    subtotalResumenEl.textContent = `$${subtotalProductos.toLocaleString('es-AR')}`;
+                }
+                if (costoEnvioResumenEl) {
+                    if (selectedShippingMethod && selectedShippingMethod.cost === 0) {
+                        costoEnvioResumenEl.textContent = 'Gratis';
+                        costoEnvioResumenEl.classList.add('text-success');
+                        costoEnvioResumenEl.classList.remove('text-danger');
+                    } else if (selectedShippingMethod) {
+                        costoEnvioResumenEl.textContent = `$${selectedShippingMethod.cost.toLocaleString('es-AR')}`;
+                        costoEnvioResumenEl.classList.add('text-danger');
+                        costoEnvioResumenEl.classList.remove('text-success');
+                    } else {
+                        costoEnvioResumenEl.textContent = 'No seleccionado'; // O el costo por defecto si no hay selección
+                        costoEnvioResumenEl.classList.remove('text-success', 'text-danger');
+                    }
+                }
+                if (totalFinalEl) {
+                    totalFinalEl.textContent = `$${total.toLocaleString('es-AR')}`;
+                }
+                if (transferAmountEl) {
+                    transferAmountEl.textContent = `$${total.toLocaleString('es-AR')}`;
+                }
+            }
+
+            // --- Lógica del botón Confirmar Compra ---
+            const confirmPurchaseBtn = document.getElementById('confirmPurchaseBtn');
+            confirmPurchaseBtn.addEventListener('click', function () {
+                let allSectionsValid = true;
+
+                // Validar dirección
+                if (!shippingAddress) {
+                    alert('Por favor, ingresa tu dirección de envío.');
+                    allSectionsValid = false;
+                    addressModal.show(); // Abrir el modal de dirección
+                    return; // Detener la validación si la dirección no está
+                }
+
+                // Validar método de envío
+                if (!selectedShippingMethod) {
+                    alert('Por favor, selecciona un método de envío.');
+                    allSectionsValid = false;
+                    return; // Detener la validación si el envío no está
+                }
+
+                // Validar método de pago
+                if (!selectedPaymentMethod) {
+                    alert('Por favor, selecciona un método de pago.');
+                    allSectionsValid = false;
+                    return; // Detener la validación si el pago no está
+                } else if (selectedPaymentMethod.method === 'tarjeta') {
+                    const cardDetailsForm = document.getElementById('cardDetails');
+                    let cardInputsValid = true;
+
+                    // Itera sobre todos los inputs dentro de cardDetails y valida
+                    cardDetailsForm.querySelectorAll('input').forEach(input => {
+                        if (!input.checkValidity()) {
+                            cardInputsValid = false;
+                            // Muestra el feedback de validación de Bootstrap
+                            input.classList.add('is-invalid');
+                        } else {
+                            input.classList.remove('is-invalid');
+                        }
+                    });
+
+                    if (!cardInputsValid) {
+                        alert('Por favor, completa correctamente los datos de tu tarjeta.');
+                        allSectionsValid = false;
+                        return; // Detener la validación si los datos de la tarjeta son incorrectos
+                    }
+                }
+
+                if (allSectionsValid) {
+                    alert('¡Compra confirmada! Redirigiendo a la página de confirmación.');
+                    // Puedes cambiar esto a la URL real de tu página de confirmación
+                    // window.location.href = 'mercadonea-confirmation.html';
+                }
+            });
+
+            // Inicializar al cargar la página
+            updateDisplayAddress(); // Mostrar "No se ha ingresado ninguna dirección" al inicio
+            updateOrderSummary();
+
+            // Deseleccionar el método de envío al inicio y establecer el método de pago por defecto
+            document.querySelectorAll('input[name="metodoEnvio"]').forEach(radio => {
+                radio.checked = false;
+                radio.closest('.ne-opcion').classList.remove('selected');
+            });
+            selectedShippingMethod = null; // Asegurarse de que la variable esté nula al inicio
+
+            // Asegurarse de que la tarjeta de crédito está seleccionada y visible al cargar
+            const defaultPaymentRadio = document.getElementById('pagoTarjeta');
+            if (defaultPaymentRadio) {
+                defaultPaymentRadio.checked = true;
+                defaultPaymentRadio.dispatchEvent(new Event('change')); // Disparar el evento change para activar la lógica
+            }
+        });
+    </script>
+</body>
+
+</html>

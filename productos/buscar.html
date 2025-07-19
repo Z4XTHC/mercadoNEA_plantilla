@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MercadoNEA - Resultados de Búsqueda</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        xintegrity="sha512-SnH5WK+bZxgPHs44jOVpLqN2Y/NoLpYkS1jB+x7jXyG2W3I6/N9t/JcK7D7FhM2J44zF3C+G3G3wG3G3w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Fuentes de Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Barra de Navegación Principal */
+        .ne-barra-navegacion {
+            background-color: #444;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .ne-barra-navegacion .navbar-brand img {
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+
+        .ne-barra-navegacion .form-control {
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            height: 40px;
+            font-size: 16px;
+            padding-left: 15px;
+            background-color: #fff;
+        }
+
+        .ne-barra-navegacion .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        .ne-barra-navegacion .btn-search {
+            background-color: #FF7F00;
+            border: none;
+            color: #fff;
+            padding: 0 15px;
+            height: 40px;
+            border-radius: 0 4px 4px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        .ne-barra-navegacion .nav-link {
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            padding: 0.5rem 0.8rem;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .ne-texto-pequeno {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .ne-barra-navegacion .ne-icono-ubicacion {
+            font-size: 18px;
+            margin-right: 5px;
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .input-group .form-control {
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .ne-barra-navegacion .input-group .input-group-text {
+            background-color: #FF7F00;
+            border: 1px solid #FF7F00;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        /* Carrito de Compras en la Navegación */
+        .ne-cart-icon-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Adjust spacing as needed */
+        }
+
+        .ne-cart-icon-container .fa-shopping-cart {
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .ne-cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #FF7F00;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+            line-height: 1;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Contenedor de enlaces de usuario en la barra principal */
+        .ne-user-links {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Espacio entre el carrito y los enlaces */
+        }
+
+        .ne-user-links .nav-link {
+            padding: 0.5rem 0.8rem;
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-user-links .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-user-links .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+
+        /* Barra de Navegación Secundaria */
+        .ne-barra-navegacion-secundaria {
+            background-color: #f8f9fa;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid #eee;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link {
+            font-size: 14px;
+            color: #666;
+            padding: 0.3rem 0.8rem;
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio i {
+            font-size: 16px;
+            margin-right: 5px;
+            color: #00a650;
+        }
+
+        /* Banner de Envío Gratis */
+        .ne-banner-envio-gratis {
+            background-color: #2a4073;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ne-banner-envio-gratis img {
+            height: 25px;
+            width: auto;
+            border-radius: 0;
+            margin-right: 0;
+        }
+
+        .ne-banner-envio-gratis .ne-texto-pequeno {
+            color: #fff;
+            font-size: 11px;
+            line-height: 1.2;
+        }
+
+        /* Barra de Navegación Secundaria */
+        .ne-barra-navegacion-secundaria {
+            background-color: #f8f9fa;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid #eee;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link {
+            font-size: 14px;
+            color: #666;
+            padding: 0.3rem 0.8rem;
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio i {
+            font-size: 16px;
+            margin-right: 5px;
+            color: #00a650;
+        }
+
+        /* Contenedor principal de búsqueda */
+        .ne-contenedor-busqueda {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .ne-contenedor-busqueda h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Sección de filtros (sidebar) */
+        .ne-filtros {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+            /* Espacio para móvil */
+        }
+
+        .ne-filtros h5 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .ne-filtros .list-group-item {
+            border: none;
+            padding: 8px 0;
+            font-size: 0.95rem;
+        }
+
+        .ne-filtros .list-group-item a {
+            color: #555;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .ne-filtros .list-group-item a.active,
+        .ne-filtros .list-group-item a:hover {
+            color: #FF7F00;
+            font-weight: 600;
+        }
+
+        .ne-filtros .form-check-input {
+            margin-right: 8px;
+        }
+
+        .ne-filtros .form-label {
+            font-weight: 500;
+            color: #555;
+        }
+
+        /* Sección de resultados de productos */
+        .ne-resultados-productos .card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+            color: #333;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ne-resultados-productos .card:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .ne-resultados-productos .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .ne-resultados-productos .card-body {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .ne-resultados-productos .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ne-resultados-productos .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .ne-resultados-productos .discount {
+            color: #E66E00;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-left: 8px;
+        }
+
+        .ne-resultados-productos .shipping-info {
+            font-size: 0.8rem;
+            color: #00a650;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        /* Vista de Lista */
+        .ne-resultados-productos.list-view .col {
+            width: 100%;
+            /* Ocupa todo el ancho en vista de lista */
+            flex: 0 0 100%;
+            /* Asegura que no haya columnas al lado */
+            max-width: 100%;
+        }
+
+        .ne-resultados-productos.list-view .card {
+            flex-direction: row;
+            /* Cambia la dirección a fila */
+            height: auto;
+            /* Altura automática */
+            align-items: center;
+            /* Centra verticalmente el contenido */
+            padding: 15px;
+            /* Añade padding a la tarjeta completa */
+        }
+
+        .ne-resultados-productos.list-view .card img {
+            width: 150px;
+            /* Ancho fijo para la imagen en vista de lista */
+            height: 150px;
+            /* Altura fija para la imagen */
+            object-fit: contain;
+            padding: 0;
+            /* Elimina padding interno de la imagen */
+            border-bottom: none;
+            /* Elimina borde inferior */
+            border-right: 1px solid #eee;
+            /* Añade borde a la derecha de la imagen */
+            margin-right: 15px;
+            /* Espacio entre imagen y texto */
+        }
+
+        .ne-resultados-productos.list-view .card-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* Centra el contenido verticalmente */
+            padding: 0;
+            /* Elimina padding del body */
+        }
+
+        .ne-resultados-productos.list-view .card-title {
+            font-size: 1.2rem;
+            /* Un poco más grande en lista */
+            -webkit-line-clamp: 3;
+            /* Permite más líneas en lista */
+            margin-bottom: 5px;
+            /* Ajusta margen */
+        }
+
+        .ne-resultados-productos.list-view .price {
+            font-size: 1.8rem;
+            /* Precio más grande en lista */
+        }
+
+        .ne-resultados-productos.list-view .shipping-info {
+            font-size: 0.9rem;
+            /* Información de envío más grande */
+        }
+
+        /* Controles de vista */
+        .ne-controles-vista {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .ne-controles-vista .btn-vista {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            color: #555;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .ne-controles-vista .btn-vista:hover {
+            background-color: #f0f0f0;
+            border-color: #ccc;
+        }
+
+        .ne-controles-vista .btn-vista.active {
+            background-color: #FF7F00;
+            border-color: #FF7F00;
+            color: #fff;
+        }
+
+
+        /* Paginación */
+        .ne-paginacion .pagination .page-item .page-link {
+            color: #FF7F00;
+            border-color: #FF7F00;
+            border-radius: 4px;
+            margin: 0 3px;
+            transition: all 0.2s ease;
+        }
+
+        .ne-paginacion .pagination .page-item .page-link:hover {
+            background-color: #FF7F00;
+            color: #fff;
+        }
+
+        .ne-paginacion .pagination .page-item.active .page-link {
+            background-color: #FF7F00;
+            border-color: #FF7F00;
+            color: #fff;
+        }
+
+        /* Pie de Página */
+        .ne-pie-pagina {
+            background-color: #333;
+            padding: 40px 0 20px;
+            border-top: 1px solid #444;
+            color: #ddd;
+        }
+
+        .ne-pie-pagina .titulo-pie-pagina {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #FF7F00;
+        }
+
+        .ne-pie-pagina ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .ne-pie-pagina ul li {
+            margin-bottom: 8px;
+        }
+
+        .ne-pie-pagina ul li a {
+            color: #ccc;
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina ul li a:hover {
+            color: #FF7F00;
+        }
+
+        .ne-pie-pagina .iconos-sociales-pie-pagina a {
+            color: #FF7F00;
+            font-size: 20px;
+            margin-right: 15px;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina .iconos-sociales-pie-pagina a:hover {
+            color: #fff;
+        }
+
+        .ne-pie-pagina .derechos-autor-pie-pagina {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .ne-pie-pagina .enlaces-inferiores-pie-pagina a {
+            color: #ccc;
+            font-size: 12px;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .ne-pie-pagina .enlaces-inferiores-pie-pagina a:hover {
+            color: #FF7F00;
+        }
+
+        /* Estilos del Modal de Ubicación */
+        #locationModal .modal-content {
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        #locationModal .modal-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            padding: 15px 20px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        #locationModal .modal-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.25rem;
+        }
+
+        #locationModal .btn-close {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        #locationModal .btn-close:hover {
+            opacity: 1;
+        }
+
+        #locationModal .modal-body {
+            padding: 20px;
+        }
+
+        #locationModal .form-label {
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        #locationModal .form-control {
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            height: auto;
+        }
+
+        #locationModal .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        #locationModal .input-group .btn-primary {
+            background-color: #FF7F00;
+            border-color: #FF7F00;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 0 4px 4px 0;
+            font-weight: 600;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        #locationModal .input-group .btn-primary:hover {
+            background-color: #E66E00;
+            border-color: #E66E00;
+        }
+
+        #locationModal #dontKnowCodeLink {
+            color: #FF7F00;
+            font-weight: 500;
+            margin-top: 15px;
+            display: block;
+            text-align: center;
+            transition: color 0.2s ease;
+        }
+
+        #locationModal #dontKnowCodeLink:hover {
+            color: #E66E00;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Barra de Navegación Principal -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion">
+        <div class="container-fluid container">
+            <a class="navbar-brand" href="#">
+                <img src="https://placehold.co/150x40/FF7F00/ffffff?text=MercadoNEA+Logo" alt="MercadoNEA Logo">
+            </a>
+            <form class="d-flex flex-grow-1 mx-3 position-relative">
+                <input class="form-control" type="search" placeholder="Buscar productos, marcas y más..."
+                    aria-label="Search">
+                <button class="btn btn-search" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <!-- Contenedor de enlaces de usuario y carrito para pantallas grandes -->
+            <div class="d-none d-lg-flex align-items-center">
+                <div class="ne-user-links">
+                    <a class="nav-link bold" href="crearCuenta.html">Crea tu cuenta</a>
+                    <a class="nav-link" href="iniciarSesion.html">Ingresa</a>
+                </div>
+                <!-- Carrito de compras con contador -->
+                <div class="ne-cart-icon-container">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="ne-cart-count" id="cartItemCount">0</span>
+                </div>
+            </div>
+            <button class="navbar-toggler mt-2 bg-light-subtle" type="button" data-bs-toggle="collapse"
+                data-bs-target="#neNavbarNav" aria-controls="neNavbarNav" aria-expanded="false"
+                aria-label="Toggle navigation" id="botonMenuMovil">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Barra de Navegación Secundaria (sin modificaciones de enlaces) -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion-secundaria">
+        <div class="container-fluid container">
+            <a class="ne-info-envio me-auto d-none d-lg-flex align-items-center" href="#" data-bs-toggle="modal"
+                data-bs-target="#modalUbicacion" id="botonModalUbicacion">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    Enviar a <span class="ne-texto-pequeno text-warning" id="textoUbicacionActual">Resistencia,
+                        Chaco</span>
+                </div>
+            </a>
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCategorias" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategorias">
+                        <li><a class="dropdown-item" href="#">Electrónica</a></li>
+                        <li><a class="dropdown-item" href="#">Moda y Accesorios</a></li>
+                        <li><a class="dropdown-item" href="#">Hogar y Muebles</a></li>
+                        <li><a class="dropdown-item" href="#">Deportes y Fitness</a></li>
+                        <li><a class="dropdown-item" href="#">Herramientas y Construcción</a></li>
+                        <li><a class="dropdown-item" href="#">Libros, Revistas y Comics</a></li>
+                        <li><a class="dropdown-item" href="#">Juguetes y Bebés</a></li>
+                        <li><a class="dropdown-item" href="#">Belleza y Cuidado Personal</a></li>
+                        <li><a class="dropdown-item" href="#">Accesorios para Vehículos</a></li>
+                        <li><a class="dropdown-item" href="#">Animales y Mascotas</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Ver todas las categorías</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+            </ul>
+            <!-- Contenido para móvil -->
+            <div class="collapse navbar-collapse" id="neNavbarNav">
+                <ul class="navbar-nav ms-auto d-lg-none">
+                    <li class="nav-item"><a class="nav-link bold" href="crearCuenta.html">Crea tu cuenta</a></li>
+                    <li class="nav-item"><a class="nav-link" href="iniciarSesion.html">Ingresa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mis compras</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mi carrito</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Categorías</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container ne-contenedor-busqueda">
+        <div class="row">
+            <!-- Columna de Filtros (Sidebar) -->
+            <div class="col-lg-3">
+                <div class="ne-filtros">
+                    <h5>Filtros</h5>
+                    <div class="mb-3">
+                        <h6>Categorías</h6>
+                        <ul class="list-group list-group-flush" id="categoryFilterList">
+                            <li class="list-group-item"><a href="#" data-category="Todos">Todos (0)</a></li>
+                            <li class="list-group-item"><a href="#" data-category="Electrónica">Electrónica (0)</a></li>
+                            <li class="list-group-item"><a href="#" data-category="Hogar y Jardín">Hogar y Jardín
+                                    (0)</a></li>
+                            <li class="list-group-item"><a href="#" data-category="Deportes">Deportes (0)</a></li>
+                            <li class="list-group-item"><a href="#" data-category="Moda">Moda (0)</a></li>
+                            <li class="list-group-item"><a href="#" data-category="Herramientas">Herramientas (0)</a>
+                            </li>
+                            <li class="list-group-item"><a href="#" data-category="Accesorios para Vehículos">Accesorios
+                                    para Vehículos (0)</a></li>
+                            <li class="list-group-item"><a href="#" data-category="Belleza y Cuidado Personal">Belleza y
+                                    Cuidado Personal (0)</a></li>
+                            <li class="list-group-item"><a href="#" data-category="Libros">Libros (0)</a></li>
+                            <li class="list-group-item"><a href="#" data-category="Juguetes y Bebés">Juguetes y Bebés
+                                    (0)</a></li>
+                            <li class="list-group-item"><a href="#" data-category="Animales y Mascotas">Animales y
+                                    Mascotas (0)</a></li>
+                        </ul>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Precio</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="priceFilter" id="priceAll" value="all"
+                                checked>
+                            <label class="form-check-label" for="priceAll">
+                                Todos los precios
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="priceFilter" id="price1" value="0-10000">
+                            <label class="form-check-label" for="price1">
+                                Hasta $10.000
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="priceFilter" id="price2"
+                                value="10001-50000">
+                            <label class="form-check-label" for="price2">
+                                $10.001 a $50.000
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="priceFilter" id="price3"
+                                value="50001-more">
+                            <label class="form-check-label" for="price3">
+                                Más de $50.000
+                            </label>
+                        </div>
+                        <div class="mt-2">
+                            <input type="number" class="form-control form-control-sm mb-1" id="minPriceInput"
+                                placeholder="Mínimo">
+                            <input type="number" class="form-control form-control-sm" id="maxPriceInput"
+                                placeholder="Máximo">
+                            <button class="btn btn-sm btn-outline-secondary mt-2 w-100"
+                                id="applyPriceFilterBtn">Aplicar</button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Envío</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="freeShipping">
+                            <label class="form-check-label" for="freeShipping">
+                                Envío gratis
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h6>Condición</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="conditionFilter" id="conditionAll"
+                                value="all" checked>
+                            <label class="form-check-label" for="conditionAll">
+                                Todas
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="conditionFilter" id="newCondition"
+                                value="new">
+                            <label class="form-check-label" for="newCondition">
+                                Nuevo
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="conditionFilter" id="usedCondition"
+                                value="used">
+                            <label class="form-check-label" for="usedCondition">
+                                Usado
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna de Resultados de Productos -->
+            <div class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h1>Resultados para "celulares" (<span id="numResults">0</span>)</h1>
+                    <div class="ne-controles-vista">
+                        <button class="btn-vista active" id="gridViewBtn" title="Vista de Cuadrícula">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button class="btn-vista" id="listViewBtn" title="Vista de Lista">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 ne-resultados-productos"
+                    id="productResultsContainer">
+                    <!-- Los productos se renderizarán aquí dinámicamente -->
+                </div>
+
+                <!-- Paginación -->
+                <nav aria-label="Page navigation" class="mt-4 ne-paginacion">
+                    <ul class="pagination justify-content-center" id="paginationContainer">
+                        <!-- La paginación se renderizará aquí dinámicamente -->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Ubicación (Mantener por si se usa en el futuro) -->
+    <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title" id="locationModalLabel">Elegí dónde recibir tus compras</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <p class="text-muted mb-3">Podrás ver costos y tiempos de entrega precisos en todo lo que busques.
+                    </p>
+                    <div class="mb-3">
+                        <label for="postalCodeInput" class="form-label">Código Postal</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="postalCodeInput"
+                                placeholder="Ingresar un código postal">
+                            <button class="btn btn-primary" type="button" id="usePostalCodeBtn">Usar</button>
+                        </div>
+                    </div>
+                    <a href="#" id="dontKnowCodeLink" class="text-decoration-none d-block text-center">No sé mi
+                        código</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de Página -->
+    <footer class="ne-pie-pagina">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Acerca de MercadoNEA</h5>
+                    <ul>
+                        <li><a href="#">Nuestra Empresa</a></li>
+                        <li><a href="#">Inversores</a></li>
+                        <li><a href="#">Sustentabilidad</a></li>
+                        <li><a href="#">Novedades</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Mi Cuenta</h5>
+                    <ul>
+                        <li><a href="#">Ingresar</a></li>
+                        <li><a href="#">Registrarse</a></li>
+                        <li><a href="#">Mis pedidos</a></li>
+                        <li><a href="#">Configuración</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Ayuda y Soporte</h5>
+                    <ul>
+                        <li><a href="#">Centro de Ayuda</a></li>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                        <li><a href="#">Envíos y Devoluciones</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Conéctate</h5>
+                    <div class="iconos-sociales-pie-pagina">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="enlaces-inferiores-pie-pagina text-center">
+                <a href="#">Trabaja con nosotros</a>
+                <a href="#">Términos y Condiciones</a>
+                <a href="#">Política de Privacidad</a>
+                <a href="#">Aviso Legal</a>
+            </div>
+            <p class="derechos-autor-pie-pagina">Copyright © 2024 MercadoNEA S.A. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS (bundle con Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lógica del modal de ubicación
+            const currentLocationText = document.getElementById('currentLocationText');
+            const postalCodeInput = document.getElementById('postalCodeInput');
+            const usePostalCodeBtn = document.getElementById('usePostalCodeBtn');
+            const dontKnowCodeLink = document.getElementById('dontKnowCodeLink');
+            const locationModal = new bootstrap.Modal(document.getElementById('locationModal'));
+
+            function updateLocation(location) {
+                currentLocationText.textContent = location;
+            }
+
+            usePostalCodeBtn.addEventListener('click', function () {
+                const postalCode = postalCodeInput.value.trim();
+                if (postalCode) {
+                    updateLocation(postalCode);
+                    locationModal.hide();
+                } else {
+                    alert('Por favor, ingresa un código postal.');
+                }
+            });
+
+            dontKnowCodeLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                alert('Puedes buscar tu código postal en el sitio web del correo local.');
+                locationModal.hide();
+            });
+
+            document.getElementById('locationModal').addEventListener('show.bs.modal', function () {
+                postalCodeInput.value = currentLocationText.textContent === 'Resistencia, Chaco' ? '' : currentLocationText.textContent;
+            });
+
+            // --- Datos de productos de ejemplo ---
+            const allProducts = [
+                { id: 1, name: 'Smartphone X Último Modelo 128GB', category: 'Electrónica', price: 150000, discount: 10, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/cccccc/333333?text=Smartphone+X' },
+                { id: 2, name: 'Funda Protectora para Celular de Silicona', category: 'Accesorios para Vehículos', price: 2500, discount: 0, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/e0e0e0/555555?text=Funda+Celular' },
+                { id: 3, name: 'Cargador Rápido USB-C 20W Original', category: 'Electrónica', price: 7800, discount: 5, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/cccccc/333333?text=Cargador+Rapido' },
+                { id: 4, name: 'Auriculares Inalámbricos Bluetooth con Estuche', category: 'Electrónica', price: 18000, discount: 0, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/e0e0e0/555555?text=Auriculares+Inalambricos' },
+                { id: 5, name: 'Soporte Universal para Celular de Escritorio', category: 'Accesorios para Vehículos', price: 1200, discount: 0, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/cccccc/333333?text=Soporte+Celular' },
+                { id: 6, name: 'Power Bank 10000mAh Carga Rápida', category: 'Electrónica', price: 9500, discount: 12, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/e0e0e0/555555?text=Power+Bank' },
+                { id: 7, name: 'Protector de Pantalla de Vidrio Templado', category: 'Accesorios para Vehículos', price: 1800, discount: 0, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/cccccc/333333?text=Protector+Pantalla' },
+                { id: 8, name: 'Cable USB a USB-C Reforzado 1.5m', category: 'Electrónica', price: 3200, discount: 0, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/e0e0e0/555555?text=Cable+USB' },
+                { id: 9, name: 'Smartwatch Deportivo con Monitor de Ritmo Cardíaco', category: 'Deportes', price: 28000, discount: 8, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/cccccc/333333?text=Smartwatch' },
+                { id: 10, name: 'Zapatillas Running Hombre', category: 'Deportes', price: 22000, discount: 0, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/e0e0e0/555555?text=Zapatillas' },
+                { id: 11, name: 'Remera Algodón Básica', category: 'Moda', price: 3500, discount: 0, shipping: 'paid', condition: 'new', image: 'https://placehold.co/300x200/cccccc/333333?text=Remera' },
+                { id: 12, name: 'Pantalón Jean Slim Fit', category: 'Moda', price: 8000, discount: 0, shipping: 'paid', condition: 'new', image: 'https://placehold.co/300x200/e0e0e0/555555?text=Jean' },
+                { id: 13, name: 'Set de Herramientas Básico', category: 'Herramientas', price: 12000, discount: 0, shipping: 'paid', condition: 'new', image: 'https://placehold.co/300x200/cccccc/333333?text=Herramientas' },
+                { id: 14, name: 'Taladro Percutor Inalámbrico', category: 'Herramientas', price: 30000, discount: 15, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/e0e0e0/555555?text=Taladro' },
+                { id: 15, name: 'Libro: Cien Años de Soledad (Usado)', category: 'Libros', price: 4000, discount: 0, shipping: 'paid', condition: 'used', image: 'https://placehold.co/300x200/cccccc/333333?text=Libro' },
+                { id: 16, name: 'Peluche de Oso Gigante', category: 'Juguetes y Bebés', price: 9000, discount: 0, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/e0e0e0/555555?text=Peluche' },
+                { id: 17, name: 'Alimento Balanceado para Perros 15kg', category: 'Animales y Mascotas', price: 10000, discount: 0, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/cccccc/333333?text=Alimento+Perro' },
+                { id: 18, name: 'Sillón Reclinable de Jardín', category: 'Hogar y Jardín', price: 25000, discount: 0, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/e0e0e0/555555?text=Sillon+Jardin' },
+                { id: 19, name: 'Crema Hidratante Facial Anti-Edad', category: 'Belleza y Cuidado Personal', price: 6000, discount: 0, shipping: 'paid', condition: 'new', image: 'https://placehold.co/300x200/cccccc/333333?text=Crema' },
+                { id: 20, name: 'Kit de Maquillaje Profesional', category: 'Belleza y Cuidado Personal', price: 15000, discount: 10, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/e0e0e0/555555?text=Maquillaje' },
+                { id: 21, name: 'Juego de Sábanas King Size', category: 'Hogar y Jardín', price: 11000, discount: 0, shipping: 'paid', condition: 'new', image: 'https://placehold.co/300x200/cccccc/333333?text=Sabanas' },
+                { id: 22, name: 'Mochila Urbana Impermeable', category: 'Moda', price: 7000, discount: 0, shipping: 'paid', condition: 'new', image: 'https://placehold.co/300x200/e0e0e0/555555?text=Mochila' },
+                { id: 23, name: 'Bicicleta de Montaña Rodado 29', category: 'Deportes', price: 90000, discount: 5, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/cccccc/333333?text=Bicicleta' },
+                { id: 24, name: 'Consola de Videojuegos Retro (Usado)', category: 'Electrónica', price: 20000, discount: 0, shipping: 'paid', condition: 'used', image: 'https://placehold.co/300x200/e0e0e0/555555?text=Consola+Retro' },
+                { id: 25, name: 'Cámara Digital Compacta', category: 'Electrónica', price: 35000, discount: 0, shipping: 'free', condition: 'new', image: 'https://placehold.co/300x200/cccccc/333333?text=Camara+Digital' },
+                { id: 26, name: 'Collar Antipulgas para Perros', category: 'Animales y Mascotas', price: 2000, discount: 0, shipping: 'paid', condition: 'new', image: 'https://placehold.co/300x200/e0e0e0/555555?text=Collar+Perro' },
+            ];
+
+            // --- Elementos del DOM ---
+            const numResultsSpan = document.getElementById('numResults');
+            const productResultsContainer = document.getElementById('productResultsContainer');
+            const categoryFilterList = document.getElementById('categoryFilterList');
+            const priceFilterRadios = document.querySelectorAll('input[name="priceFilter"]');
+            const minPriceInput = document.getElementById('minPriceInput');
+            const maxPriceInput = document.getElementById('maxPriceInput');
+            const applyPriceFilterBtn = document.getElementById('applyPriceFilterBtn');
+            const freeShippingCheckbox = document.getElementById('freeShipping');
+            const conditionFilterRadios = document.querySelectorAll('input[name="conditionFilter"]');
+            const gridViewBtn = document.getElementById('gridViewBtn');
+            const listViewBtn = document.getElementById('listViewBtn');
+
+            // --- Variables de estado de los filtros ---
+            let currentCategory = 'Todos'; // Por defecto, mostrar todos
+            let currentMinPrice = 0;
+            let currentMaxPrice = Infinity;
+            let currentFreeShippingOnly = false;
+            let currentCondition = 'all'; // 'all', 'new', 'used'
+            let currentView = 'grid'; // 'grid' or 'list'
+
+            // --- Funciones de renderizado ---
+
+            // Función para formatear precios a ARS
+            function formatPrice(price) {
+                return `$${price.toLocaleString('es-AR')}`;
+            }
+
+            // Función para renderizar los productos en el DOM
+            function renderProducts() {
+                productResultsContainer.innerHTML = ''; // Limpiar resultados anteriores
+                let filteredProducts = allProducts;
+
+                // 1. Filtrar por categoría
+                if (currentCategory !== 'Todos') {
+                    filteredProducts = filteredProducts.filter(product => product.category === currentCategory);
+                }
+
+                // 2. Filtrar por precio
+                filteredProducts = filteredProducts.filter(product => {
+                    const price = product.price;
+                    return price >= currentMinPrice && price <= currentMaxPrice;
+                });
+
+                // 3. Filtrar por envío gratis
+                if (currentFreeShippingOnly) {
+                    filteredProducts = filteredProducts.filter(product => product.shipping === 'free');
+                }
+
+                // 4. Filtrar por condición
+                if (currentCondition !== 'all') {
+                    filteredProducts = filteredProducts.filter(product => product.condition === currentCondition);
+                }
+
+                // Actualizar el número de resultados
+                numResultsSpan.textContent = filteredProducts.length;
+
+                // Renderizar los productos filtrados
+                if (filteredProducts.length === 0) {
+                    productResultsContainer.innerHTML = '<div class="col-12 text-center py-5"><p class="lead text-muted">No se encontraron productos con los filtros seleccionados.</p></div>';
+                } else {
+                    filteredProducts.forEach(product => {
+                        const productCard = document.createElement('div');
+                        productCard.classList.add('col');
+                        productCard.innerHTML = `
+                            <a href="#" class="card">
+                                <img src="${product.image}" class="card-img-top" alt="${product.name}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${product.name}</h5>
+                                    <p class="price mb-0">${formatPrice(product.price)} ${product.discount > 0 ? `<span class="discount">${product.discount}% OFF</span>` : ''}</p>
+                                    <p class="shipping-info">${product.shipping === 'free' ? 'Envío gratis' : 'Envío a cargo del comprador'}</p>
+                                </div>
+                            </a>
+                        `;
+                        productResultsContainer.appendChild(productCard);
+                    });
+                }
+
+                // Aplicar la vista actual (cuadrícula o lista)
+                if (currentView === 'list') {
+                    activateListView();
+                } else {
+                    activateGridView();
+                }
+            }
+
+            // Función para actualizar los conteos de categorías
+            function updateCategoryCounts() {
+                const categoryCounts = {};
+                allProducts.forEach(product => {
+                    categoryCounts[product.category] = (categoryCounts[product.category] || 0) + 1;
+                });
+
+                let totalProducts = 0;
+                categoryFilterList.querySelectorAll('a').forEach(link => {
+                    const category = link.dataset.category;
+                    const count = category === 'Todos' ? allProducts.length : (categoryCounts[category] || 0);
+                    link.textContent = `${category} (${count})`;
+                    if (category !== 'Todos') {
+                        totalProducts += count;
+                    }
+                });
+                // Ensure "Todos" reflects the total count of all products
+                categoryFilterList.querySelector('a[data-category="Todos"]').textContent = `Todos (${allProducts.length})`;
+            }
+
+            // --- Lógica para cambiar la vista de productos (cuadrícula/lista) ---
+            function activateGridView() {
+                productResultsContainer.classList.remove('list-view');
+                productResultsContainer.classList.add('row-cols-md-2', 'row-cols-lg-3');
+                gridViewBtn.classList.add('active');
+                listViewBtn.classList.remove('active');
+                currentView = 'grid';
+            }
+
+            function activateListView() {
+                productResultsContainer.classList.add('list-view');
+                productResultsContainer.classList.remove('row-cols-md-2', 'row-cols-lg-3');
+                listViewBtn.classList.add('active');
+                gridViewBtn.classList.remove('active');
+                currentView = 'list';
+            }
+
+            // --- Event Listeners para los filtros ---
+
+            // Filtro por Categoría
+            categoryFilterList.addEventListener('click', function (event) {
+                event.preventDefault();
+                const target = event.target.closest('a');
+                if (target && target.dataset.category) {
+                    currentCategory = target.dataset.category;
+                    // Remover 'active' de todos los enlaces y añadirlo al clicado
+                    categoryFilterList.querySelectorAll('a').forEach(link => link.classList.remove('active'));
+                    target.classList.add('active');
+                    renderProducts();
+                }
+            });
+
+            // Filtro por Precio (Radio Buttons)
+            priceFilterRadios.forEach(radio => {
+                radio.addEventListener('change', function () {
+                    minPriceInput.value = '';
+                    maxPriceInput.value = ''; // Clear custom inputs when a radio is selected
+                    if (this.value === 'all') {
+                        currentMinPrice = 0;
+                        currentMaxPrice = Infinity;
+                    } else if (this.value === '0-10000') {
+                        currentMinPrice = 0;
+                        currentMaxPrice = 10000;
+                    } else if (this.value === '10001-50000') {
+                        currentMinPrice = 10001;
+                        currentMaxPrice = 50000;
+                    } else if (this.value === '50001-more') {
+                        currentMinPrice = 50001;
+                        currentMaxPrice = Infinity;
+                    }
+                    renderProducts();
+                });
+            });
+
+            // Filtro por Precio (Input Manual)
+            applyPriceFilterBtn.addEventListener('click', function () {
+                const minVal = parseFloat(minPriceInput.value);
+                const maxVal = parseFloat(maxPriceInput.value);
+
+                // Deseleccionar los radio buttons de precio predefinidos
+                priceFilterRadios.forEach(radio => radio.checked = false);
+
+                currentMinPrice = isNaN(minVal) ? 0 : minVal;
+                currentMaxPrice = isNaN(maxVal) ? Infinity : maxVal;
+                renderProducts();
+            });
+
+            // Filtro por Envío Gratis
+            freeShippingCheckbox.addEventListener('change', function () {
+                currentFreeShippingOnly = this.checked;
+                renderProducts();
+            });
+
+            // Filtro por Condición
+            conditionFilterRadios.forEach(radio => {
+                radio.addEventListener('change', function () {
+                    currentCondition = this.value;
+                    renderProducts();
+                });
+            });
+
+            // Event Listeners para los botones de vista
+            gridViewBtn.addEventListener('click', activateGridView);
+            listViewBtn.addEventListener('click', activateListView);
+
+            // --- Inicialización al cargar la página ---
+            updateCategoryCounts(); // Asegura que los conteos de categorías estén actualizados
+            categoryFilterList.querySelector('a[data-category="Todos"]').classList.add('active'); // Activar "Todos" por defecto
+            renderProducts(); // Renderizar productos inicialmente con filtros por defecto
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MercadoNEA - Tu Marketplace Regional</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        xintegrity="sha512-SnH5WK+bZxgPHs44jOVpLqN2Y/NoLpYkS1jB+x7jXyG2W3I6/N9t/JcK7D7FhM2J44zF3C+G3G3wG3G3w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Fuentes de Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        /* Barra de Navegación Principal */
+        .ne-barra-navegacion {
+            background-color: #444;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .ne-barra-navegacion .navbar-brand img {
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+
+        .ne-barra-navegacion .form-control {
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            height: 40px;
+            font-size: 16px;
+            padding-left: 15px;
+            background-color: #fff;
+        }
+
+        .ne-barra-navegacion .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        .ne-barra-navegacion .btn-search {
+            background-color: #FF7F00;
+            border: none;
+            color: #fff;
+            padding: 0 15px;
+            height: 40px;
+            border-radius: 0 4px 4px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        .ne-barra-navegacion .nav-link {
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            padding: 0.5rem 0.8rem;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .ne-texto-pequeno {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .ne-barra-navegacion .ne-icono-ubicacion {
+            font-size: 18px;
+            margin-right: 5px;
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .input-group .form-control {
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .ne-barra-navegacion .input-group .input-group-text {
+            background-color: #FF7F00;
+            border: 1px solid #FF7F00;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        /* Carrito de Compras en la Navegación */
+        .ne-cart-icon-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Adjust spacing as needed */
+        }
+
+        .ne-cart-icon-container .fa-shopping-cart {
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .ne-cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #FF7F00;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+            line-height: 1;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Contenedor de enlaces de usuario en la barra principal */
+        .ne-user-links {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Espacio entre el carrito y los enlaces */
+        }
+
+        .ne-user-links .nav-link {
+            padding: 0.5rem 0.8rem;
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-user-links .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-user-links .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+
+        /* Barra de Navegación Secundaria */
+        .ne-barra-navegacion-secundaria {
+            background-color: #f8f9fa;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid #eee;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link {
+            font-size: 14px;
+            color: #666;
+            padding: 0.3rem 0.8rem;
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio i {
+            font-size: 16px;
+            margin-right: 5px;
+            color: #00a650;
+        }
+
+        /* Carrusel Principal */
+        .ne-carrusel-principal {
+            margin-top: 20px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .ne-carrusel-principal .carousel-item img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        .ne-carrusel-principal .carousel-caption {
+            top: 50%;
+            transform: translateY(-50%);
+            left: 10%;
+            right: 10%;
+            text-align: left;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .ne-carrusel-principal .carousel-caption h5 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .ne-carrusel-principal .carousel-caption p {
+            font-size: 1.2rem;
+            color: #f0f0f0;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .ne-carrusel-principal .carousel-caption .btn {
+            background-color: #FF7F00;
+            border-color: #FF7F00;
+            color: #fff;
+            padding: 10px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .ne-carrusel-principal .carousel-caption .btn:hover {
+            background-color: #E66E00;
+            border-color: #E66E00;
+        }
+
+        .ne-carrusel-principal .carousel-indicators [data-bs-target] {
+            background-color: #FF7F00;
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+        }
+
+        /* Sección de Carrusel de Categorías */
+        .ne-seccion-carrusel-categorias {
+            padding: 40px 0;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+
+        .ne-seccion-carrusel-categorias h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .ne-seccion-carrusel-categorias .carousel-control-prev,
+        .ne-seccion-carrusel-categorias .carousel-control-next {
+            width: 5%;
+            background-color: transparent;
+            border-radius: 8px;
+        }
+
+        .ne-seccion-carrusel-categorias .carousel-control-prev-icon,
+        .ne-seccion-carrusel-categorias .carousel-control-next-icon {
+            background-color: #FF7F00;
+            border-radius: 50%;
+            padding: 15px;
+        }
+
+        /* Tarjeta de Categoría */
+        .ne-tarjeta-categoria {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            text-decoration: none;
+            color: #333;
+            transition: all 0.2s ease-in-out;
+            height: 100px;
+        }
+
+        .ne-tarjeta-categoria:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .ne-tarjeta-categoria .icon-container {
+            width: 120px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            border-right: 1px solid #eee;
+            padding: 10px;
+        }
+
+        .ne-tarjeta-categoria .icon-container i {
+            font-size: 3rem;
+            color: #FF7F00;
+        }
+
+        .ne-tarjeta-categoria h5 {
+            flex-grow: 1;
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        /* Sección de Carrusel de Productos */
+        .ne-seccion-carrusel-productos {
+            padding: 40px 0;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+
+        .ne-seccion-carrusel-productos h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .ne-seccion-carrusel-productos .carousel-control-prev,
+        .ne-seccion-carrusel-productos .carousel-control-next {
+            width: 5%;
+            background-color: transparent;
+            border-radius: 8px;
+        }
+
+        .ne-seccion-carrusel-productos .carousel-control-prev-icon,
+        .ne-seccion-carrusel-productos .carousel-control-next-icon {
+            background-color: #FF7F00;
+            border-radius: 50%;
+            padding: 15px;
+        }
+
+        /* Tarjeta de Producto */
+        .ne-tarjeta-producto {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .ne-tarjeta-producto:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .ne-tarjeta-producto img {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .ne-tarjeta-producto .card-body {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .ne-tarjeta-producto .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .ne-tarjeta-producto .discount {
+            color: #E66E00;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-left: 8px;
+        }
+
+        .ne-tarjeta-producto .shipping-info {
+            font-size: 0.75rem;
+            color: #00a650;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .ne-tarjeta-producto .description {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Sección de Banners Promocionales */
+        .ne-seccion-banners-promocionales {
+            padding: 40px 0;
+            margin-bottom: 20px;
+        }
+
+        /* Tarjeta de Banner Promocional */
+        .ne-tarjeta-banner-promocional {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            text-decoration: none;
+            color: #333;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.2s ease;
+        }
+
+        .ne-tarjeta-banner-promocional:hover {
+            transform: translateY(-5px);
+        }
+
+        .ne-tarjeta-banner-promocional .overlay-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .ne-tarjeta-banner-promocional h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .ne-tarjeta-banner-promocional p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        .ne-tarjeta-banner-promocional .btn-outline-light {
+            border-color: #fff;
+            color: #fff;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .ne-tarjeta-banner-promocional .btn-outline-light:hover {
+            background-color: #fff;
+            color: #FF7F00;
+        }
+
+        /* Sección de Llamada a la Acción */
+        .ne-seccion-llamada-accion {
+            background-color: #FF7F00;
+            color: #fff;
+            padding: 50px 0;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .ne-seccion-llamada-accion h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .ne-seccion-llamada-accion p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .ne-seccion-llamada-accion .btn-light {
+            background-color: #fff;
+            border-color: #fff;
+            color: #FF7F00;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+
+        .ne-seccion-llamada-accion .btn-light:hover {
+            background-color: #f0f0f0;
+            color: #E66E00;
+        }
+
+        /* Pie de Página */
+        .ne-pie-pagina {
+            background-color: #333;
+            padding: 40px 0 20px;
+            border-top: 1px solid #444;
+            color: #ddd;
+        }
+
+        .ne-pie-pagina .footer-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #FF7F00;
+        }
+
+        .ne-pie-pagina ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .ne-pie-pagina ul li {
+            margin-bottom: 8px;
+        }
+
+        .ne-pie-pagina ul li a {
+            color: #ccc;
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina ul li a:hover {
+            color: #FF7F00;
+        }
+
+        .ne-pie-pagina .footer-social-icons a {
+            color: #FF7F00;
+            font-size: 20px;
+            margin-right: 15px;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina .footer-social-icons a:hover {
+            color: #fff;
+        }
+
+        .ne-pie-pagina .footer-copyright {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .ne-pie-pagina .footer-links-bottom a {
+            color: #ccc;
+            font-size: 12px;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .ne-pie-pagina .footer-links-bottom a:hover {
+            color: #FF7F00;
+        }
+
+        /* Estilos del Modal de Ubicación */
+        #locationModal .modal-content {
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        #locationModal .modal-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            padding: 15px 20px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        #locationModal .modal-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.25rem;
+        }
+
+        #locationModal .btn-close {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        #locationModal .btn-close:hover {
+            opacity: 1;
+        }
+
+        #locationModal .modal-body {
+            padding: 20px;
+        }
+
+        #locationModal .form-label {
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        #locationModal .form-control {
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            height: auto;
+        }
+
+        #locationModal .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        #locationModal .input-group .btn-primary {
+            background-color: #FF7F00;
+            border-color: #FF7F00;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 0 4px 4px 0;
+            font-weight: 600;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        #locationModal .input-group .btn-primary:hover {
+            background-color: #E66E00;
+            border-color: #E66E00;
+        }
+
+        #locationModal #dontKnowCodeLink {
+            color: #FF7F00;
+            font-weight: 500;
+            margin-top: 15px;
+            display: block;
+            text-align: center;
+            transition: color 0.2s ease;
+        }
+
+        #locationModal #dontKnowCodeLink:hover {
+            color: #E66E00;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Barra de Navegación Principal -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion">
+        <div class="container-fluid container">
+            <a class="navbar-brand" href="#">
+                <img src="https://placehold.co/150x40/FF7F00/ffffff?text=MercadoNEA+Logo" alt="MercadoNEA Logo">
+            </a>
+            <form class="d-flex flex-grow-1 mx-3 position-relative">
+                <input class="form-control" type="search" placeholder="Buscar productos, marcas y más..."
+                    aria-label="Search">
+                <button class="btn btn-search" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <!-- Contenedor de enlaces de usuario y carrito para pantallas grandes -->
+            <div class="d-none d-lg-flex align-items-center">
+                <div class="ne-user-links">
+                    <a class="nav-link bold" href="crearCuenta.html">Crea tu cuenta</a>
+                    <a class="nav-link" href="iniciarSesion.html">Ingresa</a>
+                </div>
+                <!-- Carrito de compras con contador -->
+                <div class="ne-cart-icon-container">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="ne-cart-count" id="cartItemCount">0</span>
+                </div>
+            </div>
+            <button class="navbar-toggler mt-2 bg-light-subtle" type="button" data-bs-toggle="collapse"
+                data-bs-target="#neNavbarNav" aria-controls="neNavbarNav" aria-expanded="false"
+                aria-label="Toggle navigation" id="botonMenuMovil">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Barra de Navegación Secundaria (sin modificaciones de enlaces) -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion-secundaria">
+        <div class="container-fluid container">
+            <a class="ne-info-envio me-auto d-none d-lg-flex align-items-center" href="#" data-bs-toggle="modal"
+                data-bs-target="#modalUbicacion" id="botonModalUbicacion">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    Enviar a <span class="ne-texto-pequeno text-warning" id="textoUbicacionActual">Resistencia,
+                        Chaco</span>
+                </div>
+            </a>
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCategorias" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategorias">
+                        <li><a class="dropdown-item" href="#">Electrónica</a></li>
+                        <li><a class="dropdown-item" href="#">Moda y Accesorios</a></li>
+                        <li><a class="dropdown-item" href="#">Hogar y Muebles</a></li>
+                        <li><a class="dropdown-item" href="#">Deportes y Fitness</a></li>
+                        <li><a class="dropdown-item" href="#">Herramientas y Construcción</a></li>
+                        <li><a class="dropdown-item" href="#">Libros, Revistas y Comics</a></li>
+                        <li><a class="dropdown-item" href="#">Juguetes y Bebés</a></li>
+                        <li><a class="dropdown-item" href="#">Belleza y Cuidado Personal</a></li>
+                        <li><a class="dropdown-item" href="#">Accesorios para Vehículos</a></li>
+                        <li><a class="dropdown-item" href="#">Animales y Mascotas</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Ver todas las categorías</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+            </ul>
+            <!-- Contenido para móvil -->
+            <div class="collapse navbar-collapse" id="neNavbarNav">
+                <ul class="navbar-nav ms-auto d-lg-none">
+                    <li class="nav-item"><a class="nav-link bold" href="crearCuenta.html">Crea tu cuenta</a></li>
+                    <li class="nav-item"><a class="nav-link" href="iniciarSesion.html">Ingresa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mis compras</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mi carrito</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Categorías</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección de Carrusel Principal -->
+    <section class="ne-carrusel-principal container carousel slide" id="heroCarousel" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+                aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://placehold.co/1200x350/2a4073/ffffff?text=Celulares+y+Notebooks+Premium"
+                    class="d-block w-100" alt="">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Tecnología de Vanguardia</h5>
+                    <p>Descubre los últimos modelos de celulares y notebooks con descuentos increíbles.</p>
+                    <a href="#" class="btn">Ver Ofertas</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://placehold.co/1200x350/FF7F00/ffffff?text=Moda+y+Accesorios" class="d-block w-100"
+                    alt="">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Renueva tu Estilo</h5>
+                    <p>Las últimas tendencias en moda y accesorios para toda la familia.</p>
+                    <a href="#" class="btn">Comprar Ahora</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://placehold.co/1200x350/00a650/ffffff?text=Ofertas+del+Dia" class="d-block w-100"
+                    alt="">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>No te pierdas las Ofertas</h5>
+                    <p>Productos seleccionados con descuentos exclusivos por tiempo limitado.</p>
+                    <a href="#" class="btn">Ver Todas</a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </section>
+
+    <!-- Sección de Carrusel de Categorías -->
+    <section class="ne-seccion-carrusel-categorias container">
+        <h2 class="text-center mb-4">Explora por Categorías</h2>
+        <div id="categoryCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- Slide 1 de categorías (3 filas x 4 columnas = 12 tarjetas) -->
+                <div class="carousel-item active">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3 p-4">
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-tshirt"></i>
+                                </div>
+                                <h5>Ropa y Accesorios</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-laptop"></i>
+                                </div>
+                                <h5>Computación</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <h5>Celulares y Teléfonos</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-blender"></i>
+                                </div>
+                                <h5>Electrodomésticos y Aires Ac.</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                                <h5>Herramientas</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                                <h5>Accesorios para Vehículos</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-dumbbell"></i>
+                                </div>
+                                <h5>Deportes y Fitness</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-brush"></i>
+                                </div>
+                                <h5>Belleza y Cuidado Personal</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-couch"></i>
+                                </div>
+                                <h5>Hogar, Muebles y Jardín</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <h5>Libros, Revistas y Comics</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-puzzle-piece"></i>
+                                </div>
+                                <h5>Juguetes y Bebés</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-paw"></i>
+                                </div>
+                                <h5>Animales y Mascotas</h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 2 de categorías -->
+                <div class="carousel-item">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3 p-4">
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <h5>Consolas y Videojuegos</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                                <h5>Cámaras y Accesorios</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-music"></i>
+                                </div>
+                                <h5>Instrumentos Musicales</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-utensils"></i>
+                                </div>
+                                <h5>Alimentos y Bebidas</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-prescription-bottle-alt"></i>
+                                </div>
+                                <h5>Salud y Equipamiento Médico</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                                <h5>Jardín y Aire Libre</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-school"></i>
+                                </div>
+                                <h5>Material Escolar</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-gem"></i>
+                                </div>
+                                <h5>Joyas y Relojes</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-wine-glass-alt"></i>
+                                </div>
+                                <h5>Vinos y Licores</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                                <h5>Industria y Oficinas</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-ticket-alt"></i>
+                                </div>
+                                <h5>Entradas para Eventos</h5>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="ne-tarjeta-categoria">
+                                <div class="icon-container">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                </div>
+                                <h5>Servicios</h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#categoryCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#categoryCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Sección de Productos: Ofertas del Día -->
+    <section class="ne-seccion-carrusel-productos container">
+        <h2 class="text-center mb-4">Ofertas del Día</h2>
+        <div id="offersCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- Slide 1 -->
+                <div class="carousel-item active">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                        <!-- Producto 1 -->
+                        <div class="col">
+                            <a href="#" class="card ne-tarjeta-producto">
+                                <img src="https://placehold.co/200x150/cccccc/333333?text=Smart+TV+4K"
+                                    class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <p class="price mb-0">$180.000 <span class="discount">15% OFF</span></p>
+                                    <p class="shipping-info mb-2">Envío gratis</p>
+                                    <p class="description">Smart TV 4K de 50 pulgadas con Android TV integrado.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Producto 2 -->
+                        <div class="col">
+                            <a href="#" class="card ne-tarjeta-producto">
+                                <img src="https://placehold.co/200x150/e0e0e0/555555?text=Auriculares+BT"
+                                    class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <p class="price mb-0">$12.500</p>
+                                    <p class="shipping-info mb-2">Envío gratis</p>
+                                    <p class="description">Auriculares Bluetooth con cancelación de ruido y 20hs de
+                                        batería.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Producto 3 -->
+                        <div class="col">
+                            <a href="#" class="card ne-tarjeta-producto">
+                                <img src="https://placehold.co/200x150/cccccc/333333?text=Cafetera+Espresso"
+                                    class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <p class="price mb-0">$45.000 <span class="discount">10% OFF</span></p>
+                                    <p class="shipping-info mb-2">Envío gratis</p>
+                                    <p class="description">Cafetera espresso semi-automática para los amantes del café.
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Producto 4 -->
+                        <div class="col">
+                            <a href="#" class="card ne-tarjeta-producto">
+                                <img src="https://placehold.co/200x150/e0e0e0/555555?text=Silla+Gamer"
+                                    class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <p class="price mb-0">$75.000</p>
+                                    <p class="shipping-info mb-2">Envío gratis</p>
+                                    <p class="description">Silla gamer ergonómica con soporte lumbar y reposabrazos 4D.
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="carousel-item">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                        <!-- Producto 5 -->
+                        <div class="col">
+                            <a href="#" class="card ne-tarjeta-producto">
+                                <img src="https://placehold.co/200x150/cccccc/333333?text=Smartwatch"
+                                    class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <p class="price mb-0">$25.000 <span class="discount">20% OFF</span></p>
+                                    <p class="shipping-info mb-2">Envío gratis</p>
+                                    <p class="description">Smartwatch con monitor de ritmo cardíaco y GPS.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Producto 6 -->
+                        <div class="col">
+                            <a href="#" class="card ne-tarjeta-producto">
+                                <img src="https://placehold.co/200x150/e0e0e0/555555?text=Aspiradora"
+                                    class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <p class="price mb-0">$90.000</p>
+                                    <p class="shipping-info mb-2">Envío gratis</p>
+                                    <p class="description">Aspiradora robot inteligente con mapeo láser.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Producto 7 -->
+                        <div class="col">
+                            <a href="#" class="card ne-tarjeta-producto">
+                                <img src="https://placehold.co/200x150/cccccc/333333?text=Drone" class="card-img-top"
+                                    alt="">
+                                <div class="card-body">
+                                    <p class="price mb-0">$55.000 <span class="discount">10% OFF</span></p>
+                                    <p class="shipping-info mb-2">Envío gratis</p>
+                                    <p class="description">Drone con cámara 4K y 30 minutos de vuelo.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Producto 8 -->
+                        <div class="col">
+                            <a href="#" class="card ne-tarjeta-producto">
+                                <img src="https://placehold.co/200x150/e0e0e0/555555?text=Parlante+BT"
+                                    class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <p class="price mb-0">$7.800</p>
+                                    <p class="shipping-info mb-2">Envío gratis</p>
+                                    <p class="description">Parlante Bluetooth portátil con sonido envolvente.</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#offersCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#offersCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Sección de Banners Promocionales -->
+    <section class="ne-seccion-banners-promocionales container">
+        <div class="row g-4">
+            <div class="col-12 col-md-6 col-lg-4">
+                <a href="#" class="ne-tarjeta-banner-promocional"
+                    style="background-image: url('https://placehold.co/600x300/FF7F00/ffffff?text=Ofertas+Exclusivas');">
+                    <div class="overlay-content">
+                        <h4>Ofertas Exclusivas</h4>
+                        <p>Descuentos únicos solo por tiempo limitado.</p>
+                        <button class="btn btn-outline-light">Ver Más</button>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <a href="#" class="ne-tarjeta-banner-promocional"
+                    style="background-image: url('https://placehold.co/600x300/444/ffffff?text=Envio+Gratis');">
+                    <div class="overlay-content">
+                        <h4>Envío Gratis</h4>
+                        <p>En miles de productos seleccionados.</p>
+                        <button class="btn btn-outline-light">Descubrir</button>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <a href="#" class="ne-tarjeta-banner-promocional"
+                    style="background-image: url('https://placehold.co/600x300/00a650/ffffff?text=Cuotas+Sin+Interes');">
+                    <div class="overlay-content">
+                        <h4>Cuotas Sin Interés</h4>
+                        <p>Financiación especial con tus tarjetas.</p>
+                        <button class="btn btn-outline-light">Ver Bancos</button>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Productos: También te puede interesar -->
+    <section class="ne-seccion-carrusel-productos container">
+        <h2 class="text-center mb-4">También te puede interesar</h2>
+        <div id="interestCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- Slide 1 -->
+                <div class="carousel-item active">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                        <!-- Producto 1 -->
+                        <div class="col">
+                            <a href="#" class="card ne-tarjeta-producto">
+                                <img src="https://placehold.co/200x150/e0e0e0/555555?text=Mouse+Gamer"
+                                    class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <p class="price mb-0">$8.999 <span class="discount">25% OFF</span></p>
+                                    <p class="shipping-info mb-2">Envío gratis</p>
+                                    <p class="description">Mouse gamer RGB de alta precisión.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Producto 2 -->
+                        <div class="col">
+                            <a href="#" class="card ne-tarjeta-producto">
+                                <img src="https://placehold.co/200x150/cccccc/333333?text=Teclado+Mecanico"
+                                    class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <p class="price mb-0">$15.000</p>
+                                    <p class="shipping-info mb-2">Envío gratis</p>
+                                    <p class="description">Teclado mecánico retroiluminado para gaming.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Producto 3 -->
+                        <div class="col">
+                            <a href="#" class="card ne-tarjeta-producto">
+                                <img src="https://placehold.co/200x150/e0e0e0/555555?text=Monitor+Curvo"
+                                    class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <p class="price mb-0">$110.000 <span class="discount">10% OFF</span></p>
+                                    <p class="shipping-info mb-2">Envío gratis</p>
+                                    <p class="description">Monitor curvo de 27 pulgadas para una inmersión total.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Producto 4 -->
+                        <div class="col">
+                            <a href="#" class="card ne-tarjeta-producto">
+                                <img src="https://placehold.co/200x150/cccccc/333333?text=Webcam+HD"
+                                    class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <p class="price mb-0">$6.500</p>
+                                    <p class="shipping-info mb-2">Envío gratis</p>
+                                    <p class="description">Webcam Full HD con micrófono integrado.</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="carousel-item">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                        <!-- Producto 5 -->
+                        <div class="col">
+                            <a href="#" class="card ne-tarjeta-producto">
+                                <img src="https://placehold.co/200x150/e0e0e0/555555?text=Router+Wifi"
+                                    class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <p class="price mb-0">$9.200 <span class="discount">15% OFF</span></p>
+                                    <p class="shipping-info mb-2">Envío gratis</p>
+                                    <p class="description">Router Wi-Fi 6 de doble banda para alta velocidad.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Producto 6 -->
+                        <div class="col">
+                            <a href="#" class="card ne-tarjeta-producto">
+                                <img src="https://placehold.co/200x150/cccccc/333333?text=Disco+Externo"
+                                    class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <p class="price mb-0">$22.000</p>
+                                    <p class="shipping-info mb-2">Envío gratis</p>
+                                    <p class="description">Disco duro externo de 1TB USB 3.0.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Producto 7 -->
+                        <div class="col">
+                            <a href="#" class="card ne-tarjeta-producto">
+                                <img src="https://placehold.co/200x150/e0e0e0/555555?text=Impresora"
+                                    class="card-img-top" alt="">
+                                <div class="card-body">
+                                    <p class="price mb-0">$35.000 <span class="discount">5% OFF</span></p>
+                                    <p class="shipping-info mb-2">Envío gratis</p>
+                                    <p class="description">Impresora multifunción láser a color.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Producto 8 -->
+                        <div class="col">
+                            <a href="#" class="card ne-tarjeta-producto">
+                                <img src="https://placehold.co/200x150/cccccc/333333?text=SSD" class="card-img-top"
+                                    alt="">
+                                <div class="card-body">
+                                    <p class="price mb-0">$18.000</p>
+                                    <p class="shipping-info mb-2">Envío gratis</p>
+                                    <p class="description">Disco de estado sólido SSD de 500GB.</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#interestCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#interestCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Sección de Llamada a la Acción -->
+    <section class="ne-seccion-llamada-accion container">
+        <h2>¿Quieres vender tus productos en MercadoNEA?</h2>
+        <p>Únete a nuestra comunidad y llega a miles de compradores en toda la región.</p>
+        <button class="btn btn-light">Publica Gratis Ahora</button>
+    </section>
+
+    <!-- Pie de Página -->
+    <footer class="ne-pie-pagina">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="footer-title">Acerca de MercadoNEA</h5>
+                    <ul>
+                        <li><a href="#">Nuestra Empresa</a></li>
+                        <li><a href="#">Inversores</a></li>
+                        <li><a href="#">Sustentabilidad</a></li>
+                        <li><a href="#">Novedades</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="footer-title">Mi Cuenta</h5>
+                    <ul>
+                        <li><a href="#">Ingresar</a></li>
+                        <li><a href="#">Registrarse</a></li>
+                        <li><a href="#">Mis pedidos</a></li>
+                        <li><a href="#">Configuración</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="footer-title">Ayuda y Soporte</h5>
+                    <ul>
+                        <li><a href="#">Centro de Ayuda</a></li>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                        <li><a href="#">Envíos y Devoluciones</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="footer-title">Conéctate</h5>
+                    <div class="footer-social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="footer-links-bottom text-center">
+                <a href="#">Trabaja con nosotros</a>
+                <a href="#">Términos y Condiciones</a>
+                <a href="#">Política de Privacidad</a>
+                <a href="#">Aviso Legal</a>
+            </div>
+            <p class="footer-copyright">Copyright © 2024 MercadoNEA S.A. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modal de Ubicación -->
+    <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title" id="locationModalLabel">Elegí dónde recibir tus compras</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <p class="text-muted mb-3">Podrás ver costos y tiempos de entrega precisos en todo lo que busques.
+                    </p>
+                    <div class="mb-3">
+                        <label for="postalCodeInput" class="form-label">Código Postal</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="postalCodeInput"
+                                placeholder="Ingresar un código postal">
+                            <button class="btn btn-primary" type="button" id="usePostalCodeBtn">Usar</button>
+                        </div>
+                    </div>
+                    <a href="#" id="dontKnowCodeLink" class="text-decoration-none d-block text-center">No sé mi
+                        código</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (bundle con Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentLocationText = document.getElementById('currentLocationText');
+            const postalCodeInput = document.getElementById('postalCodeInput');
+            const usePostalCodeBtn = document.getElementById('usePostalCodeBtn');
+            const dontKnowCodeLink = document.getElementById('dontKnowCodeLink');
+            const locationModal = new bootstrap.Modal(document.getElementById('locationModal'));
+
+            function updateLocation(location) {
+                currentLocationText.textContent = location;
+            }
+
+            usePostalCodeBtn.addEventListener('click', function () {
+                const postalCode = postalCodeInput.value.trim();
+                if (postalCode) {
+                    updateLocation(postalCode);
+                    locationModal.hide();
+                } else {
+                    alert('Por favor, ingresa un código postal.');
+                }
+            });
+
+            dontKnowCodeLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                locationModal.hide();
+                alert('Puedes buscar tu código postal en el sitio web del correo local.');
+            });
+
+            document.getElementById('locationModal').addEventListener('show.bs.modal', function () {
+                postalCodeInput.value = currentLocationText.textContent === 'Resistencia, Chaco' ? '' : currentLocationText.textContent;
+            });
+        });
+    </script>
+</body>
+
+</html>

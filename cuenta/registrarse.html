@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MercadoNEA - Crear Cuenta</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        xintegrity="sha512-SnH5WK+bZxgPHs44jOVpLqN2Y/NoLpYkS1jB+x7jXyG2W3I6/N9t/JcK7D7FhM2J44zF3C+G3G3wG3G3w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Fuentes de Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        /* Barra de Navegación Principal */
+        .ne-barra-navegacion {
+            background-color: #444;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .ne-barra-navegacion .navbar-brand img {
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+
+        .ne-barra-navegacion .form-control {
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            height: 40px;
+            font-size: 16px;
+            padding-left: 15px;
+            background-color: #fff;
+        }
+
+        .ne-barra-navegacion .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        .ne-barra-navegacion .btn-search {
+            background-color: #FF7F00;
+            border: none;
+            color: #fff;
+            padding: 0 15px;
+            height: 40px;
+            border-radius: 0 4px 4px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        .ne-barra-navegacion .nav-link {
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            padding: 0.5rem 0.8rem;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .ne-texto-pequeno {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .ne-barra-navegacion .ne-icono-ubicacion {
+            font-size: 18px;
+            margin-right: 5px;
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .input-group .form-control {
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .ne-barra-navegacion .input-group .input-group-text {
+            background-color: #FF7F00;
+            border: 1px solid #FF7F00;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        /* Carrito de Compras en la Navegación */
+        .ne-cart-icon-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Adjust spacing as needed */
+        }
+
+        .ne-cart-icon-container .fa-shopping-cart {
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .ne-cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #FF7F00;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+            line-height: 1;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Contenedor de enlaces de usuario en la barra principal */
+        .ne-user-links {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Espacio entre el carrito y los enlaces */
+        }
+
+        .ne-user-links .nav-link {
+            padding: 0.5rem 0.8rem;
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-user-links .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-user-links .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+
+        /* Barra de Navegación Secundaria */
+        .ne-barra-navegacion-secundaria {
+            background-color: #f8f9fa;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid #eee;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link {
+            font-size: 14px;
+            color: #666;
+            padding: 0.3rem 0.8rem;
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio i {
+            font-size: 16px;
+            margin-right: 5px;
+            color: #00a650;
+        }
+
+        /* Contenedor principal del formulario de registro */
+        .contenedor-registro {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 180px);
+            /* Altura de la vista menos nav y footer */
+            padding: 20px 0;
+        }
+
+        .tarjeta-registro {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            /* Un poco más ancho para más campos */
+            text-align: center;
+        }
+
+        .tarjeta-registro h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .tarjeta-registro .form-label {
+            font-weight: 500;
+            color: #555;
+            text-align: left;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .tarjeta-registro .form-control {
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            height: auto;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .tarjeta-registro .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        .tarjeta-registro .form-check {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .tarjeta-registro .form-check-input {
+            border-radius: 4px;
+            margin-top: 0.35em;
+        }
+
+        .tarjeta-registro .form-check-label {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .tarjeta-registro .btn-primary {
+            background-color: #FF7F00;
+            border-color: #FF7F00;
+            color: white;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            width: 100%;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .tarjeta-registro .btn-primary:hover {
+            background-color: #E66E00;
+            border-color: #E66E00;
+        }
+
+        .tarjeta-registro .divisor {
+            margin: 30px 0;
+            position: relative;
+            text-align: center;
+            color: #aaa;
+        }
+
+        .tarjeta-registro .divisor::before,
+        .tarjeta-registro .divisor::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background-color: #eee;
+        }
+
+        .tarjeta-registro .divisor::before {
+            left: 0;
+        }
+
+        .tarjeta-registro .divisor::after {
+            right: 0;
+        }
+
+        .tarjeta-registro .btn-social {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tarjeta-registro .btn-google {
+            background-color: #db4437;
+            border-color: #db4437;
+            color: white;
+        }
+
+        .tarjeta-registro .btn-google:hover {
+            background-color: #c23321;
+            border-color: #c23321;
+        }
+
+        .tarjeta-registro .btn-facebook {
+            background-color: #3b5998;
+            border-color: #3b5998;
+            color: white;
+        }
+
+        .tarjeta-registro .btn-facebook:hover {
+            background-color: #2d4373;
+            border-color: #2d4373;
+        }
+
+        .tarjeta-registro .btn-social i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .tarjeta-registro .enlace-login {
+            margin-top: 25px;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .tarjeta-registro .enlace-login a {
+            color: #FF7F00;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .tarjeta-registro .enlace-login a:hover {
+            color: #E66E00;
+            text-decoration: underline;
+        }
+
+        /* Estilos del Modal de Ubicación (copiados para consistencia) */
+        #modalUbicacion .modal-content {
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        #modalUbicacion .modal-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            padding: 15px 20px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        #modalUbicacion .modal-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.25rem;
+        }
+
+        #modalUbicacion .btn-close {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        #modalUbicacion .btn-close:hover {
+            opacity: 1;
+        }
+
+        #modalUbicacion .modal-body {
+            padding: 20px;
+        }
+
+        #modalUbicacion .form-label {
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        #modalUbicacion .form-control {
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            height: auto;
+        }
+
+        #modalUbicacion .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        #modalUbicacion .input-group .btn-primary {
+            background-color: #FF7F00;
+            border-color: #FF7F00;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 0 4px 4px 0;
+            font-weight: 600;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        #modalUbicacion .input-group .btn-primary:hover {
+            background-color: #E66E00;
+            border-color: #E66E00;
+        }
+
+        #modalUbicacion #enlaceNoSeCodigo {
+            color: #FF7F00;
+            font-weight: 500;
+            margin-top: 15px;
+            display: block;
+            text-align: center;
+            transition: color 0.2s ease;
+        }
+
+        #modalUbicacion #enlaceNoSeCodigo:hover {
+            color: #E66E00;
+        }
+
+        /* Mensaje de Alerta Personalizado (copiado para consistencia) */
+        .mensaje-alerta {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            z-index: 1060;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+            min-width: 220px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .mensaje-alerta.mostrar {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mensaje-alerta.error {
+            background-color: #dc3545;
+        }
+
+        /* Pie de Página */
+        .ne-pie-pagina {
+            background-color: #333;
+            padding: 30px 0 15px;
+            border-top: 1px solid #444;
+            color: #ddd;
+        }
+
+        .ne-pie-pagina .titulo-pie-pagina {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #FF7F00;
+        }
+
+        .ne-pie-pagina ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .ne-pie-pagina ul li {
+            margin-bottom: 6px;
+        }
+
+        .ne-pie-pagina ul li a {
+            color: #ccc;
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina ul li a:hover {
+            color: #FF7F00;
+        }
+
+        .ne-pie-pagina .iconos-sociales-pie-pagina a {
+            color: #FF7F00;
+            font-size: 18px;
+            margin-right: 12px;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina .iconos-sociales-pie-pagina a:hover {
+            color: #fff;
+        }
+
+        .ne-pie-pagina .derechos-autor-pie-pagina {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .ne-pie-pagina .enlaces-inferiores-pie-pagina a {
+            color: #ccc;
+            font-size: 11px;
+            text-decoration: none;
+            margin-right: 12px;
+        }
+
+        .ne-pie-pagina .enlaces-inferiores-pie-pagina a:hover {
+            color: #FF7F00;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Barra de Navegación Principal -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion">
+        <div class="container-fluid container">
+            <a class="navbar-brand" href="#">
+                <img src="https://placehold.co/150x40/FF7F00/ffffff?text=MercadoNEA+Logo" alt="MercadoNEA Logo">
+            </a>
+            <form class="d-flex flex-grow-1 mx-3 position-relative">
+                <input class="form-control" type="search" placeholder="Buscar productos, marcas y más..."
+                    aria-label="Search">
+                <button class="btn btn-search" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <!-- Contenedor de enlaces de usuario y carrito para pantallas grandes -->
+            <div class="d-none d-lg-flex align-items-center">
+                <div class="ne-user-links">
+                    <a class="nav-link bold" href="crearCuenta.html">Crea tu cuenta</a>
+                    <a class="nav-link" href="iniciarSesion.html">Ingresa</a>
+                </div>
+                <!-- Carrito de compras con contador -->
+                <div class="ne-cart-icon-container">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="ne-cart-count" id="cartItemCount">0</span>
+                </div>
+            </div>
+            <button class="navbar-toggler mt-2 bg-light-subtle" type="button" data-bs-toggle="collapse"
+                data-bs-target="#neNavbarNav" aria-controls="neNavbarNav" aria-expanded="false"
+                aria-label="Toggle navigation" id="botonMenuMovil">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Barra de Navegación Secundaria (sin modificaciones de enlaces) -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion-secundaria">
+        <div class="container-fluid container">
+            <a class="ne-info-envio me-auto d-none d-lg-flex align-items-center" href="#" data-bs-toggle="modal"
+                data-bs-target="#modalUbicacion" id="botonModalUbicacion">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    Enviar a <span class="ne-texto-pequeno text-warning" id="textoUbicacionActual">Resistencia,
+                        Chaco</span>
+                </div>
+            </a>
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCategorias" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategorias">
+                        <li><a class="dropdown-item" href="#">Electrónica</a></li>
+                        <li><a class="dropdown-item" href="#">Moda y Accesorios</a></li>
+                        <li><a class="dropdown-item" href="#">Hogar y Muebles</a></li>
+                        <li><a class="dropdown-item" href="#">Deportes y Fitness</a></li>
+                        <li><a class="dropdown-item" href="#">Herramientas y Construcción</a></li>
+                        <li><a class="dropdown-item" href="#">Libros, Revistas y Comics</a></li>
+                        <li><a class="dropdown-item" href="#">Juguetes y Bebés</a></li>
+                        <li><a class="dropdown-item" href="#">Belleza y Cuidado Personal</a></li>
+                        <li><a class="dropdown-item" href="#">Accesorios para Vehículos</a></li>
+                        <li><a class="dropdown-item" href="#">Animales y Mascotas</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Ver todas las categorías</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+            </ul>
+            <!-- Contenido para móvil -->
+            <div class="collapse navbar-collapse" id="neNavbarNav">
+                <ul class="navbar-nav ms-auto d-lg-none">
+                    <li class="nav-item"><a class="nav-link bold" href="crearCuenta.html">Crea tu cuenta</a></li>
+                    <li class="nav-item"><a class="nav-link" href="iniciarSesion.html">Ingresa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mis compras</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mi carrito</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Categorías</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container contenedor-registro">
+        <div class="tarjeta-registro">
+            <h2>Crear Cuenta</h2>
+            <form id="registroForm">
+                <div class="mb-3">
+                    <label for="nombreInput" class="form-label">Nombre completo</label>
+                    <input type="text" class="form-control" id="nombreInput" placeholder="Tu nombre y apellido"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="emailInput" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" id="emailInput" placeholder="tu@ejemplo.com" required>
+                </div>
+                <div class="mb-3">
+                    <label for="passwordInput" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="passwordInput"
+                        placeholder="Crea una contraseña segura" required>
+                </div>
+                <div class="mb-3">
+                    <label for="confirmPasswordInput" class="form-label">Confirmar Contraseña</label>
+                    <input type="password" class="form-control" id="confirmPasswordInput"
+                        placeholder="Repite tu contraseña" required>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="termsCheckbox" required>
+                    <label class="form-check-label" for="termsCheckbox">
+                        Acepto los <a href="#" class="text-decoration-none">Términos y Condiciones</a>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Registrarse</button>
+
+                <div class="divisor">O</div>
+
+                <button type="button" class="btn btn-google btn-social mb-3">
+                    <i class="fab fa-google"></i> Registrarse con Google
+                </button>
+                <button type="button" class="btn btn-facebook btn-social">
+                    <i class="fab fa-facebook-f"></i> Registrarse con Facebook
+                </button>
+
+                <p class="enlace-login">¿Ya tienes cuenta? <a href="iniciarSesion.html">Inicia sesión aquí</a></p>
+            </form>
+        </div>
+    </main>
+
+    <!-- Modal de Ubicación (Mantener para consistencia en todas las páginas) -->
+    <div class="modal fade" id="modalUbicacion" tabindex="-1" aria-labelledby="modalUbicacionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title" id="modalUbicacionLabel">Elegí dónde recibir tus compras</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"
+                        id="cerrarModalUbicacion"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <p class="text-muted mb-3">Podrás ver costos y tiempos de entrega precisos en todo lo que busques.
+                    </p>
+                    <div class="mb-3">
+                        <label for="inputCodigoPostal" class="form-label">Código Postal</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="inputCodigoPostal"
+                                placeholder="Ingresar un código postal">
+                            <button class="btn btn-primary" type="button" id="botonUsarCodigoPostal">Usar</button>
+                        </div>
+                    </div>
+                    <a href="#" id="enlaceNoSeCodigo" class="text-decoration-none d-block text-center">No sé mi
+                        código</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensaje de Alerta Personalizado (Mantener para consistencia en todas las páginas) -->
+    <div id="mensajeAlerta" class="mensaje-alerta">
+        ¡Operación exitosa!
+    </div>
+
+    <!-- Pie de Página -->
+    <footer class="ne-pie-pagina">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Acerca de MercadoNEA</h5>
+                    <ul>
+                        <li><a href="#">Nuestra Empresa</a></li>
+                        <li><a href="#">Inversores</a></li>
+                        <li><a href="#">Sustentabilidad</a></li>
+                        <li><a href="#">Novedades</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Mi Cuenta</h5>
+                    <ul>
+                        <li><a href="iniciarSesion.html">Ingresar</a></li>
+                        <li><a href="crearCuenta.html">Registrarse</a></li>
+                        <li><a href="#">Mis pedidos</a></li>
+                        <li><a href="#">Configuración</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Ayuda y Soporte</h5>
+                    <ul>
+                        <li><a href="#">Centro de Ayuda</a></li>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                        <li><a href="#">Envíos y Devoluciones</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Conéctate</h5>
+                    <div class="iconos-sociales-pie-pagina">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="enlaces-inferiores-pie-pagina text-center">
+                <a href="#">Trabaja con nosotros</a>
+                <a href="#">Términos y Condiciones</a>
+                <a href="#">Política de Privacidad</a>
+                <a href="#">Aviso Legal</a>
+            </div>
+            <p class="derechos-autor-pie-pagina">Copyright © 2024 MercadoNEA S.A. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS (bundle con Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Funciones de Utilidad para Modales y Mensajes ---
+            const mensajeAlerta = document.getElementById('mensajeAlerta');
+
+            function mostrarMensaje(mensaje, tipo = 'exito') {
+                mensajeAlerta.textContent = mensaje;
+                mensajeAlerta.classList.remove('error'); // Reset class
+                if (tipo === 'error') {
+                    mensajeAlerta.classList.add('error');
+                }
+                mensajeAlerta.classList.add('mostrar');
+                setTimeout(() => {
+                    mensajeAlerta.classList.remove('mostrar');
+                }, 3000); // El mensaje desaparece después de 3 segundos
+            }
+
+            // --- Lógica del Modal de Ubicación ---
+            const textoUbicacionActual = document.getElementById('textoUbicacionActual');
+            const inputCodigoPostal = document.getElementById('inputCodigoPostal');
+            const botonUsarCodigoPostal = document.getElementById('botonUsarCodigoPostal');
+            const enlaceNoSeCodigo = document.getElementById('enlaceNoSeCodigo');
+            const modalUbicacion = new bootstrap.Modal(document.getElementById('modalUbicacion'));
+            const botonModalUbicacion = document.getElementById('botonModalUbicacion');
+
+            botonModalUbicacion.addEventListener('click', function (e) {
+                e.preventDefault();
+                modalUbicacion.show();
+                inputCodigoPostal.value = textoUbicacionActual.textContent === 'Resistencia, Chaco' ? '' : textoUbicacionActual.textContent;
+            });
+
+            botonUsarCodigoPostal.addEventListener('click', function () {
+                const codigoPostal = inputCodigoPostal.value.trim();
+                if (codigoPostal) {
+                    textoUbicacionActual.textContent = codigoPostal;
+                    modalUbicacion.hide();
+                } else {
+                    mostrarMensaje('Por favor, ingresa un código postal.', 'error');
+                }
+            });
+
+            enlaceNoSeCodigo.addEventListener('click', function (event) {
+                event.preventDefault();
+                mostrarMensaje('Puedes buscar tu código postal en el sitio web del correo local.', 'info');
+                modalUbicacion.hide();
+            });
+
+            // --- Lógica del formulario de registro ---
+            const registroForm = document.getElementById('registroForm');
+
+            registroForm.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevenir el envío del formulario por defecto
+
+                const nombre = document.getElementById('nombreInput').value.trim();
+                const email = document.getElementById('emailInput').value.trim();
+                const password = document.getElementById('passwordInput').value;
+                const confirmPassword = document.getElementById('confirmPasswordInput').value;
+                const termsAccepted = document.getElementById('termsCheckbox').checked;
+
+                if (!nombre || !email || !password || !confirmPassword) {
+                    mostrarMensaje('Por favor, completa todos los campos.', 'error');
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    mostrarMensaje('Las contraseñas no coinciden.', 'error');
+                    return;
+                }
+
+                if (password.length < 6) {
+                    mostrarMensaje('La contraseña debe tener al menos 6 caracteres.', 'error');
+                    return;
+                }
+
+                if (!termsAccepted) {
+                    mostrarMensaje('Debes aceptar los Términos y Condiciones.', 'error');
+                    return;
+                }
+
+                console.log('Datos de registro:');
+                console.log('Nombre:', nombre);
+                console.log('Email:', email);
+                console.log('Contraseña:', password);
+                console.log('Términos aceptados:', termsAccepted);
+
+                // Simulación de registro exitoso y envío de email de verificación
+                mostrarMensaje('¡Cuenta creada con éxito! Se ha enviado un correo de verificación a tu email. Por favor, revisa tu bandeja de entrada para verificar tu cuenta y completar el registro.', 'exito');
+                registroForm.reset(); // Limpiar el formulario
+                // En un escenario real, aquí se redirigiría o se mostraría una pantalla de "Revisa tu email"
+                // Para esta simulación, no redirigimos automáticamente para que el mensaje sea visible.
+                // Si el usuario "hiciera clic" en el enlace del email, iría a 'verificarCuenta.html'
+            });
+        });
+    </script>
+</body>
+
+</html>

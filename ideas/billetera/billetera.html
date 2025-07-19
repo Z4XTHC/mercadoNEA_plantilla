@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MercadoNEA - Mi Billetera Digital</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        xintegrity="sha512-SnH5WK+bZxgPHs44jOVpLqN2Y/NoLpYkS1jB+x7jXyG2W3I6/N9t/JcK7D7FhM2J44zF3C+G3G3wG3G3w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Fuentes de Google Fonts (Inter) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        /* Barra de Navegación Principal */
+        .ne-barra-navegacion {
+            background-color: #444;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .ne-barra-navegacion .navbar-brand img {
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+
+        .ne-barra-navegacion .form-control {
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            height: 40px;
+            font-size: 16px;
+            padding-left: 15px;
+            background-color: #fff;
+        }
+
+        .ne-barra-navegacion .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        .ne-barra-navegacion .btn-search {
+            background-color: #FF7F00;
+            border: none;
+            color: #fff;
+            padding: 0 15px;
+            height: 40px;
+            border-radius: 0 4px 4px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        .ne-barra-navegacion .nav-link {
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            padding: 0.5rem 0.8rem;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .ne-texto-pequeno {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .ne-barra-navegacion .ne-icono-ubicacion {
+            font-size: 18px;
+            margin-right: 5px;
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .input-group .form-control {
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .ne-barra-navegacion .input-group .input-group-text {
+            background-color: #FF7F00;
+            border: 1px solid #FF7F00;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        /* Carrito de Compras en la Navegación */
+        .ne-cart-icon-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Adjust spacing as needed */
+        }
+
+        .ne-cart-icon-container .fa-shopping-cart {
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .ne-cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #FF7F00;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+            line-height: 1;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Contenedor de enlaces de usuario en la barra principal */
+        .ne-user-links {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Espacio entre el carrito y los enlaces */
+        }
+
+        .ne-user-links .nav-link {
+            padding: 0.5rem 0.8rem;
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-user-links .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-user-links .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+
+        /* Barra de Navegación Secundaria */
+        .ne-barra-navegacion-secundaria {
+            background-color: #f8f9fa;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid #eee;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link {
+            font-size: 14px;
+            color: #666;
+            padding: 0.3rem 0.8rem;
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio i {
+            font-size: 16px;
+            margin-right: 5px;
+            color: #00a650;
+        }
+
+        /* Contenedor principal de la billetera digital */
+        .contenedor-billetera {
+            margin-top: 25px;
+            margin-bottom: 40px;
+        }
+
+        .titulo-principal {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .subtitulo-principal {
+            font-size: 1rem;
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .seccion-billetera {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+        .titulo-seccion {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #FF7F00;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+        }
+
+        .tarjeta-saldo {
+            background: linear-gradient(45deg, #00a650, #008f45);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            color: #fff;
+        }
+
+        .tarjeta-saldo .etiqueta-saldo {
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-bottom: 8px;
+        }
+
+        .tarjeta-saldo .cantidad-saldo {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .boton-accion {
+            background-color: #fff;
+            border: none;
+            color: #00a650;
+            padding: 12px 25px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .boton-accion:hover {
+            background-color: #f0f0f0;
+            color: #008f45;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .lista-transacciones .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background-color: #fdfdfd;
+            border: 1px solid #eee;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s ease;
+        }
+
+        .lista-transacciones .list-group-item:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .lista-transacciones .list-group-item .descripcion-transaccion {
+            font-weight: 500;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .lista-transacciones .list-group-item .fecha-transaccion {
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        .lista-transacciones .list-group-item .cantidad-transaccion {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .lista-transacciones .list-group-item .cantidad-transaccion.positiva {
+            color: #00a650;
+        }
+
+        .lista-transacciones .list-group-item .cantidad-transaccion.negativa {
+            color: #dc3545;
+        }
+
+        .boton-ver-todo {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 1rem;
+        }
+
+        .boton-ver-todo a {
+            color: #0d6efd;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .boton-ver-todo a:hover {
+            color: #0a58ca;
+            text-decoration: underline;
+        }
+
+        /* Estilos para modales personalizados */
+        .modal-personalizado .modal-content {
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            border: none;
+            overflow: hidden;
+        }
+
+        .modal-personalizado .modal-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            padding: 18px 25px;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        .modal-personalizado .modal-title {
+            font-weight: 700;
+            color: #333;
+            font-size: 1.5rem;
+        }
+
+        .modal-personalizado .btn-close {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+
+        .modal-personalizado .btn-close:hover {
+            opacity: 1;
+        }
+
+        .modal-personalizado .modal-body {
+            padding: 25px;
+        }
+
+        .modal-personalizado .form-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .modal-personalizado .form-control {
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            height: auto;
+            font-size: 1rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .modal-personalizado .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        .modal-personalizado .btn-primario-modal {
+            background-color: #FF7F00;
+            border-color: #FF7F00;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+            width: 100%;
+        }
+
+        .modal-personalizado .btn-primario-modal:hover {
+            background-color: #E66E00;
+            border-color: #E66E00;
+            transform: translateY(-1px);
+        }
+
+        /* Mensaje de Alerta Personalizado */
+        .mensaje-alerta {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            z-index: 1060;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+            min-width: 220px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .mensaje-alerta.mostrar {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mensaje-alerta.error {
+            background-color: #dc3545;
+        }
+
+        /* Pie de Página */
+        .ne-pie-pagina {
+            background-color: #333;
+            padding: 30px 0 15px;
+            border-top: 1px solid #444;
+            color: #ddd;
+        }
+
+        .ne-pie-pagina .titulo-pie-pagina {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #FF7F00;
+        }
+
+        .ne-pie-pagina ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .ne-pie-pagina ul li {
+            margin-bottom: 6px;
+        }
+
+        .ne-pie-pagina ul li a {
+            color: #ccc;
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina ul li a:hover {
+            color: #FF7F00;
+        }
+
+        .ne-pie-pagina .iconos-sociales-pie-pagina a {
+            color: #FF7F00;
+            font-size: 18px;
+            margin-right: 12px;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina .iconos-sociales-pie-pagina a:hover {
+            color: #fff;
+        }
+
+        .ne-pie-pagina .derechos-autor-pie-pagina {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .ne-pie-pagina .enlaces-inferiores-pie-pagina a {
+            color: #ccc;
+            font-size: 11px;
+            text-decoration: none;
+            margin-right: 12px;
+        }
+
+        .ne-pie-pagina .enlaces-inferiores-pie-pagina a:hover {
+            color: #FF7F00;
+        }
+
+        /* Estilos del Modal de Ubicación */
+        #modalUbicacion .modal-content {
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        #modalUbicacion .modal-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            padding: 15px 20px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        #modalUbicacion .modal-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.25rem;
+        }
+
+        #modalUbicacion .btn-close {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        #modalUbicacion .btn-close:hover {
+            opacity: 1;
+        }
+
+        #modalUbicacion .modal-body {
+            padding: 20px;
+        }
+
+        #modalUbicacion .form-label {
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        #modalUbicacion .form-control {
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            height: auto;
+        }
+
+        #modalUbicacion .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        #modalUbicacion .input-group .btn-primary {
+            background-color: #FF7F00;
+            border-color: #FF7F00;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 0 4px 4px 0;
+            font-weight: 600;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        #modalUbicacion .input-group .btn-primary:hover {
+            background-color: #E66E00;
+            border-color: #E66E00;
+        }
+
+        #modalUbicacion #enlaceNoSeCodigo {
+            color: #FF7F00;
+            font-weight: 500;
+            margin-top: 15px;
+            display: block;
+            text-align: center;
+            transition: color 0.2s ease;
+        }
+
+        #modalUbicacion #enlaceNoSeCodigo:hover {
+            color: #E66E00;
+        }
+
+        .dato-bancario-item {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        .dato-bancario-item strong {
+            color: #555;
+        }
+
+        .dato-bancario-item span {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .dato-bancario-item .btn-copiar {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+        }
+
+        .dato-bancario-item .btn-copiar:hover {
+            background-color: #0a58ca;
+            border-color: #0a58ca;
+        }
+
+        /* Estilos para las tarjetas de opciones */
+        .card-opcion {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 100%;
+            /* Ensure cards are same height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fdfdfd;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+        }
+
+        .card-opcion:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border-color: #FF7F00;
+        }
+
+        .card-opcion i {
+            font-size: 2.5rem;
+            color: #FF7F00;
+            margin-bottom: 15px;
+        }
+
+        .card-opcion .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0;
+        }
+
+        /* Ajuste para que el historial de transacciones ocupe más espacio */
+        .seccion-historial {
+            min-height: 400px;
+            /* Altura mínima para evitar el vacío */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .seccion-historial .list-group {
+            flex-grow: 1;
+            /* Permite que la lista de transacciones crezca */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Barra de Navegación Principal -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion">
+        <div class="container-fluid container">
+            <a class="navbar-brand" href="#">
+                <img src="https://placehold.co/150x40/FF7F00/ffffff?text=MercadoNEA+Logo" alt="MercadoNEA Logo">
+            </a>
+            <form class="d-flex flex-grow-1 mx-3 position-relative">
+                <input class="form-control" type="search" placeholder="Buscar productos, marcas y más..."
+                    aria-label="Search">
+                <button class="btn btn-search" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <!-- Contenedor de enlaces de usuario y carrito para pantallas grandes -->
+            <div class="d-none d-lg-flex align-items-center">
+                <div class="ne-user-links">
+                    <a class="nav-link bold" href="crearCuenta.html">Crea tu cuenta</a>
+                    <a class="nav-link" href="iniciarSesion.html">Ingresa</a>
+                </div>
+                <!-- Carrito de compras con contador -->
+                <div class="ne-cart-icon-container">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="ne-cart-count" id="cartItemCount">0</span>
+                </div>
+            </div>
+            <button class="navbar-toggler mt-2 bg-light-subtle" type="button" data-bs-toggle="collapse"
+                data-bs-target="#neNavbarNav" aria-controls="neNavbarNav" aria-expanded="false"
+                aria-label="Toggle navigation" id="botonMenuMovil">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Barra de Navegación Secundaria (sin modificaciones de enlaces) -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion-secundaria">
+        <div class="container-fluid container">
+            <a class="ne-info-envio me-auto d-none d-lg-flex align-items-center" href="#" data-bs-toggle="modal"
+                data-bs-target="#modalUbicacion" id="botonModalUbicacion">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    Enviar a <span class="ne-texto-pequeno text-warning" id="textoUbicacionActual">Resistencia,
+                        Chaco</span>
+                </div>
+            </a>
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCategorias" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategorias">
+                        <li><a class="dropdown-item" href="#">Electrónica</a></li>
+                        <li><a class="dropdown-item" href="#">Moda y Accesorios</a></li>
+                        <li><a class="dropdown-item" href="#">Hogar y Muebles</a></li>
+                        <li><a class="dropdown-item" href="#">Deportes y Fitness</a></li>
+                        <li><a class="dropdown-item" href="#">Herramientas y Construcción</a></li>
+                        <li><a class="dropdown-item" href="#">Libros, Revistas y Comics</a></li>
+                        <li><a class="dropdown-item" href="#">Juguetes y Bebés</a></li>
+                        <li><a class="dropdown-item" href="#">Belleza y Cuidado Personal</a></li>
+                        <li><a class="dropdown-item" href="#">Accesorios para Vehículos</a></li>
+                        <li><a class="dropdown-item" href="#">Animales y Mascotas</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Ver todas las categorías</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+            </ul>
+            <!-- Contenido para móvil -->
+            <div class="collapse navbar-collapse" id="neNavbarNav">
+                <ul class="navbar-nav ms-auto d-lg-none">
+                    <li class="nav-item"><a class="nav-link bold" href="crearCuenta.html">Crea tu cuenta</a></li>
+                    <li class="nav-item"><a class="nav-link" href="iniciarSesion.html">Ingresa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mis compras</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mi carrito</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Categorías</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container contenedor-billetera">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <h1 class="titulo-principal">Mi Billetera Digital</h1>
+                <p class="subtitulo-principal">
+                    Gestiona tus fondos y transacciones de forma segura y sencilla en MercadoNEA.
+                </p>
+
+                <div class="row">
+                    <!-- Columna Izquierda: Saldo y Opciones -->
+                    <div class="col-lg-5 mb-4 mb-lg-0">
+                        <!-- Sección Saldo Disponible -->
+                        <div class="seccion-billetera">
+                            <h2 class="titulo-seccion">Saldo Disponible</h2>
+                            <div class="tarjeta-saldo">
+                                <div class="etiqueta-saldo">Tu saldo actual es:</div>
+                                <div class="cantidad-saldo" id="saldoActual">$ 5.000,00</div>
+                                <button class="btn boton-accion" id="botonAnadirFondos">
+                                    <i class="fas fa-plus-circle me-2"></i>Añadir Fondos
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Sección Opciones de Billetera en Cuadrícula -->
+                        <div class="seccion-billetera">
+                            <h2 class="titulo-seccion">Opciones Rápidas</h2>
+                            <div class="row row-cols-1 row-cols-md-2 g-3">
+                                <div class="col">
+                                    <div class="card-opcion" id="cardEnviarDinero">
+                                        <i class="fas fa-paper-plane"></i>
+                                        <h5 class="card-title">Enviar Dinero</h5>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card-opcion" id="cardSolicitarDinero">
+                                        <i class="fas fa-hand-holding-usd"></i>
+                                        <h5 class="card-title">Solicitar Dinero</h5>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card-opcion" id="cardPagarServicios">
+                                        <i class="fas fa-file-invoice-dollar"></i>
+                                        <h5 class="card-title">Pagar Servicios</h5>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card-opcion" id="cardRecargasVirtuales">
+                                        <i class="fas fa-mobile-alt"></i>
+                                        <h5 class="card-title">Recargas Virtuales</h5>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card-opcion" id="cardCargarSube">
+                                        <i class="fas fa-bus"></i>
+                                        <h5 class="card-title">Cargar SUBE</h5>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card-opcion" id="cardMiAliasCvu" data-bs-toggle="modal"
+                                        data-bs-target="#modalMiAliasCvu">
+                                        <i class="fas fa-id-card"></i>
+                                        <h5 class="card-title">Mi Alias y CVU</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección Métodos de Pago -->
+                        <div class="seccion-billetera">
+                            <h2 class="titulo-seccion">Métodos de Pago</h2>
+                            <p class="text-muted mb-4">Gestiona tus tarjetas y cuentas bancarias vinculadas.</p>
+                            <div class="bg-light p-4 rounded shadow-sm mb-4">
+                                <h3 class="font-weight-bold text-dark mb-3">Mis Tarjetas</h3>
+                                <ul class="list-group list-group-flush" id="listaTarjetas">
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center bg-transparent border-0 px-0 py-2">
+                                        <span class="d-flex align-items-center">
+                                            <i class="fab fa-cc-visa text-primary fs-4 me-3"></i>
+                                            Visa **** **** **** 1234
+                                        </span>
+                                        <button class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                    </li>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center bg-transparent border-0 px-0 py-2">
+                                        <span class="d-flex align-items-center">
+                                            <i class="fab fa-cc-mastercard text-warning fs-4 me-3"></i>
+                                            Mastercard **** **** **** 5678
+                                        </span>
+                                        <button class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                    </li>
+                                </ul>
+                                <button class="btn btn-info mt-4 text-white" id="botonAnadirNuevaTarjeta">
+                                    <i class="fas fa-credit-card me-2"></i>Añadir Nueva Tarjeta
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Columna Derecha: Historial de Transacciones -->
+                    <div class="col-lg-7">
+                        <!-- Sección Historial de Transacciones -->
+                        <div class="seccion-billetera seccion-historial">
+                            <h2 class="titulo-seccion">Historial de Transacciones</h2>
+                            <div class="list-group lista-transacciones">
+                                <div class="list-group-item">
+                                    <div class="flex-grow-1">
+                                        <div class="descripcion-transaccion">Compra: Auriculares Bluetooth</div>
+                                        <div class="fecha-transaccion">15 de Julio, 2025</div>
+                                    </div>
+                                    <div class="cantidad-transaccion negativa">- $ 2.500,00</div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="flex-grow-1">
+                                        <div class="descripcion-transaccion">Recarga de Saldo</div>
+                                        <div class="fecha-transaccion">10 de Julio, 2025</div>
+                                    </div>
+                                    <div class="cantidad-transaccion positiva">+ $ 3.000,00</div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="flex-grow-1">
+                                        <div class="descripcion-transaccion">Venta: Camiseta de Fútbol</div>
+                                        <div class="fecha-transaccion">08 de Julio, 2025</div>
+                                    </div>
+                                    <div class="cantidad-transaccion positiva">+ $ 1.200,00</div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="flex-grow-1">
+                                        <div class="descripcion-transaccion">Pago de Servicio: Luz</div>
+                                        <div class="fecha-transaccion">01 de Julio, 2025</div>
+                                    </div>
+                                    <div class="cantidad-transaccion negativa">- $ 800,00</div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="flex-grow-1">
+                                        <div class="descripcion-transaccion">Recarga Virtual: Celular</div>
+                                        <div class="fecha-transaccion">28 de Junio, 2025</div>
+                                    </div>
+                                    <div class="cantidad-transaccion negativa">- $ 500,00</div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="flex-grow-1">
+                                        <div class="descripcion-transaccion">Carga SUBE</div>
+                                        <div class="fecha-transaccion">25 de Junio, 2025</div>
+                                    </div>
+                                    <div class="cantidad-transaccion negativa">- $ 300,00</div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="flex-grow-1">
+                                        <div class="descripcion-transaccion">Transferencia Recibida</div>
+                                        <div class="fecha-transaccion">20 de Junio, 2025</div>
+                                    </div>
+                                    <div class="cantidad-transaccion positiva">+ $ 1.000,00</div>
+                                </div>
+                            </div>
+                            <p class="boton-ver-todo">
+                                <a href="#" class="text-decoration-none">Ver todas las transacciones</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Ubicación -->
+    <div class="modal fade" id="modalUbicacion" tabindex="-1" aria-labelledby="modalUbicacionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title" id="modalUbicacionLabel">Elegí dónde recibir tus compras</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"
+                        id="cerrarModalUbicacion"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <p class="text-muted mb-3">Podrás ver costos y tiempos de entrega precisos en todo lo que busques.
+                    </p>
+                    <div class="mb-3">
+                        <label for="inputCodigoPostal" class="form-label">Código Postal</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="inputCodigoPostal"
+                                placeholder="Ingresar un código postal">
+                            <button class="btn btn-primary" type="button" id="botonUsarCodigoPostal">Usar</button>
+                        </div>
+                    </div>
+                    <a href="#" id="enlaceNoSeCodigo" class="text-decoration-none d-block text-center">No sé mi
+                        código</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Añadir Fondos -->
+    <div class="modal fade modal-personalizado" id="modalAnadirFondos" tabindex="-1"
+        aria-labelledby="modalAnadirFondosLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalAnadirFondosLabel">Añadir Fondos</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"
+                        id="cerrarModalAnadirFondos"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="inputMontoAnadir" class="form-label">Monto a Añadir ($)</label>
+                    <input type="number" id="inputMontoAnadir" class="form-control mb-4" placeholder="Ej: 1000.00">
+                    <button class="btn btn-primary btn-primario-modal" id="confirmarAnadirFondos">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Enviar Dinero / Transferencias -->
+    <div class="modal fade modal-personalizado" id="modalEnviarDinero" tabindex="-1"
+        aria-labelledby="modalEnviarDineroLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalEnviarDineroLabel">Realizar Transferencia</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"
+                        id="cerrarModalEnviarDinero"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="inputDestinatario" class="form-label">Alias, CVU o Email del Destinatario</label>
+                    <input type="text" id="inputDestinatario" class="form-control mb-3"
+                        placeholder="Ej: alias.ejemplo, 0000...0000, o correo@ejemplo.com">
+
+                    <label for="inputMontoEnviar" class="form-label">Monto a Enviar ($)</label>
+                    <input type="number" id="inputMontoEnviar" class="form-control mb-4" placeholder="Ej: 500.00">
+
+                    <button class="btn btn-primary btn-primario-modal" id="confirmarEnviarDinero">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Solicitar Dinero -->
+    <div class="modal fade modal-personalizado" id="modalSolicitarDinero" tabindex="-1"
+        aria-labelledby="modalSolicitarDineroLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalSolicitarDineroLabel">Solicitar Dinero</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"
+                        id="cerrarModalSolicitarDinero"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="inputSolicitante" class="form-label">Solicitar a (ID de usuario o email)</label>
+                    <input type="text" id="inputSolicitante" class="form-control mb-3"
+                        placeholder="ejemplo@correo.com o ID de usuario">
+
+                    <label for="inputMontoSolicitar" class="form-label">Monto a Solicitar ($)</label>
+                    <input type="number" id="inputMontoSolicitar" class="form-control mb-4" placeholder="Ej: 750.00">
+
+                    <button class="btn btn-primary btn-primario-modal" id="confirmarSolicitarDinero">Solicitar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Pagar Servicios -->
+    <div class="modal fade modal-personalizado" id="modalPagarServicios" tabindex="-1"
+        aria-labelledby="modalPagarServiciosLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalPagarServiciosLabel">Pagar Servicios</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="selectTipoServicio" class="form-label">Tipo de Servicio</label>
+                    <select id="selectTipoServicio" class="form-select mb-3">
+                        <option value="">Selecciona un servicio</option>
+                        <option value="luz">Luz</option>
+                        <option value="agua">Agua</option>
+                        <option value="gas">Gas</option>
+                        <option value="internet">Internet</option>
+                        <option value="telefono">Teléfono</option>
+                        <option value="otros">Otros</option>
+                    </select>
+
+                    <label for="inputNumeroFactura" class="form-label">Número de Factura</label>
+                    <input type="text" id="inputNumeroFactura" class="form-control mb-3"
+                        placeholder="Ingresa el número de factura">
+
+                    <label for="inputMontoServicio" class="form-label">Monto a Pagar ($)</label>
+                    <input type="number" id="inputMontoServicio" class="form-control mb-4" placeholder="Ej: 1500.00">
+
+                    <button class="btn btn-primary btn-primario-modal" id="confirmarPagarServicios">Pagar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Recargas Virtuales -->
+    <div class="modal fade modal-personalizado" id="modalRecargasVirtuales" tabindex="-1"
+        aria-labelledby="modalRecargasVirtualesLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalRecargasVirtualesLabel">Recargas Virtuales</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="selectOperador" class="form-label">Operador</label>
+                    <select id="selectOperador" class="form-select mb-3">
+                        <option value="">Selecciona un operador</option>
+                        <option value="claro">Claro</option>
+                        <option value="movistar">Movistar</option>
+                        <option value="personal">Personal</option>
+                        <option value="tuenti">Tuenti</option>
+                    </select>
+
+                    <label for="inputNumeroCelular" class="form-label">Número de Celular</label>
+                    <input type="tel" id="inputNumeroCelular" class="form-control mb-3" placeholder="Ej: 1123456789">
+
+                    <label for="inputMontoRecarga" class="form-label">Monto a Recargar ($)</label>
+                    <input type="number" id="inputMontoRecarga" class="form-control mb-4" placeholder="Ej: 500.00">
+
+                    <button class="btn btn-primary btn-primario-modal" id="confirmarRecargaVirtual">Recargar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cargar Transporte (Sube) -->
+    <div class="modal fade modal-personalizado" id="modalCargarSube" tabindex="-1"
+        aria-labelledby="modalCargarSubeLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalCargarSubeLabel">Cargar Transporte (SUBE)</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="inputNumeroSube" class="form-label">Número de Tarjeta SUBE</label>
+                    <input type="text" id="inputNumeroSube" class="form-control mb-3"
+                        placeholder="Ingresa los 16 dígitos de tu SUBE">
+
+                    <label for="inputMontoSube" class="form-label">Monto a Cargar ($)</label>
+                    <input type="number" id="inputMontoSube" class="form-control mb-4" placeholder="Ej: 300.00">
+
+                    <button class="btn btn-primary btn-primario-modal" id="confirmarCargarSube">Cargar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Añadir Nueva Tarjeta -->
+    <div class="modal fade modal-personalizado" id="modalAnadirNuevaTarjeta" tabindex="-1"
+        aria-labelledby="modalAnadirNuevaTarjetaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalAnadirNuevaTarjetaLabel">Añadir Nueva Tarjeta</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="inputNumeroTarjeta" class="form-label">Número de Tarjeta</label>
+                        <input type="text" id="inputNumeroTarjeta" class="form-control"
+                            placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="inputFechaVencimiento" class="form-label">Fecha Vencimiento (MM/AA)</label>
+                            <input type="text" id="inputFechaVencimiento" class="form-control" placeholder="MM/AA"
+                                maxlength="5">
+                        </div>
+                        <div class="col-6">
+                            <label for="inputCvv" class="form-label">CVV</label>
+                            <input type="text" id="inputCvv" class="form-control" placeholder="XXX" maxlength="4">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="inputNombreTitular" class="form-label">Nombre del Titular</label>
+                        <input type="text" id="inputNombreTitular" class="form-control" placeholder="Nombre Apellido">
+                    </div>
+                    <button class="btn btn-primary btn-primario-modal" id="confirmarAnadirTarjeta">Añadir
+                        Tarjeta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nuevo Modal para Mi Alias y CVU -->
+    <div class="modal fade modal-personalizado" id="modalMiAliasCvu" tabindex="-1"
+        aria-labelledby="modalMiAliasCvuLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalMiAliasCvuLabel">Mi Alias y CVU</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-4">Utiliza estos datos para recibir dinero en tu billetera MercadoNEA.</p>
+                    <div class="dato-bancario-item">
+                        <strong>Alias:</strong> <span id="miAliasModal">MERCADONEA.USUARIO</span>
+                        <button class="btn btn-copiar" data-target="miAliasModal">Copiar</button>
+                    </div>
+                    <div class="dato-bancario-item">
+                        <strong>CVU:</strong> <span id="miCvuModal">0000000000000000000000</span>
+                        <button class="btn btn-copiar" data-target="miCvuModal">Copiar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Mensaje de Alerta Personalizado -->
+    <div id="mensajeAlerta" class="mensaje-alerta">
+        ¡Operación exitosa!
+    </div>
+
+    <!-- Pie de Página -->
+    <footer class="ne-pie-pagina">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Acerca de MercadoNEA</h5>
+                    <ul>
+                        <li><a href="#">Nuestra Empresa</a></li>
+                        <li><a href="#">Inversores</a></li>
+                        <li><a href="#">Sustentabilidad</a></li>
+                        <li><a href="#">Novedades</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Mi Cuenta</h5>
+                    <ul>
+                        <li><a href="#">Ingresar</a></li>
+                        <li><a href="#">Registrarse</a></li>
+                        <li><a href="#">Mis pedidos</a></li>
+                        <li><a href="#">Configuración</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Ayuda y Soporte</h5>
+                    <ul>
+                        <li><a href="#">Centro de Ayuda</a></li>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                        <li><a href="#">Envíos y Devoluciones</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Conéctate</h5>
+                    <div class="iconos-sociales-pie-pagina">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="enlaces-inferiores-pie-pagina text-center">
+                <a href="#">Trabaja con nosotros</a>
+                <a href="#">Términos y Condiciones</a>
+                <a href="#">Política de Privacidad</a>
+                <a href="#">Aviso Legal</a>
+            </div>
+            <p class="derechos-autor-pie-pagina">Copyright © 2024 MercadoNEA S.A. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS (bundle con Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Elementos de la Billetera ---
+            const saldoActualElemento = document.getElementById('saldoActual');
+            const botonAnadirFondos = document.getElementById('botonAnadirFondos');
+
+            // Card options for quick access
+            const cardEnviarDinero = document.getElementById('cardEnviarDinero');
+            const cardSolicitarDinero = document.getElementById('cardSolicitarDinero');
+            const cardPagarServicios = document.getElementById('cardPagarServicios');
+            const cardRecargasVirtuales = document.getElementById('cardRecargasVirtuales');
+            const cardCargarSube = document.getElementById('cardCargarSube');
+            // La cardMiAliasCvu ahora tiene data-bs-toggle y data-bs-target para el modal
+            const cardMiAliasCvu = document.getElementById('cardMiAliasCvu');
+
+            const botonAnadirNuevaTarjeta = document.getElementById('botonAnadirNuevaTarjeta'); // Nuevo botón para añadir tarjeta
+            const listaTarjetas = document.getElementById('listaTarjetas'); // Lista para añadir tarjetas
+
+            let saldoActual = 5000.00; // Saldo inicial simulado
+
+            // --- Modales ---
+            const modalAnadirFondos = new bootstrap.Modal(document.getElementById('modalAnadirFondos'));
+            const inputMontoAnadir = document.getElementById('inputMontoAnadir');
+            const confirmarAnadirFondos = document.getElementById('confirmarAnadirFondos');
+
+            const modalEnviarDinero = new bootstrap.Modal(document.getElementById('modalEnviarDinero'));
+            const inputDestinatario = document.getElementById('inputDestinatario');
+            const inputMontoEnviar = document.getElementById('inputMontoEnviar');
+            const confirmarEnviarDinero = document.getElementById('confirmarEnviarDinero');
+
+            const modalSolicitarDinero = new bootstrap.Modal(document.getElementById('modalSolicitarDinero'));
+            const inputSolicitante = document.getElementById('inputSolicitante');
+            const inputMontoSolicitar = document.getElementById('inputMontoSolicitar');
+            const confirmarSolicitarDinero = document.getElementById('confirmarSolicitarDinero');
+
+            const modalPagarServicios = new bootstrap.Modal(document.getElementById('modalPagarServicios'));
+            const selectTipoServicio = document.getElementById('selectTipoServicio');
+            const inputNumeroFactura = document.getElementById('inputNumeroFactura');
+            const inputMontoServicio = document.getElementById('inputMontoServicio');
+            const confirmarPagarServicios = document.getElementById('confirmarPagarServicios');
+
+            const modalRecargasVirtuales = new bootstrap.Modal(document.getElementById('modalRecargasVirtuales'));
+            const selectOperador = document.getElementById('selectOperador');
+            const inputNumeroCelular = document.getElementById('inputNumeroCelular');
+            const inputMontoRecarga = document.getElementById('inputMontoRecarga');
+            const confirmarRecargaVirtual = document.getElementById('confirmarRecargaVirtual');
+
+            const modalCargarSube = new bootstrap.Modal(document.getElementById('modalCargarSube'));
+            const inputNumeroSube = document.getElementById('inputNumeroSube');
+            const inputMontoSube = document.getElementById('inputMontoSube');
+            const confirmarCargarSube = document.getElementById('confirmarCargarSube');
+
+            const modalAnadirNuevaTarjeta = new bootstrap.Modal(document.getElementById('modalAnadirNuevaTarjeta')); // Nuevo modal
+            const inputNumeroTarjeta = document.getElementById('inputNumeroTarjeta');
+            const inputFechaVencimiento = document.getElementById('inputFechaVencimiento');
+            const inputCvv = document.getElementById('inputCvv');
+            const inputNombreTitular = document.getElementById('inputNombreTitular');
+            const confirmarAnadirTarjeta = document.getElementById('confirmarAnadirTarjeta');
+
+            // Nuevo modal para Alias y CVU
+            const modalMiAliasCvu = new bootstrap.Modal(document.getElementById('modalMiAliasCvu'));
+            const miAliasModal = document.getElementById('miAliasModal');
+            const miCvuModal = document.getElementById('miCvuModal');
+
+
+            const mensajeAlerta = document.getElementById('mensajeAlerta');
+
+            // --- Funciones de Utilidad para Modales y Mensajes ---
+            function mostrarMensaje(mensaje, tipo = 'exito') {
+                mensajeAlerta.textContent = mensaje;
+                mensajeAlerta.classList.remove('error'); // Reset class
+                if (tipo === 'error') {
+                    mensajeAlerta.classList.add('error');
+                }
+                mensajeAlerta.classList.add('mostrar');
+                setTimeout(() => {
+                    mensajeAlerta.classList.remove('mostrar');
+                }, 3000); // El mensaje desaparece después de 3 segundos
+            }
+
+            // Función para copiar al portapapeles
+            function copiarAlPortapapeles(texto) {
+                const textarea = document.createElement('textarea');
+                textarea.value = texto;
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    mostrarMensaje('¡Copiado al portapapeles!', 'exito');
+                } catch (err) {
+                    console.error('Error al copiar: ', err);
+                    mostrarMensaje('No se pudo copiar el texto.', 'error');
+                }
+                document.body.removeChild(textarea);
+            }
+
+            // --- Lógica de Billetera ---
+            function actualizarSaldo() {
+                saldoActualElemento.textContent = `$ ${saldoActual.toFixed(2).replace('.', ',')}`;
+            }
+
+            // --- Event Listeners para Añadir Fondos ---
+            botonAnadirFondos.addEventListener('click', function () {
+                modalAnadirFondos.show();
+                inputMontoAnadir.value = ''; // Limpiar input
+            });
+
+            confirmarAnadirFondos.addEventListener('click', function () {
+                const monto = parseFloat(inputMontoAnadir.value);
+                if (!isNaN(monto) && monto > 0) {
+                    saldoActual += monto;
+                    actualizarSaldo();
+                    mostrarMensaje(`Se han añadido $ ${monto.toFixed(2).replace('.', ',')} a tu billetera.`, 'exito');
+                    modalAnadirFondos.hide();
+                    // Aquí se añadiría la lógica para registrar la transacción
+                } else {
+                    mostrarMensaje('Por favor, ingresa una cantidad válida.', 'error');
+                }
+            });
+
+            // --- Event Listeners para Opciones de Billetera (Cards) ---
+            cardEnviarDinero.addEventListener('click', function () {
+                modalEnviarDinero.show();
+                inputDestinatario.value = '';
+                inputMontoEnviar.value = '';
+            });
+
+            confirmarEnviarDinero.addEventListener('click', function () {
+                const destinatario = inputDestinatario.value.trim();
+                const monto = parseFloat(inputMontoEnviar.value);
+
+                if (destinatario && !isNaN(monto) && monto > 0 && saldoActual >= monto) {
+                    saldoActual -= monto;
+                    actualizarSaldo();
+                    mostrarMensaje(`Se enviaron $ ${monto.toFixed(2).replace('.', ',')} a ${destinatario}.`, 'exito');
+                    modalEnviarDinero.hide();
+                } else if (saldoActual < monto) {
+                    mostrarMensaje('Saldo insuficiente.', 'error');
+                } else {
+                    mostrarMensaje('Por favor, completa todos los campos con valores válidos.', 'error');
+                }
+            });
+
+            cardSolicitarDinero.addEventListener('click', function () {
+                modalSolicitarDinero.show();
+                inputSolicitante.value = '';
+                inputMontoSolicitar.value = '';
+            });
+
+            confirmarSolicitarDinero.addEventListener('click', function () {
+                const solicitante = inputSolicitante.value.trim();
+                const monto = parseFloat(inputMontoSolicitar.value);
+
+                if (solicitante && !isNaN(monto) && monto > 0) {
+                    mostrarMensaje(`Se envió una solicitud de $ ${monto.toFixed(2).replace('.', ',')} a ${solicitante}.`, 'exito');
+                    modalSolicitarDinero.hide();
+                } else {
+                    mostrarMensaje('Por favor, completa todos los campos con valores válidos.', 'error');
+                }
+            });
+
+            cardPagarServicios.addEventListener('click', function () {
+                modalPagarServicios.show();
+                selectTipoServicio.value = '';
+                inputNumeroFactura.value = '';
+                inputMontoServicio.value = '';
+            });
+
+            confirmarPagarServicios.addEventListener('click', function () {
+                const tipoServicio = selectTipoServicio.value;
+                const numeroFactura = inputNumeroFactura.value.trim();
+                const monto = parseFloat(inputMontoServicio.value);
+
+                if (tipoServicio && numeroFactura && !isNaN(monto) && monto > 0 && saldoActual >= monto) {
+                    saldoActual -= monto;
+                    actualizarSaldo();
+                    mostrarMensaje(`Se pagaron $ ${monto.toFixed(2).replace('.', ',')} del servicio de ${tipoServicio.toUpperCase()}.`, 'exito');
+                    modalPagarServicios.hide();
+                } else if (saldoActual < monto) {
+                    mostrarMensaje('Saldo insuficiente para pagar el servicio.', 'error');
+                } else {
+                    mostrarMensaje('Por favor, completa todos los campos para pagar el servicio.', 'error');
+                }
+            });
+
+            cardRecargasVirtuales.addEventListener('click', function () {
+                modalRecargasVirtuales.show();
+                selectOperador.value = '';
+                inputNumeroCelular.value = '';
+                inputMontoRecarga.value = '';
+            });
+
+            confirmarRecargaVirtual.addEventListener('click', function () {
+                const operador = selectOperador.value;
+                const numeroCelular = inputNumeroCelular.value.trim();
+                const monto = parseFloat(inputMontoRecarga.value);
+
+                if (operador && numeroCelular && !isNaN(monto) && monto > 0 && saldoActual >= monto) {
+                    saldoActual -= monto;
+                    actualizarSaldo();
+                    mostrarMensaje(`Se recargaron $ ${monto.toFixed(2).replace('.', ',')} al ${numeroCelular} (${operador.toUpperCase()}).`, 'exito');
+                    modalRecargasVirtuales.hide();
+                } else if (saldoActual < monto) {
+                    mostrarMensaje('Saldo insuficiente para realizar la recarga.', 'error');
+                } else {
+                    mostrarMensaje('Por favor, completa todos los campos para la recarga virtual.', 'error');
+                }
+            });
+
+            cardCargarSube.addEventListener('click', function () {
+                modalCargarSube.show();
+                inputNumeroSube.value = '';
+                inputMontoSube.value = '';
+            });
+
+            confirmarCargarSube.addEventListener('click', function () {
+                const numeroSube = inputNumeroSube.value.trim();
+                const monto = parseFloat(inputMontoSube.value);
+
+                if (numeroSube && !isNaN(monto) && monto > 0 && saldoActual >= monto) {
+                    saldoActual -= monto;
+                    actualizarSaldo();
+                    mostrarMensaje(`Se cargaron $ ${monto.toFixed(2).replace('.', ',')} a la tarjeta SUBE ${numeroSube}.`, 'exito');
+                    modalCargarSube.hide();
+                } else if (saldoActual < monto) {
+                    mostrarMensaje('Saldo insuficiente para cargar la SUBE.', 'error');
+                } else {
+                    mostrarMensaje('Por favor, ingresa el número de SUBE y un monto válido.', 'error');
+                }
+            });
+
+            // --- Lógica para copiar Alias/CVU (ahora en el modal) ---
+            document.querySelectorAll('.btn-copiar').forEach(button => {
+                button.addEventListener('click', function () {
+                    const targetId = this.getAttribute('data-target');
+                    const textoACopiar = document.getElementById(targetId).textContent;
+                    copiarAlPortapapeles(textoACopiar);
+                });
+            });
+
+            // --- Lógica para Añadir Nueva Tarjeta (Simulacro) ---
+            botonAnadirNuevaTarjeta.addEventListener('click', function () {
+                modalAnadirNuevaTarjeta.show();
+                inputNumeroTarjeta.value = '';
+                inputFechaVencimiento.value = '';
+                inputCvv.value = '';
+                inputNombreTitular.value = '';
+            });
+
+            confirmarAnadirTarjeta.addEventListener('click', function () {
+                const numeroTarjeta = inputNumeroTarjeta.value.trim();
+                const fechaVencimiento = inputFechaVencimiento.value.trim();
+                const cvv = inputCvv.value.trim();
+                const nombreTitular = inputNombreTitular.value.trim();
+
+                if (numeroTarjeta && fechaVencimiento && cvv && nombreTitular) {
+                    // Simular la adición de la tarjeta
+                    const ultimosCuatroDigitos = numeroTarjeta.slice(-4);
+                    const tipoTarjeta = numeroTarjeta.startsWith('4') ? 'Visa' : (numeroTarjeta.startsWith('5') ? 'Mastercard' : 'Desconocida');
+                    const iconoTarjeta = tipoTarjeta === 'Visa' ? 'fab fa-cc-visa text-primary' : (tipoTarjeta === 'Mastercard' ? 'fab fa-cc-mastercard text-warning' : 'fas fa-credit-card text-secondary');
+
+                    const nuevaTarjetaHtml = `
+                        <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent border-0 px-0 py-2">
+                            <span class="d-flex align-items-center">
+                                <i class="${iconoTarjeta} fs-4 me-3"></i>
+                                ${tipoTarjeta} **** **** **** ${ultimosCuatroDigitos}
+                            </span>
+                            <button class="btn btn-sm btn-outline-danger">Eliminar</button>
+                        </li>
+                    `;
+                    listaTarjetas.insertAdjacentHTML('beforeend', nuevaTarjetaHtml);
+
+                    mostrarMensaje('¡Tarjeta añadida con éxito!', 'exito');
+                    modalAnadirNuevaTarjeta.hide();
+                } else {
+                    mostrarMensaje('Por favor, completa todos los campos de la tarjeta.', 'error');
+                }
+            });
+
+
+            // --- Lógica del Modal de Ubicación ---
+            const textoUbicacionActual = document.getElementById('textoUbicacionActual');
+            const inputCodigoPostal = document.getElementById('inputCodigoPostal');
+            const botonUsarCodigoPostal = document.getElementById('botonUsarCodigoPostal');
+            const enlaceNoSeCodigo = document.getElementById('enlaceNoSeCodigo');
+            const modalUbicacion = new bootstrap.Modal(document.getElementById('modalUbicacion'));
+            const botonModalUbicacion = document.getElementById('botonModalUbicacion');
+
+            botonModalUbicacion.addEventListener('click', function (e) {
+                e.preventDefault();
+                modalUbicacion.show();
+                inputCodigoPostal.value = textoUbicacionActual.textContent === 'Resistencia, Chaco' ? '' : textoUbicacionActual.textContent;
+            });
+
+            botonUsarCodigoPostal.addEventListener('click', function () {
+                const codigoPostal = inputCodigoPostal.value.trim();
+                if (codigoPostal) {
+                    textoUbicacionActual.textContent = codigoPostal;
+                    modalUbicacion.hide();
+                } else {
+                    mostrarMensaje('Por favor, ingresa un código postal.', 'error');
+                }
+            });
+
+            enlaceNoSeCodigo.addEventListener('click', function (event) {
+                event.preventDefault();
+                console.log('Puedes buscar tu código postal en el sitio web del correo local.');
+                modalUbicacion.hide();
+            });
+
+            // --- Lógica del menú móvil ---
+            const botonMenuMovil = document.getElementById('botonMenuMovil');
+            const neNavbarNav = document.getElementById('neNavbarNav');
+
+            // No es necesario un listener adicional si ya usas data-bs-toggle="collapse" en el botón
+            // Bootstrap ya maneja el toggle de la clase 'show' en el elemento colapsable
+        });
+    </script>
+</body>
+
+</html>

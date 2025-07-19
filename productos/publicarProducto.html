@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MercadoNEA - Publicar un Producto</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        xintegrity="sha512-SnH5WK+bZxgPHs44jOVpLqN2Y/NoLpYkS1jB+x7jXyG2W3I6/N9t/JcK7D7FhM2J44zF3C+G3G3wG3G3w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Fuentes de Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        /* Barra de Navegación Principal */
+        .ne-barra-navegacion {
+            background-color: #444;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .ne-barra-navegacion .navbar-brand img {
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+
+        .ne-barra-navegacion .form-control {
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            height: 40px;
+            font-size: 16px;
+            padding-left: 15px;
+            background-color: #fff;
+        }
+
+        .ne-barra-navegacion .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        .ne-barra-navegacion .btn-search {
+            background-color: #FF7F00;
+            border: none;
+            color: #fff;
+            padding: 0 15px;
+            height: 40px;
+            border-radius: 0 4px 4px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        .ne-barra-navegacion .nav-link {
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            padding: 0.5rem 0.8rem;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .ne-texto-pequeno {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .ne-barra-navegacion .ne-icono-ubicacion {
+            font-size: 18px;
+            margin-right: 5px;
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .input-group .form-control {
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .ne-barra-navegacion .input-group .input-group-text {
+            background-color: #FF7F00;
+            border: 1px solid #FF7F00;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        /* Carrito de Compras en la Navegación */
+        .ne-cart-icon-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Adjust spacing as needed */
+        }
+
+        .ne-cart-icon-container .fa-shopping-cart {
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .ne-cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #FF7F00;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+            line-height: 1;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Contenedor de enlaces de usuario en la barra principal */
+        .ne-user-links {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Espacio entre el carrito y los enlaces */
+        }
+
+        .ne-user-links .nav-link {
+            padding: 0.5rem 0.8rem;
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-user-links .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-user-links .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+
+        /* Barra de Navegación Secundaria */
+        .ne-barra-navegacion-secundaria {
+            background-color: #f8f9fa;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid #eee;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link {
+            font-size: 14px;
+            color: #666;
+            padding: 0.3rem 0.8rem;
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio i {
+            font-size: 16px;
+            margin-right: 5px;
+            color: #00a650;
+        }
+
+        /* Contenedor principal de Publicar Producto */
+        .ne-contenedor-publicar {
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
+
+        .ne-contenedor-publicar h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .ne-contenedor-publicar p.lead {
+            font-size: 1.1rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* Sección del Formulario de Publicación */
+        .ne-seccion-formulario-publicar {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+        }
+
+        .ne-seccion-formulario-publicar .form-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .ne-seccion-formulario-publicar .form-control,
+        .ne-seccion-formulario-publicar .form-select {
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            font-size: 1rem;
+            box-shadow: none;
+        }
+
+        .ne-seccion-formulario-publicar .form-control:focus,
+        .ne-seccion-formulario-publicar .form-select:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        .ne-seccion-formulario-publicar .btn-submit {
+            background-color: #FF7F00;
+            border: none;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .ne-seccion-formulario-publicar .btn-submit:hover {
+            background-color: #E66E00;
+        }
+
+        /* Estilos para la carga de imágenes */
+        .area-carga-imagen {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .area-carga-imagen:hover {
+            border-color: #FF7F00;
+        }
+
+        .area-carga-imagen i {
+            font-size: 3rem;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .area-carga-imagen p {
+            color: #888;
+            margin-bottom: 0;
+        }
+
+        .contenedor-previsualizacion-imagen {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .previsualizacion-imagen {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .previsualizacion-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .previsualizacion-imagen .btn-eliminar-imagen {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(255, 0, 0, 0.7);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        /* Pie de Página */
+        .ne-pie-pagina {
+            background-color: #333;
+            padding: 40px 0 20px;
+            border-top: 1px solid #444;
+            color: #ddd;
+        }
+
+        .ne-pie-pagina .titulo-pie-pagina {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #FF7F00;
+        }
+
+        .ne-pie-pagina ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .ne-pie-pagina ul li {
+            margin-bottom: 8px;
+        }
+
+        .ne-pie-pagina ul li a {
+            color: #ccc;
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina ul li a:hover {
+            color: #FF7F00;
+        }
+
+        .ne-pie-pagina .iconos-sociales-pie-pagina a {
+            color: #FF7F00;
+            font-size: 20px;
+            margin-right: 15px;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina .iconos-sociales-pie-pagina a:hover {
+            color: #fff;
+        }
+
+        .ne-pie-pagina .derechos-autor-pie-pagina {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .ne-pie-pagina .enlaces-inferiores-pie-pagina a {
+            color: #ccc;
+            font-size: 12px;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .ne-pie-pagina .enlaces-inferiores-pie-pagina a:hover {
+            color: #FF7F00;
+        }
+
+        /* Estilos del Modal de Ubicación */
+        #modalUbicacion .modal-content {
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        #modalUbicacion .modal-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            padding: 15px 20px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        #modalUbicacion .modal-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.25rem;
+        }
+
+        #modalUbicacion .btn-close {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        #modalUbicacion .btn-close:hover {
+            opacity: 1;
+        }
+
+        #modalUbicacion .modal-body {
+            padding: 20px;
+        }
+
+        #modalUbicacion .form-label {
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        #modalUbicacion .form-control {
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            height: auto;
+        }
+
+        #modalUbicacion .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        #modalUbicacion .input-group .btn-primary {
+            background-color: #FF7F00;
+            border-color: #FF7F00;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 0 4px 4px 0;
+            font-weight: 600;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        #modalUbicacion .input-group .btn-primary:hover {
+            background-color: #E66E00;
+            border-color: #E66E00;
+        }
+
+        #modalUbicacion #enlaceNoSeCodigo {
+            color: #FF7F00;
+            font-weight: 500;
+            margin-top: 15px;
+            display: block;
+            text-align: center;
+            transition: color 0.2s ease;
+        }
+
+        #modalUbicacion #enlaceNoSeCodigo:hover {
+            color: #E66E00;
+        }
+
+        /* Estilos para el progreso de pasos */
+        .indicador-progreso {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .indicador-progreso::before {
+            content: '';
+            position: absolute;
+            width: calc(100% - 40px);
+            /* Ajusta el ancho de la línea */
+            height: 2px;
+            background-color: #ddd;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .paso-progreso {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .circulo-progreso {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ccc;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .circulo-progreso.activo {
+            background-color: #FF7F00;
+            /* Color naranja principal */
+        }
+
+        .circulo-progreso.completado {
+            background-color: #28a745;
+            /* Verde para completado */
+        }
+
+        .texto-progreso {
+            font-size: 0.85rem;
+            color: #888;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        .texto-progreso.activo,
+        .texto-progreso.completado {
+            color: #333;
+            font-weight: 600;
+        }
+
+        /* Color para los títulos de los pasos */
+        .text-mercado-nea-primary {
+            color: #FF7F00 !important;
+            /* Usamos !important para asegurar que sobrescriba text-primary de Bootstrap */
+        }
+
+        /* Tooltip para la comisión */
+        .icono-tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            margin-left: 5px;
+        }
+
+        .icono-tooltip .texto-tooltip {
+            visibility: hidden;
+            width: 280px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            /* Posiciona el tooltip arriba del icono */
+            left: 50%;
+            margin-left: -140px;
+            /* Centra el tooltip */
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .icono-tooltip .texto-tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .icono-tooltip:hover .texto-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Barra de Navegación Principal -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion">
+        <div class="container-fluid container">
+            <a class="navbar-brand" href="#">
+                <img src="https://placehold.co/150x40/FF7F00/ffffff?text=MercadoNEA+Logo" alt="MercadoNEA Logo">
+            </a>
+            <form class="d-flex flex-grow-1 mx-3 position-relative">
+                <input class="form-control" type="search" placeholder="Buscar productos, marcas y más..."
+                    aria-label="Search">
+                <button class="btn btn-search" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <div class="ne-banner-envio-gratis d-none d-lg-flex align-items-center">
+                <img src="https://placehold.co/25x25/2a4073/ffffff?text=📦" alt="Caja de envío">
+                <span class="ne-texto-pequeno">EN TU PRIMERA COMPRA EXCLUSIVO EN APP</span>
+            </div>
+            <button class="navbar-toggler mt-2 bg-light-subtle" type="button" data-bs-toggle="collapse"
+                data-bs-target="#neNavbarNav" aria-controls="neNavbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Barra de Navegación Secundaria -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion-secundaria">
+        <div class="container-fluid container">
+            <a class="ne-info-envio me-auto d-none d-lg-flex align-items-center" href="#" data-bs-toggle="modal"
+                data-bs-target="#modalUbicacion">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    Enviar a <span class="ne-texto-pequeno text-warning" id="textoUbicacionActual">Resistencia,
+                        Chaco</span>
+                </div>
+            </a>
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCategories" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategories">
+                        <li><a class="dropdown-item" href="#">Electrónica</a></li>
+                        <li><a class="dropdown-item" href="#">Moda y Accesorios</a></li>
+                        <li><a class="dropdown-item" href="#">Hogar y Muebles</a></li>
+                        <li><a class="dropdown-item" href="#">Deportes y Fitness</a></li>
+                        <li><a class="dropdown-item" href="#">Herramientas y Construcción</a></li>
+                        <li><a class="dropdown-item" href="#">Libros, Revistas y Comics</a></li>
+                        <li><a class="dropdown-item" href="#">Juguetes y Bebés</a></li>
+                        <li><a class="dropdown-item" href="#">Belleza y Cuidado Personal</a></li>
+                        <li><a class="dropdown-item" href="#">Accesorios para Vehículos</a></li>
+                        <li><a class="dropdown-item" href="#">Animales y Mascotas</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Ver todas las categorías</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Historial</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+            </ul>
+            <div class="d-none d-lg-flex align-items-center ms-auto">
+                <a class="nav-link bold" href="#">Crea tu cuenta</a>
+                <a class="nav-link" href="#">Ingresa</a>
+                <a class="nav-link" href="#"><i class="fas fa-shopping-cart fa-lg"></i> Mis compras</a>
+            </div>
+            <!-- Contenido para móvil -->
+            <div class="collapse navbar-collapse" id="neNavbarNav">
+                <ul class="navbar-nav ms-auto d-lg-none">
+                    <li class="nav-item"><a class="nav-link bold" href="#">Crea tu cuenta</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ingresa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mis compras</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mi carrito</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Categorías</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Historial</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container ne-contenedor-publicar">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h1>Publicar un Producto</h1>
+                <p class="lead">Completa los detalles de tu producto para que los compradores lo encuentren fácilmente.
+                </p>
+
+                <div class="ne-seccion-formulario-publicar">
+                    <!-- Indicador de Progreso -->
+                    <div class="indicador-progreso">
+                        <div class="paso-progreso">
+                            <div class="circulo-progreso activo" id="indicadorPaso1">1</div>
+                            <span class="texto-progreso activo" id="textoPaso1">Información Básica</span>
+                        </div>
+                        <div class="paso-progreso">
+                            <div class="circulo-progreso" id="indicadorPaso2">2</div>
+                            <span class="texto-progreso" id="textoPaso2">Detalles</span>
+                        </div>
+                        <div class="paso-progreso">
+                            <div class="circulo-progreso" id="indicadorPaso3">3</div>
+                            <span class="texto-progreso" id="textoPaso3">Imágenes</span>
+                        </div>
+                        <div class="paso-progreso">
+                            <div class="circulo-progreso" id="indicadorPaso4">4</div>
+                            <span class="texto-progreso" id="textoPaso4">Envío</span>
+                        </div>
+                        <div class="paso-progreso">
+                            <div class="circulo-progreso" id="indicadorPaso5">5</div>
+                            <span class="texto-progreso" id="textoPaso5">Confirmación</span>
+                        </div>
+                    </div>
+
+                    <form id="formularioPublicarProducto">
+                        <!-- Paso 1: Información Básica -->
+                        <div id="paso1" class="paso-formulario">
+                            <h2 class="mb-4 text-mercado-nea-primary"><i class="fas fa-info-circle me-2"></i>
+                                Información Básica</h2>
+                            <div class="mb-3">
+                                <label for="nombreProducto" class="form-label">Nombre del Producto <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="nombreProducto"
+                                    placeholder="Ej: Smartphone Samsung Galaxy A54" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="categoriaProducto" class="form-label">Categoría <span
+                                        class="text-danger">*</span></label>
+                                <select class="form-select" id="categoriaProducto" required>
+                                    <option value="">Selecciona una categoría</option>
+                                    <option value="electronica">Electrónica</option>
+                                    <option value="moda">Moda y Accesorios</option>
+                                    <option value="hogar">Hogar y Muebles</option>
+                                    <option value="deportes">Deportes y Fitness</option>
+                                    <option value="herramientas">Herramientas y Construcción</option>
+                                    <option value="libros">Libros, Revistas y Comics</option>
+                                    <option value="juguetes">Juguetes y Bebés</option>
+                                    <option value="belleza">Belleza y Cuidado Personal</option>
+                                    <option value="vehiculos">Accesorios para Vehículos</option>
+                                    <option value="animales">Animales y Mascotas</option>
+                                    <option value="otros">Otros</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Condición <span class="text-danger">*</span></label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="condicionProducto"
+                                            id="condicionNuevo" value="new" checked>
+                                        <label class="form-check-label" for="condicionNuevo">Nuevo</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="condicionProducto"
+                                            id="condicionUsado" value="used">
+                                        <label class="form-check-label" for="condicionUsado">Usado</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="precioDeseado" class="form-label">
+                                    Precio (lo que quieres recibir) <span class="text-danger">*</span>
+                                    <span class="icono-tooltip">
+                                        <i class="fas fa-question-circle text-muted"></i>
+                                        <span class="texto-tooltip">
+                                            MercadoNEA cobra una comisión que varía según el método de pago:
+                                            <ul>
+                                                <li>5% para Transferencia / QR</li>
+                                                <li>10% para Tarjeta de Crédito / Débito</li>
+                                            </ul>
+                                            El "Precio a Publicar" se calcula para que recibas el monto deseado,
+                                            considerando la comisión más alta si aceptas múltiples métodos de pago.
+                                        </span>
+                                    </span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="precioDeseado" placeholder="0.00"
+                                        step="0.01" min="0" required>
+                                    <span class="input-group-text">ARS</span>
+                                </div>
+                                <p class="mt-2 text-muted" id="textoPrecioFinalPublicacion" style="display: none;">
+                                    Precio a Publicar: <span class="fw-bold text-success"
+                                        id="precioCalculadoPublicacion"></span>
+                                </p>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Métodos de Pago Aceptados <span
+                                        class="text-danger">*</span></label>
+                                <div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="metodosPago"
+                                            id="pagoTransferenciaQR" value="transferencia_qr" checked>
+                                        <label class="form-check-label" for="pagoTransferenciaQR">
+                                            Transferencia / QR (5% de comisión)
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="metodosPago"
+                                            id="pagoTarjetaCreditoDebito" value="tarjeta_credito_debito">
+                                        <label class="form-check-label" for="pagoTarjetaCreditoDebito">
+                                            Tarjeta de Crédito / Débito (10% de comisión)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Paso 2: Detalles del Producto -->
+                        <div id="paso2" class="paso-formulario" style="display: none;">
+                            <h2 class="mb-4 text-mercado-nea-primary"><i class="fas fa-clipboard-list me-2"></i>
+                                Detalles del Producto</h2>
+                            <div class="mb-3">
+                                <label for="descripcionProducto" class="form-label">Descripción del Producto <span
+                                        class="text-danger">*</span></label>
+                                <textarea class="form-control" id="descripcionProducto" rows="5"
+                                    placeholder="Describe tu producto en detalle: características, estado, etc."
+                                    required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="marcaProducto" class="form-label">Marca (Opcional)</label>
+                                <input type="text" class="form-control" id="marcaProducto"
+                                    placeholder="Ej: Samsung, Nike, Bosch">
+                            </div>
+                            <div class="mb-3">
+                                <label for="modeloProducto" class="form-label">Modelo (Opcional)</label>
+                                <input type="text" class="form-control" id="modeloProducto"
+                                    placeholder="Ej: Galaxy S23 Ultra, Air Max 90">
+                            </div>
+                            <div class="mb-3">
+                                <label for="stockProducto" class="form-label">Cantidad en Stock <span
+                                        class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="stockProducto" placeholder="1" min="1"
+                                    required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">Características (Opcional)</label>
+                                <div id="contenedorCaracteristicas">
+                                    <!-- Las características se añadirán aquí dinámicamente -->
+                                </div>
+                                <button type="button" class="btn btn-outline-secondary btn-sm mt-2"
+                                    id="btnAgregarCaracteristica">
+                                    <i class="fas fa-plus-circle me-1"></i> Agregar Característica
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Paso 3: Imágenes del Producto -->
+                        <div id="paso3" class="paso-formulario" style="display: none;">
+                            <h2 class="mb-4 text-mercado-nea-primary"><i class="fas fa-image me-2"></i> Imágenes del
+                                Producto</h2>
+                            <div class="mb-4">
+                                <label for="imagenesProducto" class="form-label">Cargar Imágenes <span
+                                        class="text-danger">*</span></label>
+                                <div class="area-carga-imagen" id="areaCargaImagen">
+                                    <input type="file" id="imagenesProducto" accept="image/*" multiple hidden>
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Arrastra y suelta imágenes aquí o haz clic para seleccionar</p>
+                                    <small class="text-muted">Máximo 5 imágenes. Formatos: JPG, PNG. Tamaño máximo: 2MB
+                                        por
+                                        imagen.</small>
+                                </div>
+                                <div class="contenedor-previsualizacion-imagen" id="contenedorPrevisualizacionImagen">
+                                    <!-- Image previews will be added here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Paso 4: Envío y Ubicación -->
+                        <div id="paso4" class="paso-formulario" style="display: none;">
+                            <h2 class="mb-4 text-mercado-nea-primary"><i class="fas fa-truck me-2"></i> Envío y
+                                Ubicación</h2>
+                            <div class="mb-3">
+                                <label class="form-label">Opciones de Envío <span class="text-danger">*</span></label>
+                                <div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="opcionEnvio"
+                                            id="envioDomicilio" value="Envío a domicilio" checked>
+                                        <label class="form-check-label" for="envioDomicilio">
+                                            Envío a Domicilio
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="opcionEnvio"
+                                            id="retiroPersona" value="Retiro en persona">
+                                        <label class="form-check-label" for="retiroPersona">
+                                            Retiro en persona
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input class="form-check-input" type="checkbox" id="ofrecerEnvioGratis">
+                                <label class="form-check-label" for="ofrecerEnvioGratis">
+                                    Ofrecer envío gratis
+                                </label>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ubicacionProducto" class="form-label">Ubicación del Producto <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="ubicacionProducto"
+                                    placeholder="Ej: Resistencia, Chaco" required>
+                            </div>
+                        </div>
+
+                        <!-- Paso 5: Confirmación y Resumen -->
+                        <div id="paso5" class="paso-formulario" style="display: none;">
+                            <h2 class="mb-4 text-mercado-nea-primary"><i class="fas fa-check-circle me-2"></i>
+                                Confirmación y Resumen</h2>
+                            <p class="text-muted">Revisa todos los detalles antes de publicar tu producto.</p>
+
+                            <div class="card mb-4">
+                                <div class="card-header bg-light fw-bold">Detalles del Producto</div>
+                                <div class="card-body" id="resumenDetalles">
+                                    <!-- Los detalles se cargarán aquí dinámicamente -->
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header bg-light fw-bold">Imágenes del Producto</div>
+                                <div class="card-body">
+                                    <div class="row g-2" id="resumenImagenes">
+                                        <!-- Las imágenes se cargarán aquí dinámicamente -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Botones de Navegación -->
+                        <div class="d-flex justify-content-between mt-4 border-top pt-3">
+                            <button type="button" class="btn btn-secondary" id="btnAnterior" style="display: none;">
+                                <i class="fas fa-arrow-left me-2"></i> Anterior
+                            </button>
+                            <button type="button" class="btn btn-primary ms-auto" id="btnSiguiente">
+                                Siguiente <i class="fas fa-arrow-right ms-2"></i>
+                            </button>
+                            <button type="submit" class="btn btn-success ms-auto" id="btnPublicar"
+                                style="display: none;">
+                                <i class="fas fa-check-circle me-2"></i> Publicar Producto
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Ubicación -->
+    <div class="modal fade" id="modalUbicacion" tabindex="-1" aria-labelledby="modalUbicacionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title" id="modalUbicacionLabel">Elegí dónde recibir tus compras</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <p class="text-muted mb-3">Podrás ver costos y tiempos de entrega precisos en todo lo que busques.
+                    </p>
+                    <div class="mb-3">
+                        <label for="inputCodigoPostal" class="form-label">Código Postal</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="inputCodigoPostal"
+                                placeholder="Ingresar un código postal">
+                            <button class="btn btn-primary" type="button" id="btnUsarCodigoPostal">Usar</button>
+                        </div>
+                    </div>
+                    <a href="#" id="enlaceNoSeCodigo" class="text-decoration-none d-block text-center">No sé mi
+                        código</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de Página -->
+    <footer class="ne-pie-pagina">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Acerca de MercadoNEA</h5>
+                    <ul>
+                        <li><a href="#">Nuestra Empresa</a></li>
+                        <li><a href="#">Inversores</a></li>
+                        <li><a href="#">Sustentabilidad</a></li>
+                        <li><a href="#">Novedades</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Mi Cuenta</h5>
+                    <ul>
+                        <li><a href="#">Ingresar</a></li>
+                        <li><a href="#">Registrarse</a></li>
+                        <li><a href="#">Mis pedidos</a></li>
+                        <li><a href="#">Configuración</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Ayuda y Soporte</h5>
+                    <ul>
+                        <li><a href="#">Centro de Ayuda</a></li>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                        <li><a href="#">Envíos y Devoluciones</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Conéctate</h5>
+                    <div class="iconos-sociales-pie-pagina">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="enlaces-inferiores-pie-pagina text-center">
+                <a href="#">Trabaja con nosotros</a>
+                <a href="#">Términos y Condiciones</a>
+                <a href="#">Política de Privacidad</a>
+                <a href="#">Aviso Legal</a>
+            </div>
+            <p class="derechos-autor-pie-pagina">Copyright © 2024 MercadoNEA S.A. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS (bundle con Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Constantes para las tasas de comisión
+            const TASAS_COMISION = {
+                TRANSFERENCIA_QR: 0.05, // 5%
+                TARJETA_CREDITO_DEBITO: 0.10, // 10%
+            };
+
+            // Elementos del DOM (IDs traducidos)
+            const pasosFormulario = document.querySelectorAll('.paso-formulario');
+            const circulosProgreso = document.querySelectorAll('.circulo-progreso');
+            const textosProgreso = document.querySelectorAll('.texto-progreso');
+            const btnAnterior = document.getElementById('btnAnterior');
+            const btnSiguiente = document.getElementById('btnSiguiente');
+            const btnPublicar = document.getElementById('btnPublicar');
+            const formularioPublicarProducto = document.getElementById('formularioPublicarProducto');
+
+            // Elementos del Paso 1
+            const nombreProductoInput = document.getElementById('nombreProducto');
+            const categoriaProductoSelect = document.getElementById('categoriaProducto');
+            const condicionProductoRadios = document.querySelectorAll('input[name="condicionProducto"]');
+            const precioDeseadoInput = document.getElementById('precioDeseado');
+            const precioCalculadoPublicacionSpan = document.getElementById('precioCalculadoPublicacion');
+            const textoPrecioFinalPublicacion = document.getElementById('textoPrecioFinalPublicacion');
+            const metodosPagoCheckboxes = document.querySelectorAll('input[name="metodosPago"]');
+
+            // Elementos del Paso 2
+            const descripcionProductoTextarea = document.getElementById('descripcionProducto');
+            const marcaProductoInput = document.getElementById('marcaProducto');
+            const modeloProductoInput = document.getElementById('modeloProducto');
+            const stockProductoInput = document.getElementById('stockProducto');
+            const contenedorCaracteristicas = document.getElementById('contenedorCaracteristicas');
+            const btnAgregarCaracteristica = document.getElementById('btnAgregarCaracteristica');
+
+            // Elementos del Paso 3 (Imágenes)
+            const areaCargaImagen = document.getElementById('areaCargaImagen');
+            const imagenesProductoInput = document.getElementById('imagenesProducto');
+            const contenedorPrevisualizacionImagen = document.getElementById('contenedorPrevisualizacionImagen');
+            let archivosCargados = []; // Almacena los objetos File
+
+            // Elementos del Paso 4 (Envío)
+            const opcionEnvioRadios = document.querySelectorAll('input[name="opcionEnvio"]');
+            const ofrecerEnvioGratisCheckbox = document.getElementById('ofrecerEnvioGratis');
+            const ubicacionProductoInput = document.getElementById('ubicacionProducto');
+
+            // Elementos del Paso 5 (Resumen)
+            const resumenDetallesDiv = document.getElementById('resumenDetalles');
+            const resumenImagenesDiv = document.getElementById('resumenImagenes');
+
+            // Estado global del formulario
+            let pasoActual = 0; // 0-indexed
+            let datosProducto = {
+                nombreProducto: '',
+                categoriaProducto: '',
+                condicionProducto: 'new', // Valor por defecto
+                precioDeseado: 0,
+                precioCalculadoPublicacion: 0,
+                comisionAplicada: 0,
+                metodosPago: ['transferencia_qr'], // Valor por defecto
+                descripcionProducto: '',
+                marcaProducto: '',
+                modeloProducto: '',
+                stockProducto: 1, // Valor por defecto
+                caracteristicas: [], // [{ nombre: 'Color', valor: 'Rojo' }]
+                imagenes: [], // Almacena base64 de las imágenes para mostrar
+                opcionEnvio: 'Envío a domicilio', // Valor por defecto
+                ofrecerEnvioGratis: false,
+                ubicacionProducto: '',
+            };
+
+            // Elementos del modal de ubicación
+            const textoUbicacionActual = document.getElementById('textoUbicacionActual');
+            const inputCodigoPostal = document.getElementById('inputCodigoPostal');
+            const btnUsarCodigoPostal = document.getElementById('btnUsarCodigoPostal');
+            const enlaceNoSeCodigo = document.getElementById('enlaceNoSeCodigo');
+            const modalUbicacion = new bootstrap.Modal(document.getElementById('modalUbicacion'));
+
+
+            // --- Funciones de Utilidad ---
+
+            function mostrarPaso(indicePaso) {
+                // Ocultar todos los pasos y desmarcar progreso
+                pasosFormulario.forEach((paso, index) => {
+                    paso.style.display = 'none';
+                    circulosProgreso[index].classList.remove('activo', 'completado');
+                    circulosProgreso[index].textContent = index + 1; // Restablecer números
+                    textosProgreso[index].classList.remove('activo', 'completado');
+                });
+
+                // Mostrar el paso actual
+                pasosFormulario[indicePaso].style.display = 'block';
+                circulosProgreso[indicePaso].classList.add('activo');
+                textosProgreso[indicePaso].classList.add('activo');
+
+                // Marcar pasos completados
+                for (let i = 0; i < indicePaso; i++) {
+                    circulosProgreso[i].classList.add('completado');
+                    circulosProgreso[i].innerHTML = '<i class="fas fa-check"></i>'; // Marca de verificación para pasos completados
+                    textosProgreso[i].classList.add('completado');
+                }
+
+                // Mostrar/ocultar botones de navegación
+                btnAnterior.style.display = (indicePaso === 0) ? 'none' : 'inline-block';
+                btnSiguiente.style.display = (indicePaso === pasosFormulario.length - 1) ? 'none' : 'inline-block';
+                btnPublicar.style.display = (indicePaso === pasosFormulario.length - 1) ? 'inline-block' : 'none';
+
+                // Si es el último paso, generar el resumen
+                if (indicePaso === pasosFormulario.length - 1) {
+                    generarResumen();
+                }
+            }
+
+            function validarPaso(indicePaso) {
+                switch (indicePaso) {
+                    case 0: // Paso 1: Información Básica
+                        if (!nombreProductoInput.value.trim()) { console.log('Por favor, ingresa el nombre del producto.'); return false; }
+                        if (!categoriaProductoSelect.value) { console.log('Por favor, selecciona una categoría.'); return false; }
+                        const precioDeseado = parseFloat(precioDeseadoInput.value);
+                        if (isNaN(precioDeseado) || precioDeseado <= 0) { console.log('Por favor, ingresa un precio deseado válido y mayor a cero.'); return false; }
+                        const metodosPagoSeleccionados = Array.from(metodosPagoCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+                        if (metodosPagoSeleccionados.length === 0) { console.log('Por favor, selecciona al menos un método de pago.'); return false; }
+                        return true;
+                    case 1: // Paso 2: Detalles del Producto
+                        if (!descripcionProductoTextarea.value.trim()) { console.log('Por favor, ingresa una descripción para el producto.'); return false; }
+                        const stockProducto = parseInt(stockProductoInput.value);
+                        if (isNaN(stockProducto) || stockProducto <= 0) { console.log('Por favor, ingresa una cantidad en stock válida y mayor a cero.'); return false; }
+                        // Validación de características: al menos una si se han añadido campos
+                        const camposCaracteristica = contenedorCaracteristicas.querySelectorAll('.grupo-caracteristica');
+                        if (camposCaracteristica.length > 0) {
+                            let todasVacias = true;
+                            camposCaracteristica.forEach(grupo => {
+                                const nombre = grupo.querySelector('.input-nombre-caracteristica').value.trim();
+                                const valor = grupo.querySelector('.input-valor-caracteristica').value.trim();
+                                if (nombre !== '' || valor !== '') {
+                                    todasVacias = false;
+                                }
+                            });
+                            if (todasVacias && camposCaracteristica.length > 0) {
+                                console.log('Por favor, completa al menos una característica o elimina los campos vacíos.');
+                                return false;
+                            }
+                        }
+                        return true;
+                    case 2: // Paso 3: Imágenes del Producto
+                        if (archivosCargados.length === 0) { console.log('Por favor, sube al menos una imagen del producto.'); return false; }
+                        return true;
+                    case 3: // Paso 4: Envío y Ubicación
+                        const opcionEnvioSeleccionada = document.querySelector('input[name="opcionEnvio"]:checked');
+                        if (!opcionEnvioSeleccionada) { console.log('Por favor, selecciona una opción de envío.'); return false; }
+                        if (!ubicacionProductoInput.value.trim()) { console.log('Por favor, ingresa la ubicación del producto.'); return false; }
+                        return true;
+                    case 4: // Paso 5: Confirmación (No hay validación de campos, solo confirmación de datos)
+                        return true;
+                    default:
+                        return true;
+                }
+            }
+
+            function actualizarDatosProducto() {
+                datosProducto.nombreProducto = nombreProductoInput.value;
+                datosProducto.categoriaProducto = categoriaProductoSelect.value;
+                datosProducto.condicionProducto = document.querySelector('input[name="condicionProducto"]:checked').value;
+                datosProducto.precioDeseado = parseFloat(precioDeseadoInput.value) || 0;
+                datosProducto.metodosPago = Array.from(metodosPagoCheckboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+
+                datosProducto.descripcionProducto = descripcionProductoTextarea.value;
+                datosProducto.marcaProducto = marcaProductoInput.value;
+                datosProducto.modeloProducto = modeloProductoInput.value;
+                datosProducto.stockProducto = parseInt(stockProductoInput.value) || 1;
+
+                // Recopilar características
+                datosProducto.caracteristicas = [];
+                const camposCaracteristica = contenedorCaracteristicas.querySelectorAll('.grupo-caracteristica');
+                camposCaracteristica.forEach(grupo => {
+                    const nombre = grupo.querySelector('.input-nombre-caracteristica').value.trim();
+                    const valor = grupo.querySelector('.input-valor-caracteristica').value.trim();
+                    if (nombre || valor) { // Solo añadir si al menos uno de los campos no está vacío
+                        datosProducto.caracteristicas.push({ nombre: nombre, valor: valor });
+                    }
+                });
+
+                datosProducto.opcionEnvio = document.querySelector('input[name="opcionEnvio"]:checked')?.value || 'Envío a domicilio';
+                datosProducto.ofrecerEnvioGratis = ofrecerEnvioGratisCheckbox.checked;
+                datosProducto.ubicacionProducto = ubicacionProductoInput.value;
+            }
+
+            function calcularPrecioConComision() {
+                const precioDeseado = parseFloat(precioDeseadoInput.value);
+                let tasaComision = 0;
+
+                const metodosSeleccionados = Array.from(metodosPagoCheckboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+
+                if (metodosSeleccionados.includes('tarjeta_credito_debito')) {
+                    tasaComision = TASAS_COMISION.TARJETA_CREDITO_DEBITO;
+                } else if (metodosSeleccionados.includes('transferencia_qr')) {
+                    tasaComision = TASAS_COMISION.TRANSFERENCIA_QR;
+                }
+
+                let precioCalculado = 0;
+                if (!isNaN(precioDeseado) && precioDeseado >= 0) {
+                    if (tasaComision > 0) {
+                        precioCalculado = precioDeseado / (1 - tasaComision);
+                    } else {
+                        precioCalculado = precioDeseado;
+                    }
+                }
+
+                datosProducto.precioCalculadoPublicacion = parseFloat(precioCalculado.toFixed(2));
+                datosProducto.comisionAplicada = tasaComision * 100;
+
+                if (!isNaN(precioDeseado) && precioDeseado >= 0 && precioDeseado > 0) {
+                    precioCalculadoPublicacionSpan.textContent = `$${datosProducto.precioCalculadoPublicacion.toFixed(2)} ARS`;
+                    textoPrecioFinalPublicacion.style.display = 'block';
+                } else {
+                    textoPrecioFinalPublicacion.style.display = 'none';
+                }
+            }
+
+            function agregarCampoCaracteristica() {
+                const divGrupo = document.createElement('div');
+                divGrupo.classList.add('row', 'mb-2', 'grupo-caracteristica');
+                divGrupo.innerHTML = `
+                    <div class="col-5">
+                        <input type="text" class="form-control input-nombre-caracteristica" placeholder="Ej: Color">
+                    </div>
+                    <div class="col-5">
+                        <input type="text" class="form-control input-valor-caracteristica" placeholder="Ej: Rojo">
+                    </div>
+                    <div class="col-2 d-flex align-items-center">
+                        <button type="button" class="btn btn-danger btn-sm btn-eliminar-caracteristica">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                contenedorCaracteristicas.appendChild(divGrupo);
+
+                divGrupo.querySelector('.btn-eliminar-caracteristica').addEventListener('click', function () {
+                    divGrupo.remove();
+                });
+            }
+
+            function generarResumen() {
+                actualizarDatosProducto(); // Asegurarse de tener los últimos datos
+
+                let detallesHtml = `
+                    <p><strong>Nombre:</strong> ${datosProducto.nombreProducto}</p>
+                    <p><strong>Categoría:</strong> ${datosProducto.categoriaProducto}</p>
+                    <p><strong>Condición:</strong> ${datosProducto.condicionProducto === 'new' ? 'Nuevo' : 'Usado'}</p>
+                    <p><strong>Precio (lo que recibes):</strong> $${datosProducto.precioDeseado.toFixed(2)} ARS</p>
+                    <p><strong>Precio a Publicar:</strong> <span class="fw-bold text-success">$${datosProducto.precioCalculadoPublicacion.toFixed(2)} ARS</span></p>
+                    <p><strong>Comisión Aplicada:</strong> ${datosProducto.comisionAplicada}%</p>
+                    <p><strong>Métodos de Pago:</strong> ${datosProducto.metodosPago.map(method => method === 'transferencia_qr' ? 'Transferencia / QR' : 'Tarjeta de Crédito / Débito').join(', ')}</p>
+                    <p><strong>Descripción:</strong> ${datosProducto.descripcionProducto}</p>
+                    <p><strong>Marca:</strong> ${datosProducto.marcaProducto || 'N/A'}</p>
+                    <p><strong>Modelo:</strong> ${datosProducto.modeloProducto || 'N/A'}</p>
+                    <p><strong>Stock:</strong> ${datosProducto.stockProducto}</p>
+                `;
+
+                if (datosProducto.caracteristicas.length > 0) {
+                    detallesHtml += '<p><strong>Características:</strong></p><ul>';
+                    datosProducto.caracteristicas.forEach(caracteristica => {
+                        detallesHtml += `<li>${caracteristica.nombre}: ${caracteristica.valor}</li>`;
+                    });
+                    detallesHtml += '</ul>';
+                } else {
+                    detallesHtml += '<p><strong>Características:</strong> N/A</p>';
+                }
+
+                detallesHtml += `
+                    <p><strong>Opción de Envío:</strong> ${datosProducto.opcionEnvio}</p>
+                    <p><strong>Envío Gratis:</strong> ${datosProducto.ofrecerEnvioGratis ? 'Sí' : 'No'}</p>
+                    <p><strong>Ubicación:</strong> ${datosProducto.ubicacionProducto}</p>
+                `;
+                resumenDetallesDiv.innerHTML = detallesHtml;
+
+                resumenImagenesDiv.innerHTML = '';
+                if (datosProducto.imagenes.length > 0) {
+                    datosProducto.imagenes.forEach((imgSrc, index) => {
+                        const colDiv = document.createElement('div');
+                        colDiv.classList.add('col-6', 'col-md-4', 'col-lg-3');
+                        colDiv.innerHTML = `
+                            <div class="previsualizacion-imagen" style="width: 100%; height: 120px;">
+                                <img src="${imgSrc}" alt="Imagen ${index + 1}" style="object-fit: contain;">
+                            </div>
+                        `;
+                        resumenImagenesDiv.appendChild(colDiv);
+                    });
+                } else {
+                    resumenImagenesDiv.innerHTML = '<p class="col-12 text-muted">No hay imágenes cargadas.</p>';
+                }
+            }
+
+
+            // --- Manejadores de Eventos ---
+
+            // Inicializar el formulario en el primer paso
+            mostrarPaso(pasoActual);
+            calcularPrecioConComision(); // Calcular precio inicial
+
+            btnSiguiente.addEventListener('click', function () {
+                if (validarPaso(pasoActual)) {
+                    actualizarDatosProducto(); // Guardar datos del paso actual
+                    pasoActual++;
+                    mostrarPaso(pasoActual);
+                }
+            });
+
+            btnAnterior.addEventListener('click', function () {
+                pasoActual--;
+                mostrarPaso(pasoActual);
+            });
+
+            formularioPublicarProducto.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevenir el envío por defecto del formulario
+                if (validarPaso(pasoActual)) {
+                    actualizarDatosProducto(); // Asegurarse de tener los últimos datos
+                    console.log('Producto a publicar:', datosProducto);
+                    // Aquí se enviaría datosProducto a un servidor o API real.
+                    console.log('¡Producto publicado con éxito! (Simulación)');
+
+                    // Restablecer el formulario y volver al primer paso
+                    formularioPublicarProducto.reset();
+                    archivosCargados = [];
+                    contenedorPrevisualizacionImagen.innerHTML = '';
+                    datosProducto.imagenes = []; // Limpiar las URLs de las imágenes
+                    pasoActual = 0;
+                    mostrarPaso(pasoActual);
+                    calcularPrecioConComision(); // Restablecer el precio calculado
+                }
+            });
+
+            // Eventos para el cálculo de precio y comisión
+            precioDeseadoInput.addEventListener('input', calcularPrecioConComision);
+            metodosPagoCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', calcularPrecioConComision);
+            });
+            condicionProductoRadios.forEach(radio => {
+                radio.addEventListener('change', actualizarDatosProducto);
+            });
+            opcionEnvioRadios.forEach(radio => {
+                radio.addEventListener('change', actualizarDatosProducto);
+            });
+            ofrecerEnvioGratisCheckbox.addEventListener('change', actualizarDatosProducto);
+
+            // Evento para agregar características
+            btnAgregarCaracteristica.addEventListener('click', agregarCampoCaracteristica);
+
+
+            // --- Lógica de Carga de Imágenes ---
+            areaCargaImagen.addEventListener('click', () => imagenesProductoInput.click());
+
+            areaCargaImagen.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                areaCargaImagen.style.borderColor = '#FF7F00';
+            });
+
+            areaCargaImagen.addEventListener('dragleave', () => {
+                areaCargaImagen.style.borderColor = '#ccc';
+            });
+
+            areaCargaImagen.addEventListener('drop', (e) => {
+                e.preventDefault();
+                areaCargaImagen.style.borderColor = '#ccc';
+                manejarArchivos(e.dataTransfer.files);
+            });
+
+            imagenesProductoInput.addEventListener('change', (e) => {
+                manejarArchivos(e.target.files);
+            });
+
+            function manejarArchivos(files) {
+                const maxFiles = 5;
+                const maxFileSize = 2 * 1024 * 1024; // 2MB
+
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+
+                    if (archivosCargados.length >= maxFiles) {
+                        console.log(`Límite de ${maxFiles} imágenes alcanzado.`);
+                        break;
+                    }
+
+                    if (!file.type.startsWith('image/')) {
+                        console.log(`El archivo ${file.name} no es una imagen.`);
+                        continue;
+                    }
+
+                    if (file.size > maxFileSize) {
+                        console.log(`El archivo ${file.name} excede el tamaño máximo de 2MB.`);
+                        continue;
+                    }
+
+                    archivosCargados.push(file);
+                    renderizarPrevisualizacionImagen(file);
+                }
+                // Limpiar el input para permitir seleccionar los mismos archivos nuevamente si es necesario
+                imagenesProductoInput.value = '';
+            }
+
+            function renderizarPrevisualizacionImagen(file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const imageUrl = e.target.result;
+                    datosProducto.imagenes.push(imageUrl); // Almacenar la URL para el resumen
+
+                    const previewDiv = document.createElement('div');
+                    previewDiv.classList.add('previsualizacion-imagen');
+                    previewDiv.dataset.fileName = file.name; // Almacenar nombre de archivo para eliminación
+
+                    const img = document.createElement('img');
+                    img.src = imageUrl;
+                    img.alt = file.name;
+
+                    const removeBtn = document.createElement('span');
+                    removeBtn.classList.add('btn-eliminar-imagen');
+                    removeBtn.innerHTML = '&times;';
+                    removeBtn.addEventListener('click', () => {
+                        eliminarImagen(file.name, previewDiv, imageUrl);
+                    });
+
+                    previewDiv.appendChild(img);
+                    previewDiv.appendChild(removeBtn);
+                    contenedorPrevisualizacionImagen.appendChild(previewDiv);
+                };
+                reader.readAsDataURL(file);
+            }
+
+            function eliminarImagen(fileName, previewDiv, imageUrl) {
+                archivosCargados = archivosCargados.filter(file => file.name !== fileName);
+                datosProducto.imagenes = datosProducto.imagenes.filter(url => url !== imageUrl); // Eliminar del array de datos
+                previewDiv.remove();
+            }
+
+            // --- Lógica del Modal de Ubicación ---
+            document.querySelector('.ne-info-envio').addEventListener('click', function (e) {
+                e.preventDefault();
+                modalUbicacion.show();
+                // Pre-llenar el input del modal si la ubicación actual no es la predeterminada
+                inputCodigoPostal.value = textoUbicacionActual.textContent === 'Resistencia, Chaco' ? '' : textoUbicacionActual.textContent;
+            });
+
+            btnUsarCodigoPostal.addEventListener('click', function () {
+                const codigoPostal = inputCodigoPostal.value.trim();
+                if (codigoPostal) {
+                    textoUbicacionActual.textContent = codigoPostal;
+                    modalUbicacion.hide();
+                } else {
+                    console.log('Por favor, ingresa un código postal.');
+                }
+            });
+
+            enlaceNoSeCodigo.addEventListener('click', function (event) {
+                event.preventDefault();
+                console.log('Puedes buscar tu código postal en el sitio web del correo local.');
+                modalUbicacion.hide();
+            });
+        });
+    </script>
+</body>
+
+</html>

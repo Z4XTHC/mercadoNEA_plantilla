@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MercadoNEA - Detalle de Producto</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        xintegrity="sha512-SnH5WK+bZxgPHs44jOVpLqN2Y/NoLpYkS1jB+x7jXyG2W3I6/N9t/JcK7D7FhM2J44zF3C+G3G3wG3G3w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Fuentes de Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Barra de Navegación Principal */
+        .ne-barra-navegacion {
+            background-color: #444;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .ne-barra-navegacion .navbar-brand img {
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+
+        .ne-barra-navegacion .form-control {
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            height: 40px;
+            font-size: 16px;
+            padding-left: 15px;
+            background-color: #fff;
+        }
+
+        .ne-barra-navegacion .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        .ne-barra-navegacion .btn-search {
+            background-color: #FF7F00;
+            border: none;
+            color: #fff;
+            padding: 0 15px;
+            height: 40px;
+            border-radius: 0 4px 4px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        .ne-barra-navegacion .nav-link {
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            padding: 0.5rem 0.8rem;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .ne-texto-pequeno {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .ne-barra-navegacion .ne-icono-ubicacion {
+            font-size: 18px;
+            margin-right: 5px;
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .input-group .form-control {
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .ne-barra-navegacion .input-group .input-group-text {
+            background-color: #FF7F00;
+            border: 1px solid #FF7F00;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        /* Carrito de Compras en la Navegación */
+        .ne-cart-icon-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Adjust spacing as needed */
+        }
+
+        .ne-cart-icon-container .fa-shopping-cart {
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .ne-cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #FF7F00;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+            line-height: 1;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Contenedor de enlaces de usuario en la barra principal */
+        .ne-user-links {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Espacio entre el carrito y los enlaces */
+        }
+
+        .ne-user-links .nav-link {
+            padding: 0.5rem 0.8rem;
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-user-links .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-user-links .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+
+        /* Barra de Navegación Secundaria */
+        .ne-barra-navegacion-secundaria {
+            background-color: #f8f9fa;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid #eee;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link {
+            font-size: 14px;
+            color: #666;
+            padding: 0.3rem 0.8rem;
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio i {
+            font-size: 16px;
+            margin-right: 5px;
+            color: #00a650;
+        }
+
+        /* Banner de Envío Gratis */
+        .ne-banner-envio-gratis {
+            background-color: #2a4073;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ne-banner-envio-gratis img {
+            height: 25px;
+            width: auto;
+            border-radius: 0;
+            margin-right: 0;
+        }
+
+        .ne-banner-envio-gratis .ne-texto-pequeno {
+            color: #fff;
+            font-size: 11px;
+            line-height: 1.2;
+        }
+
+        /* Barra de Navegación Secundaria */
+        .ne-barra-navegacion-secundaria {
+            background-color: #f8f9fa;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid #eee;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link {
+            font-size: 14px;
+            color: #666;
+            padding: 0.3rem 0.8rem;
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio i {
+            font-size: 16px;
+            margin-right: 5px;
+            color: #00a650;
+        }
+
+        /* Contenedor principal de producto */
+        .ne-contenedor-producto {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        /* Galería de imágenes del producto */
+        .ne-galeria-producto .img-principal {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+        }
+
+        .ne-galeria-producto .miniaturas img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: border-color 0.2s ease;
+        }
+
+        .ne-galeria-producto .miniaturas img:hover,
+        .ne-galeria-producto .miniaturas img.active {
+            border-color: #FF7F00;
+        }
+
+        /* Información del producto */
+        .ne-info-producto h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .ne-info-producto .precio {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .ne-info-producto .descuento {
+            color: #00a650;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-left: 10px;
+        }
+
+        .ne-info-producto .envio-info {
+            font-size: 1rem;
+            color: #00a650;
+            font-weight: 600;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .ne-info-producto .btn-comprar {
+            background-color: #FF7F00;
+            border-color: #FF7F00;
+            color: #fff;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .ne-info-producto .btn-comprar:hover {
+            background-color: #E66E00;
+            border-color: #E66E00;
+        }
+
+        .ne-info-producto .btn-agregar-carrito {
+            background-color: #fff;
+            border: 1px solid #FF7F00;
+            color: #FF7F00;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            width: 100%;
+        }
+
+        .ne-info-producto .btn-agregar-carrito:hover {
+            background-color: #FFF3E0;
+        }
+
+        .ne-info-producto .cantidad-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .ne-info-producto .cantidad-selector button {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            width: 35px;
+            height: 35px;
+            border-radius: 4px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .ne-info-producto .cantidad-selector button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .ne-info-producto .cantidad-selector input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 0 10px;
+            height: 35px;
+        }
+
+        /* Secciones de detalles (Descripción, Características, Opiniones) */
+        .ne-seccion-detalles {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .ne-seccion-detalles h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .ne-seccion-detalles ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ne-seccion-detalles ul li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .ne-seccion-detalles .opinion-usuario {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+        }
+
+        .ne-seccion-detalles .opinion-usuario .nombre-usuario {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .ne-seccion-detalles .opinion-usuario .texto-opinion {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .ne-seccion-detalles .opinion-usuario .rating {
+            color: #FF7F00;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        /* Sección de Carrusel de Productos (para relacionados) */
+        .ne-seccion-carrusel-productos {
+            padding: 40px 0;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+
+        .ne-seccion-carrusel-productos h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .ne-seccion-carrusel-productos .carousel-control-prev,
+        .ne-seccion-carrusel-productos .carousel-control-next {
+            width: 5%;
+            background-color: transparent;
+            border-radius: 8px;
+        }
+
+        .ne-seccion-carrusel-productos .carousel-control-prev-icon,
+        .ne-seccion-carrusel-productos .carousel-control-next-icon {
+            background-color: #FF7F00;
+            border-radius: 50%;
+            padding: 15px;
+        }
+
+        /* Tarjeta de Producto (para relacionados) */
+        .ne-tarjeta-producto {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .ne-tarjeta-producto:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .ne-tarjeta-producto img {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .ne-tarjeta-producto .card-body {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .ne-tarjeta-producto .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .ne-tarjeta-producto .discount {
+            color: #E66E00;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-left: 8px;
+        }
+
+        .ne-tarjeta-producto .shipping-info {
+            font-size: 0.75rem;
+            color: #00a650;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .ne-tarjeta-producto .description {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Pie de Página */
+        .ne-pie-pagina {
+            background-color: #333;
+            padding: 40px 0 20px;
+            border-top: 1px solid #444;
+            color: #ddd;
+        }
+
+        .ne-pie-pagina .footer-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #FF7F00;
+        }
+
+        .ne-pie-pagina ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .ne-pie-pagina ul li {
+            margin-bottom: 8px;
+        }
+
+        .ne-pie-pagina ul li a {
+            color: #ccc;
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina ul li a:hover {
+            color: #FF7F00;
+        }
+
+        .ne-pie-pagina .footer-social-icons a {
+            color: #FF7F00;
+            font-size: 20px;
+            margin-right: 15px;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina .footer-social-icons a:hover {
+            color: #fff;
+        }
+
+        .ne-pie-pagina .footer-copyright {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .ne-pie-pagina .footer-links-bottom a {
+            color: #ccc;
+            font-size: 12px;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .ne-pie-pagina .footer-links-bottom a:hover {
+            color: #FF7F00;
+        }
+
+        /* Estilos del Modal de Ubicación */
+        #locationModal .modal-content {
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        #locationModal .modal-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            padding: 15px 20px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        #locationModal .modal-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.25rem;
+        }
+
+        #locationModal .btn-close {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        #locationModal .btn-close:hover {
+            opacity: 1;
+        }
+
+        #locationModal .modal-body {
+            padding: 20px;
+        }
+
+        #locationModal .form-label {
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        #locationModal .form-control {
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            height: auto;
+        }
+
+        #locationModal .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        #locationModal .input-group .btn-primary {
+            background-color: #FF7F00;
+            border-color: #FF7F00;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 0 4px 4px 0;
+            font-weight: 600;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        #locationModal .input-group .btn-primary:hover {
+            background-color: #E66E00;
+            border-color: #E66E00;
+        }
+
+        #locationModal #dontKnowCodeLink {
+            color: #FF7F00;
+            font-weight: 500;
+            margin-top: 15px;
+            display: block;
+            text-align: center;
+            transition: color 0.2s ease;
+        }
+
+        #locationModal #dontKnowCodeLink:hover {
+            color: #E66E00;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Barra de Navegación Principal -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion">
+        <div class="container-fluid container">
+            <a class="navbar-brand" href="#">
+                <img src="https://placehold.co/150x40/FF7F00/ffffff?text=MercadoNEA+Logo" alt="MercadoNEA Logo">
+            </a>
+            <form class="d-flex flex-grow-1 mx-3 position-relative">
+                <input class="form-control" type="search" placeholder="Buscar productos, marcas y más..."
+                    aria-label="Search">
+                <button class="btn btn-search" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <!-- Contenedor de enlaces de usuario y carrito para pantallas grandes -->
+            <div class="d-none d-lg-flex align-items-center">
+                <div class="ne-user-links">
+                    <a class="nav-link bold" href="crearCuenta.html">Crea tu cuenta</a>
+                    <a class="nav-link" href="iniciarSesion.html">Ingresa</a>
+                </div>
+                <!-- Carrito de compras con contador -->
+                <div class="ne-cart-icon-container">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="ne-cart-count" id="cartItemCount">0</span>
+                </div>
+            </div>
+            <button class="navbar-toggler mt-2 bg-light-subtle" type="button" data-bs-toggle="collapse"
+                data-bs-target="#neNavbarNav" aria-controls="neNavbarNav" aria-expanded="false"
+                aria-label="Toggle navigation" id="botonMenuMovil">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Barra de Navegación Secundaria (sin modificaciones de enlaces) -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion-secundaria">
+        <div class="container-fluid container">
+            <a class="ne-info-envio me-auto d-none d-lg-flex align-items-center" href="#" data-bs-toggle="modal"
+                data-bs-target="#modalUbicacion" id="botonModalUbicacion">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    Enviar a <span class="ne-texto-pequeno text-warning" id="textoUbicacionActual">Resistencia,
+                        Chaco</span>
+                </div>
+            </a>
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCategorias" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategorias">
+                        <li><a class="dropdown-item" href="#">Electrónica</a></li>
+                        <li><a class="dropdown-item" href="#">Moda y Accesorios</a></li>
+                        <li><a class="dropdown-item" href="#">Hogar y Muebles</a></li>
+                        <li><a class="dropdown-item" href="#">Deportes y Fitness</a></li>
+                        <li><a class="dropdown-item" href="#">Herramientas y Construcción</a></li>
+                        <li><a class="dropdown-item" href="#">Libros, Revistas y Comics</a></li>
+                        <li><a class="dropdown-item" href="#">Juguetes y Bebés</a></li>
+                        <li><a class="dropdown-item" href="#">Belleza y Cuidado Personal</a></li>
+                        <li><a class="dropdown-item" href="#">Accesorios para Vehículos</a></li>
+                        <li><a class="dropdown-item" href="#">Animales y Mascotas</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Ver todas las categorías</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+            </ul>
+            <!-- Contenido para móvil -->
+            <div class="collapse navbar-collapse" id="neNavbarNav">
+                <ul class="navbar-nav ms-auto d-lg-none">
+                    <li class="nav-item"><a class="nav-link bold" href="crearCuenta.html">Crea tu cuenta</a></li>
+                    <li class="nav-item"><a class="nav-link" href="iniciarSesion.html">Ingresa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mis compras</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mi carrito</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Categorías</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="row ne-contenedor-producto">
+            <div class="col-md-6">
+                <div class="ne-galeria-producto">
+                    <img src="https://placehold.co/600x400/FF7F00/ffffff?text=Smart+TV+4K+50+Pulgadas"
+                        class="img-fluid img-principal" id="imgProductoPrincipal" alt="">
+                    <div class="d-flex miniaturas mt-3">
+                        <img src="https://placehold.co/80x80/FF7F00/ffffff?text=Vista+1" class="img-fluid active"
+                            alt="">
+                        <img src="https://placehold.co/80x80/444/ffffff?text=Vista+2" class="img-fluid" alt="">
+                        <img src="https://placehold.co/80x80/00a650/ffffff?text=Vista+3" class="img-fluid" alt="">
+                        <img src="https://placehold.co/80x80/2a4073/ffffff?text=Vista+4" class="img-fluid" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 ne-info-producto">
+                <h1>Smart TV 4K UHD 50" con Android TV y Asistente de Voz</h1>
+                <p class="text-muted">Marca: TechVision | Modelo: X5000 | SKU: TV5000AV</p>
+                <div class="d-flex align-items-baseline mb-3">
+                    <span class="precio">$180.000</span>
+                    <span class="descuento">15% OFF</span>
+                </div>
+                <p class="envio-info"><i class="fas fa-truck"></i> Envío gratis a todo el país</p>
+
+                <div class="cantidad-selector mb-3">
+                    <label for="cantidadProducto" class="form-label me-2">Cantidad:</label>
+                    <button type="button" id="disminuirCantidad">-</button>
+                    <input type="text" id="cantidadProducto" value="1" readonly>
+                    <button type="button" id="aumentarCantidad">+</button>
+                </div>
+
+                <button class="btn btn-comprar mb-2">Comprar Ahora</button>
+                <button class="btn btn-agregar-carrito"><i class="fas fa-shopping-cart"></i> Agregar al Carrito</button>
+
+                <hr class="my-4">
+
+                <p class="text-muted">Vendido por: <a href="#" class="text-decoration-none text-primary">Tienda Oficial
+                        TechStore</a></p>
+                <p class="text-muted">Disponibilidad: <span class="text-success">En stock</span></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 ne-seccion-detalles">
+                <h3>Descripción del Producto</h3>
+                <p>Sumérgete en una experiencia visual inigualable con el Smart TV 4K UHD de 50 pulgadas de TechVision.
+                    Disfruta de imágenes nítidas y colores vibrantes gracias a su resolución Ultra HD. Con Android TV
+                    integrado, accede a tus aplicaciones favoritas como Netflix, YouTube y más directamente desde tu
+                    televisor. Además, su asistente de voz te permite controlar el televisor y buscar contenido con solo
+                    tu voz.</p>
+                <p>Ideal para tu sala de estar o habitación, este televisor combina tecnología avanzada con un diseño
+                    elegante y minimalista. Conéctate fácilmente con múltiples puertos HDMI y USB para todos tus
+                    dispositivos.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 ne-seccion-detalles">
+                <h3>Características Principales</h3>
+                <ul>
+                    <li><i class="fas fa-check-circle text-success me-2"></i> Resolución: 4K Ultra HD (3840 x 2160)</li>
+                    <li><i class="fas fa-check-circle text-success me-2"></i> Sistema Operativo: Android TV</li>
+                    <li><i class="fas fa-check-circle text-success me-2"></i> Asistente de Voz: Google Assistant
+                        integrado</li>
+                    <li><i class="fas fa-check-circle text-success me-2"></i> Conectividad: Wi-Fi, Bluetooth, 3x HDMI,
+                        2x USB</li>
+                    <li><i class="fas fa-check-circle text-success me-2"></i> Sonido: Dolby Audio</li>
+                    <li><i class="fas fa-check-circle text-success me-2"></i> Diseño: Biseles delgados y elegante</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sección de Productos Relacionados -->
+        <section class="ne-seccion-carrusel-productos container">
+            <h2 class="text-center mb-4">Productos Relacionados</h2>
+            <div id="relatedProductsCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <!-- Slide 1 de productos relacionados -->
+                    <div class="carousel-item active">
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                            <!-- Producto Relacionado 1 -->
+                            <div class="col">
+                                <a href="#" class="card ne-tarjeta-producto">
+                                    <img src="https://placehold.co/200x150/e0e0e0/555555?text=Barra+de+Sonido"
+                                        class="card-img-top" alt="">
+                                    <div class="card-body">
+                                        <p class="price mb-0">$35.000 <span class="discount">10% OFF</span></p>
+                                        <p class="shipping-info mb-2">Envío gratis</p>
+                                        <p class="description">Barra de sonido compacta con subwoofer inalámbrico.</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Producto Relacionado 2 -->
+                            <div class="col">
+                                <a href="#" class="card ne-tarjeta-producto">
+                                    <img src="https://placehold.co/200x150/cccccc/333333?text=Soporte+TV"
+                                        class="card-img-top" alt="">
+                                    <div class="card-body">
+                                        <p class="price mb-0">$5.500</p>
+                                        <p class="shipping-info mb-2">Envío gratis</p>
+                                        <p class="description">Soporte de pared universal para televisores de 32" a 65".
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Producto Relacionado 3 -->
+                            <div class="col">
+                                <a href="#" class="card ne-tarjeta-producto">
+                                    <img src="https://placehold.co/200x150/e0e0e0/555555?text=Chromecast"
+                                        class="card-img-top" alt="">
+                                    <div class="card-body">
+                                        <p class="price mb-0">$15.000 <span class="discount">5% OFF</span></p>
+                                        <p class="shipping-info mb-2">Envío gratis</p>
+                                        <p class="description">Google Chromecast con Google TV, streaming en 4K.</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Producto Relacionado 4 -->
+                            <div class="col">
+                                <a href="#" class="card ne-tarjeta-producto">
+                                    <img src="https://placehold.co/200x150/cccccc/333333?text=Control+Remoto+Universal"
+                                        class="card-img-top" alt="">
+                                    <div class="card-body">
+                                        <p class="price mb-0">$3.200</p>
+                                        <p class="shipping-info mb-2">Envío gratis</p>
+                                        <p class="description">Control remoto universal compatible con Smart TVs.</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 2 de productos relacionados -->
+                    <div class="carousel-item">
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                            <!-- Producto Relacionado 5 -->
+                            <div class="col">
+                                <a href="#" class="card ne-tarjeta-producto">
+                                    <img src="https://placehold.co/200x150/e0e0e0/555555?text=Cable+HDMI"
+                                        class="card-img-top" alt="">
+                                    <div class="card-body">
+                                        <p class="price mb-0">$1.500</p>
+                                        <p class="shipping-info mb-2">Envío gratis</p>
+                                        <p class="description">Cable HDMI 2.1 de alta velocidad, 2 metros.</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Producto Relacionado 6 -->
+                            <div class="col">
+                                <a href="#" class="card ne-tarjeta-producto">
+                                    <img src="https://placehold.co/200x150/cccccc/333333?text=Audifonos+Inalambricos"
+                                        class="card-img-top" alt="">
+                                    <div class="card-body">
+                                        <p class="price mb-0">$18.000 <span class="discount">20% OFF</span></p>
+                                        <p class="shipping-info mb-2">Envío gratis</p>
+                                        <p class="description">Auriculares inalámbricos con cancelación de ruido.</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Producto Relacionado 7 -->
+                            <div class="col">
+                                <a href="#" class="card ne-tarjeta-producto">
+                                    <img src="https://placehold.co/200x150/e0e0e0/555555?text=Router+Mesh"
+                                        class="card-img-top" alt="">
+                                    <div class="card-body">
+                                        <p class="price mb-0">$40.000</p>
+                                        <p class="shipping-info mb-2">Envío gratis</p>
+                                        <p class="description">Sistema Wi-Fi Mesh para cobertura total en el hogar.</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Producto Relacionado 8 -->
+                            <div class="col">
+                                <a href="#" class="card ne-tarjeta-producto">
+                                    <img src="https://placehold.co/200x150/cccccc/333333?text=Consola+Retro"
+                                        class="card-img-top" alt="">
+                                    <div class="card-body">
+                                        <p class="price mb-0">$28.000 <span class="discount">15% OFF</span></p>
+                                        <p class="shipping-info mb-2">Envío gratis</p>
+                                        <p class="description">Mini consola retro con 500 juegos clásicos.</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#relatedProductsCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#relatedProductsCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>
+
+        <div class="row">
+            <div class="col-12 ne-seccion-detalles">
+                <h3>Opiniones de Clientes</h3>
+                <div class="opinion-usuario">
+                    <div class="d-flex align-items-center mb-2">
+                        <span class="nombre-usuario me-2">Juan Pérez</span>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> (4.5/5)
+                        </div>
+                    </div>
+                    <p class="texto-opinion">"Excelente televisor, la calidad de imagen es impresionante y el Android TV
+                        funciona muy fluido. Muy contento con la compra."</p>
+                </div>
+                <div class="opinion-usuario">
+                    <div class="d-flex align-items-center mb-2">
+                        <span class="nombre-usuario me-2">María Rodríguez</span>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="far fa-star"></i> (4/5)
+                        </div>
+                    </div>
+                    <p class="texto-opinion">"Muy buen producto por el precio. El sonido podría ser un poco mejor, pero
+                        en general es una gran opción."</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Pie de Página -->
+    <footer class="ne-pie-pagina">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="footer-title">Acerca de MercadoNEA</h5>
+                    <ul>
+                        <li><a href="#">Nuestra Empresa</a></li>
+                        <li><a href="#">Inversores</a></li>
+                        <li><a href="#">Sustentabilidad</a></li>
+                        <li><a href="#">Novedades</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="footer-title">Mi Cuenta</h5>
+                    <ul>
+                        <li><a href="#">Ingresar</a></li>
+                        <li><a href="#">Registrarse</a></li>
+                        <li><a href="#">Mis pedidos</a></li>
+                        <li><a href="#">Configuración</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="footer-title">Ayuda y Soporte</h5>
+                    <ul>
+                        <li><a href="#">Centro de Ayuda</a></li>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                        <li><a href="#">Envíos y Devoluciones</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="footer-title">Conéctate</h5>
+                    <div class="footer-social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="footer-links-bottom text-center">
+                <a href="#">Trabaja con nosotros</a>
+                <a href="#">Términos y Condiciones</a>
+                <a href="#">Política de Privacidad</a>
+                <a href="#">Aviso Legal</a>
+            </div>
+            <p class="footer-copyright">Copyright © 2024 MercadoNEA S.A. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modal de Ubicación -->
+    <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title" id="locationModalLabel">Elegí dónde recibir tus compras</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <p class="text-muted mb-3">Podrás ver costos y tiempos de entrega precisos en todo lo que busques.
+                    </p>
+                    <div class="mb-3">
+                        <label for="postalCodeInput" class="form-label">Código Postal</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="postalCodeInput"
+                                placeholder="Ingresar un código postal">
+                            <button class="btn btn-primary" type="button" id="usePostalCodeBtn">Usar</button>
+                        </div>
+                    </div>
+                    <a href="#" id="dontKnowCodeLink" class="text-decoration-none d-block text-center">No sé mi
+                        código</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (bundle con Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentLocationText = document.getElementById('currentLocationText');
+            const postalCodeInput = document.getElementById('postalCodeInput');
+            const usePostalCodeBtn = document.getElementById('usePostalCodeBtn');
+            const dontKnowCodeLink = document.getElementById('dontKnowCodeLink');
+            const locationModal = new bootstrap.Modal(document.getElementById('locationModal'));
+
+            function updateLocation(location) {
+                currentLocationText.textContent = location;
+            }
+
+            usePostalCodeBtn.addEventListener('click', function () {
+                const postalCode = postalCodeInput.value.trim();
+                if (postalCode) {
+                    updateLocation(postalCode);
+                    locationModal.hide();
+                } else {
+                    alert('Por favor, ingresa un código postal.');
+                }
+            });
+
+            dontKnowCodeLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                locationModal.hide();
+                alert('Puedes buscar tu código postal en el sitio web del correo local.');
+            });
+
+            document.getElementById('locationModal').addEventListener('show.bs.modal', function () {
+                postalCodeInput.value = currentLocationText.textContent === 'Resistencia, Chaco' ? '' : currentLocationText.textContent;
+            });
+
+            // Lógica para el cambio de imagen principal en el detalle del producto
+            const mainProductImage = document.getElementById('imgProductoPrincipal');
+            const thumbnails = document.querySelectorAll('.ne-galeria-producto .miniaturas img');
+
+            thumbnails.forEach(thumbnail => {
+                thumbnail.addEventListener('click', function () {
+                    thumbnails.forEach(t => t.classList.remove('active'));
+                    mainProductImage.src = this.src;
+                    this.classList.add('active');
+                });
+            });
+
+            // Lógica para aumentar/disminuir cantidad
+            const disminuirCantidadBtn = document.getElementById('disminuirCantidad');
+            const aumentarCantidadBtn = document.getElementById('aumentarCantidad');
+            const cantidadProductoInput = document.getElementById('cantidadProducto');
+
+            disminuirCantidadBtn.addEventListener('click', function () {
+                let cantidad = parseInt(cantidadProductoInput.value);
+                if (cantidad > 1) {
+                    cantidadProductoInput.value = cantidad - 1;
+                }
+            });
+
+            aumentarCantidadBtn.addEventListener('click', function () {
+                let cantidad = parseInt(cantidadProductoInput.value);
+                cantidadProductoInput.value = cantidad + 1;
+            });
+        });
+    </script>
+</body>
+
+</html>

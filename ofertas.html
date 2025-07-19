@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MercadoNEA - Ofertas</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        xintegrity="sha512-SnH5WK+bZxgPHs44jOVpLqN2Y/NoLpYkS1jB+x7jXyG2W3I6/N9t/JcK7D7FhM2J44zF3C+G3G3wG3G3w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Fuentes de Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        /* Barra de Navegación Principal */
+        .ne-barra-navegacion {
+            background-color: #444;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .ne-barra-navegacion .navbar-brand img {
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+
+        .ne-barra-navegacion .form-control {
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            height: 40px;
+            font-size: 16px;
+            padding-left: 15px;
+            background-color: #fff;
+        }
+
+        .ne-barra-navegacion .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        .ne-barra-navegacion .btn-search {
+            background-color: #FF7F00;
+            border: none;
+            color: #fff;
+            padding: 0 15px;
+            height: 40px;
+            border-radius: 0 4px 4px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        .ne-barra-navegacion .nav-link {
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            padding: 0.5rem 0.8rem;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .ne-texto-pequeno {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .ne-barra-navegacion .ne-icono-ubicacion {
+            font-size: 18px;
+            margin-right: 5px;
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .input-group .form-control {
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .ne-barra-navegacion .input-group .input-group-text {
+            background-color: #FF7F00;
+            border: 1px solid #FF7F00;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        /* Carrito de Compras en la Navegación */
+        .ne-cart-icon-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Adjust spacing as needed */
+        }
+
+        .ne-cart-icon-container .fa-shopping-cart {
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .ne-cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #FF7F00;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+            line-height: 1;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Contenedor de enlaces de usuario en la barra principal */
+        .ne-user-links {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Espacio entre el carrito y los enlaces */
+        }
+
+        .ne-user-links .nav-link {
+            padding: 0.5rem 0.8rem;
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-user-links .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-user-links .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+
+        /* Barra de Navegación Secundaria */
+        .ne-barra-navegacion-secundaria {
+            background-color: #f8f9fa;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid #eee;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link {
+            font-size: 14px;
+            color: #666;
+            padding: 0.3rem 0.8rem;
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio i {
+            font-size: 16px;
+            margin-right: 5px;
+            color: #00a650;
+        }
+
+        /* Contenido principal de Ofertas */
+        .contenedor-ofertas {
+            padding: 30px 0;
+            min-height: calc(100vh - 180px);
+            /* Altura de la vista menos nav y footer */
+        }
+
+        .contenedor-ofertas h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            /* Ajuste para dar espacio al temporizador */
+            text-align: center;
+        }
+
+        #temporizador-oferta {
+            /* Renombrado de #offerTimer */
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #dc3545;
+            /* Rojo para el temporizador */
+            margin-bottom: 30px;
+            text-align: center;
+            background-color: #fff0f0;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            display: inline-block;
+            /* Para centrarlo con text-align: center en el padre */
+            width: auto;
+            max-width: 100%;
+        }
+
+        .contenedor-temporizador {
+            /* Renombrado de .timer-container */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+
+        .tarjeta-oferta {
+            /* Renombrado de .oferta-card */
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            overflow: hidden;
+            /* Asegura que nada se salga de la tarjeta */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            /* Asegura que todas las tarjetas tengan la misma altura en la fila */
+        }
+
+        .tarjeta-oferta:hover {
+            /* Renombrado de .oferta-card:hover */
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .tarjeta-oferta img {
+            /* Renombrado de .oferta-card img */
+            width: 100%;
+            height: 200px;
+            /* Altura fija para las imágenes */
+            object-fit: cover;
+            /* Ajusta la imagen sin distorsionarla, cubriendo el espacio */
+            border-bottom: 1px solid #eee;
+        }
+
+        .cuerpo-tarjeta-oferta {
+            /* Renombrado de .oferta-card-body */
+            padding: 15px;
+            flex-grow: 1;
+            /* Permite que el cuerpo de la tarjeta ocupe el espacio restante */
+            display: flex;
+            flex-direction: column;
+            /* Alinea los elementos al final del contenedor */
+            justify-content: space-between;
+            /* Distribuye el contenido verticalmente */
+        }
+
+        .titulo-tarjeta-oferta {
+            /* Renombrado de .oferta-card-title */
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            white-space: normal;
+            /* Asegura que el texto se envuelva */
+            word-wrap: break-word;
+            /* Permite que las palabras largas se rompan */
+        }
+
+        .precio-original-tarjeta-oferta {
+            /* Renombrado de .oferta-card-price-original */
+            font-size: 0.9rem;
+            color: #888;
+            text-decoration: line-through;
+            margin-bottom: 5px;
+        }
+
+        .precio-descuento-tarjeta-oferta {
+            /* Renombrado de .oferta-card-price-discount */
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FF7F00;
+            /* Color de la marca para el precio de oferta */
+            margin-bottom: 10px;
+        }
+
+        .insignia-descuento-tarjeta-oferta {
+            /* Renombrado de .oferta-card-discount-badge */
+            background-color: #00a650;
+            /* Verde para el descuento */
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+
+        .tarjeta-oferta .btn-primario {
+            /* Renombrado de .oferta-card .btn-primary */
+            background-color: #FF7F00;
+            border-color: #FF7F00;
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 6px;
+            width: 100%;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .tarjeta-oferta .btn-primario:hover {
+            /* Renombrado de .oferta-card .btn-primary:hover */
+            background-color: #E66E00;
+            border-color: #E66E00;
+        }
+
+        .tarjeta-oferta .btn-secundario-contorno {
+            /* Renombrado de .oferta-card .btn-outline-secondary */
+            border-color: #ddd;
+            color: #666;
+            background-color: #f8f9fa;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            margin-top: auto;
+            /* Empuja este botón y los siguientes hacia abajo */
+            margin-bottom: 8px;
+            /* Espacio entre los dos botones */
+        }
+
+        .tarjeta-oferta .btn-secundario-contorno:hover {
+            /* Renombrado de .oferta-card .btn-outline-secondary:hover */
+            background-color: #e2e6ea;
+            border-color: #dae0e5;
+            color: #333;
+        }
+
+
+        /* Estilos del Modal de Ubicación (copiados para consistencia) */
+        #modal-ubicacion .modal-contenido {
+            /* Renombrado de #modalUbicacion .modal-content */
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        #modal-ubicacion .modal-cabecera {
+            /* Renombrado de #modalUbicacion .modal-header */
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            padding: 15px 20px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        #modal-ubicacion .titulo-modal {
+            /* Renombrado de #modalUbicacion .modal-title */
+            font-weight: 600;
+            color: #333;
+            font-size: 1.25rem;
+        }
+
+        #modal-ubicacion .btn-cerrar {
+            /* Renombrado de #modalUbicacion .btn-close */
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        #modal-ubicacion .btn-cerrar:hover {
+            /* Renombrado de #modalUbicacion .btn-close:hover */
+            opacity: 1;
+        }
+
+        #modal-ubicacion .cuerpo-modal {
+            /* Renombrado de #modalUbicacion .modal-body */
+            padding: 20px;
+        }
+
+        #modal-ubicacion .etiqueta-formulario {
+            /* Renombrado de #modalUbicacion .form-label */
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        #modal-ubicacion .control-formulario {
+            /* Renombrado de #modalUbicacion .form-control */
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            height: auto;
+        }
+
+        #modal-ubicacion .control-formulario:focus {
+            /* Renombrado de #modalUbicacion .form-control:focus */
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        #modal-ubicacion .grupo-entrada .btn-primario {
+            /* Renombrado de #modalUbicacion .input-group .btn-primary */
+            background-color: #FF7F00;
+            border-color: #FF7F00;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 0 4px 4px 0;
+            font-weight: 600;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        #modal-ubicacion .grupo-entrada .btn-primario:hover {
+            /* Renombrado de #modalUbicacion .input-group .btn-primary:hover */
+            background-color: #E66E00;
+            border-color: #E66E00;
+        }
+
+        #modal-ubicacion #enlace-no-se-codigo {
+            /* Renombrado de #modalUbicacion #enlaceNoSeCodigo */
+            color: #FF7F00;
+            font-weight: 500;
+            margin-top: 15px;
+            display: block;
+            text-align: center;
+            transition: color 0.2s ease;
+        }
+
+        #modal-ubicacion #enlace-no-se-codigo:hover {
+            /* Renombrado de #modalUbicacion #enlaceNoSeCodigo:hover */
+            color: #E66E00;
+        }
+
+        /* Mensaje de Alerta Personalizado (copiado para consistencia) */
+        .mensaje-alerta {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            z-index: 1060;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+            min-width: 220px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .mensaje-alerta.mostrar {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mensaje-alerta.error {
+            background-color: #dc3545;
+        }
+
+        /* Pie de Página */
+        .ne-pie-pagina {
+            background-color: #333;
+            padding: 30px 0 15px;
+            border-top: 1px solid #444;
+            color: #ddd;
+        }
+
+        .ne-pie-pagina .titulo-pie-pagina {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #FF7F00;
+        }
+
+        .ne-pie-pagina ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .ne-pie-pagina ul li {
+            margin-bottom: 6px;
+        }
+
+        .ne-pie-pagina ul li a {
+            color: #ccc;
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina ul li a:hover {
+            color: #FF7F00;
+        }
+
+        .ne-pie-pagina .iconos-sociales-pie-pagina a {
+            color: #FF7F00;
+            font-size: 18px;
+            margin-right: 12px;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina .iconos-sociales-pie-pagina a:hover {
+            color: #fff;
+        }
+
+        .ne-pie-pagina .derechos-autor-pie-pagina {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .ne-pie-pagina .enlaces-inferiores-pie-pagina a {
+            color: #ccc;
+            font-size: 11px;
+            text-decoration: none;
+            margin-right: 12px;
+        }
+
+        .ne-pie-pagina .enlaces-inferiores-pie-pagina a:hover {
+            color: #FF7F00;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Barra de Navegación Principal -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion">
+        <div class="container-fluid container">
+            <a class="navbar-brand" href="#">
+                <img src="https://placehold.co/150x40/FF7F00/ffffff?text=MercadoNEA+Logo" alt="MercadoNEA Logo">
+            </a>
+            <form class="d-flex flex-grow-1 mx-3 position-relative">
+                <input class="form-control" type="search" placeholder="Buscar productos, marcas y más..."
+                    aria-label="Search">
+                <button class="btn btn-search" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <!-- Contenedor de enlaces de usuario y carrito para pantallas grandes -->
+            <div class="d-none d-lg-flex align-items-center">
+                <div class="ne-user-links">
+                    <a class="nav-link bold" href="crearCuenta.html">Crea tu cuenta</a>
+                    <a class="nav-link" href="iniciarSesion.html">Ingresa</a>
+                </div>
+                <!-- Carrito de compras con contador -->
+                <div class="ne-cart-icon-container">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="ne-cart-count" id="cartItemCount">0</span>
+                </div>
+            </div>
+            <button class="navbar-toggler mt-2 bg-light-subtle" type="button" data-bs-toggle="collapse"
+                data-bs-target="#neNavbarNav" aria-controls="neNavbarNav" aria-expanded="false"
+                aria-label="Toggle navigation" id="botonMenuMovil">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Barra de Navegación Secundaria (sin modificaciones de enlaces) -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion-secundaria">
+        <div class="container-fluid container">
+            <a class="ne-info-envio me-auto d-none d-lg-flex align-items-center" href="#" data-bs-toggle="modal"
+                data-bs-target="#modalUbicacion" id="botonModalUbicacion">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    Enviar a <span class="ne-texto-pequeno text-warning" id="textoUbicacionActual">Resistencia,
+                        Chaco</span>
+                </div>
+            </a>
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCategorias" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategorias">
+                        <li><a class="dropdown-item" href="#">Electrónica</a></li>
+                        <li><a class="dropdown-item" href="#">Moda y Accesorios</a></li>
+                        <li><a class="dropdown-item" href="#">Hogar y Muebles</a></li>
+                        <li><a class="dropdown-item" href="#">Deportes y Fitness</a></li>
+                        <li><a class="dropdown-item" href="#">Herramientas y Construcción</a></li>
+                        <li><a class="dropdown-item" href="#">Libros, Revistas y Comics</a></li>
+                        <li><a class="dropdown-item" href="#">Juguetes y Bebés</a></li>
+                        <li><a class="dropdown-item" href="#">Belleza y Cuidado Personal</a></li>
+                        <li><a class="dropdown-item" href="#">Accesorios para Vehículos</a></li>
+                        <li><a class="dropdown-item" href="#">Animales y Mascotas</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Ver todas las categorías</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+            </ul>
+            <!-- Contenido para móvil -->
+            <div class="collapse navbar-collapse" id="neNavbarNav">
+                <ul class="navbar-nav ms-auto d-lg-none">
+                    <li class="nav-item"><a class="nav-link bold" href="crearCuenta.html">Crea tu cuenta</a></li>
+                    <li class="nav-item"><a class="nav-link" href="iniciarSesion.html">Ingresa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mis compras</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mi carrito</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Categorías</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container contenedor-ofertas">
+        <h1>Ofertas del Día</h1>
+        <div class="contenedor-temporizador"> <!-- Renombrado de .timer-container -->
+            <div id="temporizador-oferta"></div> <!-- Renombrado de #offerTimer -->
+        </div>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            <!-- Tarjeta de Oferta 1 -->
+            <div class="col">
+                <div class="tarjeta-oferta position-relative"> <!-- Renombrado de .oferta-card -->
+                    <span class="insignia-descuento-tarjeta-oferta">-25%</span>
+                    <!-- Renombrado de .oferta-card-discount-badge -->
+                    <img src="https://placehold.co/400x200/FF7F00/ffffff?text=Auriculares"
+                        alt="Auriculares Inalámbricos">
+                    <div class="cuerpo-tarjeta-oferta"> <!-- Renombrado de .oferta-card-body -->
+                        <div>
+                            <h5 class="titulo-tarjeta-oferta">Auriculares Inalámbricos Bluetooth de Alta Fidelidad con
+                                Cancelación de Ruido</h5> <!-- Renombrado de .oferta-card-title -->
+                            <p class="precio-original-tarjeta-oferta">$49.999</p>
+                            <!-- Renombrado de .oferta-card-price-original -->
+                            <p class="precio-descuento-tarjeta-oferta">$37.499</p>
+                            <!-- Renombrado de .oferta-card-price-discount -->
+                        </div>
+                        <button class="btn btn-secundario-contorno btn-sm w-100">Ver más detalles</button>
+                        <!-- Renombrado de .btn-outline-secondary -->
+                        <button class="btn btn-primario boton-agregar-carrito mt-2">Agregar al Carrito</button>
+                        <!-- Renombrado de .btn-primary, .btn-add-to-cart -->
+                    </div>
+                </div>
+            </div>
+            <!-- Tarjeta de Oferta 2 -->
+            <div class="col">
+                <div class="tarjeta-oferta position-relative">
+                    <span class="insignia-descuento-tarjeta-oferta">-15%</span>
+                    <img src="https://placehold.co/400x200/00a650/ffffff?text=Smartwatch" alt="Smartwatch Deportivo">
+                    <div class="cuerpo-tarjeta-oferta">
+                        <div>
+                            <h5 class="titulo-tarjeta-oferta">Smartwatch Deportivo con GPS y Monitor Cardíaco Avanzado
+                            </h5>
+                            <p class="precio-original-tarjeta-oferta">$79.999</p>
+                            <p class="precio-descuento-tarjeta-oferta">$67.999</p>
+                        </div>
+                        <button class="btn btn-secundario-contorno btn-sm w-100">Ver más detalles</button>
+                        <button class="btn btn-primario boton-agregar-carrito mt-2">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Tarjeta de Oferta 3 -->
+            <div class="col">
+                <div class="tarjeta-oferta position-relative">
+                    <span class="insignia-descuento-tarjeta-oferta">-30%</span>
+                    <img src="https://placehold.co/400x200/1890ff/ffffff?text=Sartenes" alt="Set de Sartenes">
+                    <div class="cuerpo-tarjeta-oferta">
+                        <div>
+                            <h5 class="titulo-tarjeta-oferta">Set de Sartenes Antiadherentes de Cerámica (5 piezas)</h5>
+                            <p class="precio-original-tarjeta-oferta">$34.999</p>
+                            <p class="precio-descuento-tarjeta-oferta">$24.499</p>
+                        </div>
+                        <button class="btn btn-secundario-contorno btn-sm w-100">Ver más detalles</button>
+                        <button class="btn btn-primario boton-agregar-carrito mt-2">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Tarjeta de Oferta 4 -->
+            <div class="col">
+                <div class="tarjeta-oferta position-relative">
+                    <span class="insignia-descuento-tarjeta-oferta">-20%</span>
+                    <img src="https://placehold.co/400x200/FF7F00/ffffff?text=Mochila" alt="Mochila Urbana">
+                    <div class="cuerpo-tarjeta-oferta">
+                        <div>
+                            <h5 class="titulo-tarjeta-oferta">Mochila Urbana Impermeable con Compartimento para Laptop
+                            </h5>
+                            <p class="precio-original-tarjeta-oferta">$29.999</p>
+                            <p class="precio-descuento-tarjeta-oferta">$23.999</p>
+                        </div>
+                        <button class="btn btn-secundario-contorno btn-sm w-100">Ver más detalles</button>
+                        <button class="btn btn-primario boton-agregar-carrito mt-2">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Tarjeta de Oferta 5 -->
+            <div class="col">
+                <div class="tarjeta-oferta position-relative">
+                    <span class="insignia-descuento-tarjeta-oferta">-10%</span>
+                    <img src="https://placehold.co/400x200/00a650/ffffff?text=Cafetera" alt="Cafetera Programable">
+                    <div class="cuerpo-tarjeta-oferta">
+                        <div>
+                            <h5 class="titulo-tarjeta-oferta">Cafetera Programable Digital con Filtro Reutilizable</h5>
+                            <p class="precio-original-tarjeta-oferta">$45.000</p>
+                            <p class="precio-descuento-tarjeta-oferta">$40.500</p>
+                        </div>
+                        <button class="btn btn-secundario-contorno btn-sm w-100">Ver más detalles</button>
+                        <button class="btn btn-primario boton-agregar-carrito mt-2">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Tarjeta de Oferta 6 -->
+            <div class="col">
+                <div class="tarjeta-oferta position-relative">
+                    <span class="insignia-descuento-tarjeta-oferta">-22%</span>
+                    <img src="https://placehold.co/400x200/1890ff/ffffff?text=Herramientas" alt="Kit de Herramientas">
+                    <div class="cuerpo-tarjeta-oferta">
+                        <div>
+                            <h5 class="titulo-tarjeta-oferta">Kit de Herramientas Esenciales para el Hogar (50 piezas)
+                            </h5>
+                            <p class="precio-original-tarjeta-oferta">$18.500</p>
+                            <p class="precio-descuento-tarjeta-oferta">$14.430</p>
+                        </div>
+                        <button class="btn btn-secundario-contorno btn-sm w-100">Ver más detalles</button>
+                        <button class="btn btn-primario boton-agregar-carrito mt-2">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Tarjeta de Oferta 7 -->
+            <div class="col">
+                <div class="tarjeta-oferta position-relative">
+                    <span class="insignia-descuento-tarjeta-oferta">-35%</span>
+                    <img src="https://placehold.co/400x200/FF7F00/ffffff?text=Parlante" alt="Parlante Portátil">
+                    <div class="cuerpo-tarjeta-oferta">
+                        <div>
+                            <h5 class="titulo-tarjeta-oferta">Parlante Portátil Bluetooth con Sonido Estéreo 360°</h5>
+                            <p class="precio-original-tarjeta-oferta">$55.000</p>
+                            <p class="precio-descuento-tarjeta-oferta">$35.750</p>
+                        </div>
+                        <button class="btn btn-secundario-contorno btn-sm w-100">Ver más detalles</button>
+                        <button class="btn btn-primario boton-agregar-carrito mt-2">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Tarjeta de Oferta 8 -->
+            <div class="col">
+                <div class="tarjeta-oferta position-relative">
+                    <span class="insignia-descuento-tarjeta-oferta">-18%</span>
+                    <img src="https://placehold.co/400x200/00a650/ffffff?text=Cámara" alt="Cámara de Seguridad">
+                    <div class="cuerpo-tarjeta-oferta">
+                        <div>
+                            <h5 class="titulo-tarjeta-oferta">Cámara de Seguridad WiFi Full HD para Interiores</h5>
+                            <p class="precio-original-tarjeta-oferta">$42.000</p>
+                            <p class="precio-descuento-tarjeta-oferta">$34.440</p>
+                        </div>
+                        <button class="btn btn-secundario-contorno btn-sm w-100">Ver más detalles</button>
+                        <button class="btn btn-primario boton-agregar-carrito mt-2">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Ubicación (Mantener para consistencia en todas las páginas) -->
+    <div class="modal fade" id="modal-ubicacion" tabindex="-1" aria-labelledby="etiqueta-modal-ubicacion"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-contenido">
+                <div class="modal-header modal-cabecera border-0 pb-0">
+                    <h5 class="modal-title titulo-modal" id="etiqueta-modal-ubicacion">Elegí dónde recibir tus compras
+                    </h5>
+                    <button type="button" class="btn-close btn-cerrar" data-bs-dismiss="modal" aria-label="Cerrar"
+                        id="cerrar-modal-ubicacion"></button>
+                </div>
+                <div class="modal-body cuerpo-modal pt-0">
+                    <p class="text-muted mb-3">Podrás ver costos y tiempos de entrega precisos en todo lo que busques.
+                    </p>
+                    <div class="mb-3 grupo-entrada">
+                        <label for="entrada-codigo-postal" class="form-label etiqueta-formulario">Código Postal</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control control-formulario" id="entrada-codigo-postal"
+                                placeholder="Ingresar un código postal">
+                            <button class="btn btn-primary btn-primario" type="button"
+                                id="boton-usar-codigo-postal">Usar</button>
+                        </div>
+                    </div>
+                    <a href="#" id="enlace-no-se-codigo" class="text-decoration-none d-block text-center">No sé mi
+                        código</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensaje de Alerta Personalizado (Mantener para consistencia en todas las páginas) -->
+    <div id="mensaje-alerta" class="mensaje-alerta">
+        ¡Operación exitosa!
+    </div>
+
+    <!-- Pie de Página -->
+    <footer class="ne-pie-pagina">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Acerca de MercadoNEA</h5>
+                    <ul>
+                        <li><a href="#">Nuestra Empresa</a></li>
+                        <li><a href="#">Inversores</a></li>
+                        <li><a href="#">Sustentabilidad</a></li>
+                        <li><a href="#">Novedades</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Mi Cuenta</h5>
+                    <ul>
+                        <li><a href="iniciarSesion.html">Ingresar</a></li>
+                        <li><a href="crearCuenta.html">Registrarse</a></li>
+                        <li><a href="#">Mis pedidos</a></li>
+                        <li><a href="#">Configuración</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Ayuda y Soporte</h5>
+                    <ul>
+                        <li><a href="#">Centro de Ayuda</a></li>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                        <li><a href="#">Envíos y Devoluciones</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Conéctate</h5>
+                    <div class="iconos-sociales-pie-pagina">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="enlaces-inferiores-pie-pagina text-center">
+                <a href="#">Trabaja con nosotros</a>
+                <a href="#">Términos y Condiciones</a>
+                <a href="#">Política de Privacidad</a>
+                <a href="#">Aviso Legal</a>
+            </div>
+            <p class="derechos-autor-pie-pagina">Copyright © 2024 MercadoNEA S.A. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS (bundle con Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Funciones de Utilidad para Modales y Mensajes ---
+            const mensajeAlerta = document.getElementById('mensaje-alerta'); // Renombrado de #mensajeAlerta
+
+            function mostrarMensaje(mensaje, tipo = 'exito') {
+                mensajeAlerta.textContent = mensaje;
+                mensajeAlerta.classList.remove('error'); // Reset class
+                if (tipo === 'error') {
+                    mensajeAlerta.classList.add('error');
+                }
+                mensajeAlerta.classList.add('mostrar');
+                setTimeout(() => {
+                    mensajeAlerta.classList.remove('mostrar');
+                }, 3000); // El mensaje desaparece después de 3 segundos
+            }
+
+            // --- Lógica del Modal de Ubicación ---
+            const textoUbicacionActual = document.getElementById('texto-ubicacion-actual'); // Renombrado de #textoUbicacionActual
+            const inputCodigoPostal = document.getElementById('entrada-codigo-postal'); // Renombrado de #inputCodigoPostal
+            const botonUsarCodigoPostal = document.getElementById('boton-usar-codigo-postal'); // Renombrado de #botonUsarCodigoPostal
+            const enlaceNoSeCodigo = document.getElementById('enlace-no-se-codigo'); // Renombrado de #enlaceNoSeCodigo
+            const modalUbicacion = new bootstrap.Modal(document.getElementById('modal-ubicacion')); // Renombrado de #modalUbicacion
+            const botonModalUbicacion = document.getElementById('boton-modal-ubicacion'); // Renombrado de #botonModalUbicacion
+
+            botonModalUbicacion.addEventListener('click', function (e) {
+                e.preventDefault();
+                modalUbicacion.show();
+                inputCodigoPostal.value = textoUbicacionActual.textContent === 'Resistencia, Chaco' ? '' : textoUbicacionActual.textContent;
+            });
+
+            botonUsarCodigoPostal.addEventListener('click', function () {
+                const codigoPostal = inputCodigoPostal.value.trim();
+                if (codigoPostal) {
+                    textoUbicacionActual.textContent = codigoPostal;
+                    modalUbicacion.hide();
+                } else {
+                    mostrarMensaje('Por favor, ingresa un código postal.', 'error');
+                }
+            });
+
+            enlaceNoSeCodigo.addEventListener('click', function (event) {
+                event.preventDefault();
+                mostrarMensaje('Puedes buscar tu código postal en el sitio web del correo local.', 'info');
+                modalUbicacion.hide();
+            });
+
+            // --- Lógica del contador del carrito ---
+            const contadorElementosCarrito = document.getElementById('contador-elementos-carrito'); // Renombrado de #cartItemCount
+            let cantidadActualCarrito = 0; // Renombrado de currentCartCount
+
+            function actualizarContadorCarrito() { // Renombrado de updateCartCount
+                contadorElementosCarrito.textContent = cantidadActualCarrito;
+            }
+
+            // Llama a la función al cargar la página para establecer el número inicial
+            actualizarContadorCarrito();
+
+            // Lógica para los botones "Agregar al Carrito"
+            document.querySelectorAll('.boton-agregar-carrito').forEach(button => { // Renombrado de .btn-add-to-cart
+                button.addEventListener('click', function () {
+                    cantidadActualCarrito++; // Renombrado de currentCartCount
+                    actualizarContadorCarrito(); // Renombrado de updateCartCount
+                    mostrarMensaje('¡Producto agregado al carrito!', 'exito');
+                });
+            });
+
+            // --- Lógica del Temporizador de Ofertas ---
+            const temporizadorOfertaElemento = document.getElementById('temporizador-oferta'); // Renombrado de #offerTimer
+            // Establece la fecha de finalización de la oferta (ej: 2 días a partir de ahora)
+            // Puedes ajustar esta fecha manualmente si lo deseas.
+            const fechaFinOferta = new Date(); // Renombrado de offerEndDate
+            fechaFinOferta.setDate(fechaFinOferta.getDate() + 2); // 2 días a partir de la fecha actual
+            fechaFinOferta.setHours(23, 59, 59, 999); // Hasta el final del día en 2 días
+
+            function actualizarTemporizadorOferta() { // Renombrado de updateOfferTimer
+                const ahora = new Date().getTime(); // Renombrado de now
+                const distancia = fechaFinOferta.getTime() - ahora; // Renombrado de distance
+
+                if (distancia < 0) {
+                    clearInterval(intervaloTemporizador); // Renombrado de timerInterval
+                    temporizadorOfertaElemento.textContent = '¡Oferta Finalizada!';
+                    return;
+                }
+
+                const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+                temporizadorOfertaElemento.textContent = `Termina en: ${dias}d ${horas}h ${minutos}m ${segundos}s`;
+            }
+
+            // Actualiza el temporizador cada segundo
+            const intervaloTemporizador = setInterval(actualizarTemporizadorOferta, 1000); // Renombrado de timerInterval
+            actualizarTemporizadorOferta(); // Llamada inicial para mostrar el temporizador inmediatamente
+        });
+    </script>
+</body>
+
+</html>

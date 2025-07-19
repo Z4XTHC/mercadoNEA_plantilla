@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MercadoNEA - Mis Ventas</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        xintegrity="sha512-SnH5WK+bZxgPHs44jOVpLqN2Y/NoLpYkS1jB+x7jXyG2W3I6/N9t/JcK7D7FhM2J44zF3C+G3G3wG3G3w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Fuentes de Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        /* Barra de Navegación Principal */
+        .ne-barra-navegacion {
+            background-color: #444;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .ne-barra-navegacion .navbar-brand img {
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+
+        .ne-barra-navegacion .form-control {
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            height: 40px;
+            font-size: 16px;
+            padding-left: 15px;
+            background-color: #fff;
+        }
+
+        .ne-barra-navegacion .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        .ne-barra-navegacion .btn-search {
+            background-color: #FF7F00;
+            border: none;
+            color: #fff;
+            padding: 0 15px;
+            height: 40px;
+            border-radius: 0 4px 4px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 1;
+        }
+
+        .ne-barra-navegacion .nav-link {
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            padding: 0.5rem 0.8rem;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .ne-texto-pequeno {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .ne-barra-navegacion .ne-icono-ubicacion {
+            font-size: 18px;
+            margin-right: 5px;
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion .input-group .form-control {
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .ne-barra-navegacion .input-group .input-group-text {
+            background-color: #FF7F00;
+            border: 1px solid #FF7F00;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        /* Carrito de Compras en la Navegación */
+        .ne-cart-icon-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Adjust spacing as needed */
+        }
+
+        .ne-cart-icon-container .fa-shopping-cart {
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .ne-cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #FF7F00;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+            line-height: 1;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Contenedor de enlaces de usuario en la barra principal */
+        .ne-user-links {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            /* Espacio entre el carrito y los enlaces */
+        }
+
+        .ne-user-links .nav-link {
+            padding: 0.5rem 0.8rem;
+            color: #f0f0f0;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-user-links .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-user-links .nav-link.bold {
+            font-weight: 600;
+            color: #fff;
+        }
+
+
+        /* Barra de Navegación Secundaria */
+        .ne-barra-navegacion-secundaria {
+            background-color: #f8f9fa;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid #eee;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link {
+            font-size: 14px;
+            color: #666;
+            padding: 0.3rem 0.8rem;
+        }
+
+        .ne-barra-navegacion-secundaria .nav-link:hover {
+            color: #FF7F00;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .ne-barra-navegacion-secundaria .ne-info-envio i {
+            font-size: 16px;
+            margin-right: 5px;
+            color: #00a650;
+        }
+
+        /* Contenedor principal de Mis Ventas */
+        .ne-contenedor-mis-ventas {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .ne-contenedor-mis-ventas h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        /* Controles de vista (cuadrícula/lista) */
+        .ne-controles-vista {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .ne-controles-vista .btn-vista {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            color: #555;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .ne-controles-vista .btn-vista:hover {
+            background-color: #f0f0f0;
+            border-color: #ccc;
+        }
+
+        .ne-controles-vista .btn-vista.active {
+            background-color: #FF7F00;
+            border-color: #FF7F00;
+            color: #fff;
+        }
+
+        /* Tarjeta de Venta - Base (Vista de Cuadrícula por defecto) */
+        .ne-tarjeta-venta {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            /* Por defecto, en columna para vista de cuadrícula */
+            gap: 15px;
+            width: 100%;
+            /* Ocupa todo el ancho de su columna */
+        }
+
+        .ne-tarjeta-venta .venta-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .ne-tarjeta-venta .venta-header h5 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0;
+        }
+
+        .ne-tarjeta-venta .venta-header .fecha {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .ne-tarjeta-venta .venta-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 0;
+            border-bottom: 1px dashed #f0f0f0;
+        }
+
+        .ne-tarjeta-venta .venta-item:last-child {
+            border-bottom: none;
+        }
+
+        .ne-tarjeta-venta .venta-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+
+        .ne-tarjeta-venta .venta-item .info-producto {
+            flex-grow: 1;
+        }
+
+        .ne-tarjeta-venta .venta-item .info-producto h6 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .ne-tarjeta-venta .venta-item .info-producto p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0;
+        }
+
+        .ne-tarjeta-venta .venta-item .estado-precio {
+            text-align: right;
+        }
+
+        .ne-tarjeta-venta .venta-item .estado-precio .precio {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .ne-tarjeta-venta .venta-item .estado-precio .estado {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .ne-tarjeta-venta .venta-item .estado-precio .estado.vendido {
+            color: #00a650;
+            /* Verde */
+        }
+
+        .ne-tarjeta-venta .venta-item .estado-precio .estado.enviado {
+            color: #3483fa;
+            /* Azul */
+        }
+
+        .ne-tarjeta-venta .venta-item .estado-precio .estado.pendiente {
+            color: #ffc107;
+            /* Amarillo */
+        }
+
+        .ne-tarjeta-venta .venta-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding-top: 10px;
+        }
+
+        .ne-tarjeta-venta .venta-footer .btn-outline-secondary {
+            border-color: #ddd;
+            color: #666;
+            font-size: 0.9rem;
+            padding: 8px 15px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .ne-tarjeta-venta .venta-footer .btn-outline-secondary:hover {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        /* Contenedor de Ventas (para aplicar el grid o flex) */
+        .ne-lista-ventas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            /* Por defecto, cuadrícula */
+            gap: 20px;
+            /* Espacio entre las tarjetas en cuadrícula */
+        }
+
+        /* Estilos para la vista de lista */
+        .ne-lista-ventas.list-view {
+            display: flex;
+            /* Cambia a flexbox para vista de lista */
+            flex-direction: column;
+            /* Apila las tarjetas verticalmente */
+            gap: 15px;
+            /* Espacio entre las tarjetas en lista */
+        }
+
+        .ne-lista-ventas.list-view .ne-tarjeta-venta {
+            flex-direction: row;
+            /* Cambia la dirección a fila para la vista de lista */
+            align-items: flex-start;
+            /* Alinea los elementos al inicio */
+            padding: 15px;
+            gap: 20px;
+            width: 100%;
+            /* Ocupa todo el ancho disponible */
+        }
+
+        .ne-lista-ventas.list-view .ne-tarjeta-venta .venta-header {
+            flex-direction: column;
+            /* Apila el título y la fecha en la vista de lista */
+            align-items: flex-start;
+            border-bottom: none;
+            /* Elimina el borde inferior del header */
+            padding-bottom: 0;
+            margin-bottom: 0;
+            width: 150px;
+            /* Ancho fijo para el header en vista de lista */
+            flex-shrink: 0;
+            /* Evita que se encoja */
+        }
+
+        .ne-lista-ventas.list-view .ne-tarjeta-venta .venta-item {
+            flex-grow: 1;
+            /* Permite que el item ocupe el espacio restante */
+            border-bottom: none;
+            /* Elimina el borde inferior del item */
+            padding: 0;
+        }
+
+        .ne-lista-ventas.list-view .ne-tarjeta-venta .venta-item img {
+            width: 100px;
+            /* Tamaño de imagen más grande en lista */
+            height: 100px;
+            flex-shrink: 0;
+            /* Evita que la imagen se encoja */
+        }
+
+        .ne-lista-ventas.list-view .ne-tarjeta-venta .venta-item .info-producto {
+            flex-grow: 1;
+        }
+
+        .ne-lista-ventas.list-view .ne-tarjeta-venta .venta-item .estado-precio {
+            text-align: left;
+            /* Alinea a la izquierda en vista de lista */
+            flex-shrink: 0;
+            /* Evita que se encoja */
+            width: 120px;
+            /* Ancho fijo para estado/precio */
+        }
+
+        .ne-lista-ventas.list-view .ne-tarjeta-venta .venta-footer {
+            flex-direction: column;
+            /* Apila los botones en la vista de lista */
+            align-items: flex-end;
+            /* Alinea los botones a la derecha */
+            gap: 5px;
+            /* Espacio entre botones */
+            padding-top: 0;
+            flex-shrink: 0;
+            /* Evita que se encoja */
+        }
+
+        .ne-lista-ventas.list-view .ne-tarjeta-venta .venta-footer .btn-outline-secondary {
+            width: auto;
+            /* Ancho automático para los botones */
+            text-align: right;
+            /* Alinea el texto del botón a la derecha */
+        }
+
+        /* Pie de Página */
+        .ne-pie-pagina {
+            background-color: #333;
+            padding: 40px 0 20px;
+            border-top: 1px solid #444;
+            color: #ddd;
+        }
+
+        .ne-pie-pagina .titulo-pie-pagina {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #FF7F00;
+        }
+
+        .ne-pie-pagina ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .ne-pie-pagina ul li {
+            margin-bottom: 8px;
+        }
+
+        .ne-pie-pagina ul li a {
+            color: #ccc;
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina ul li a:hover {
+            color: #FF7F00;
+        }
+
+        .ne-pie-pagina .iconos-sociales-pie-pagina a {
+            color: #FF7F00;
+            font-size: 20px;
+            margin-right: 15px;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .ne-pie-pagina .iconos-sociales-pie-pagina a:hover {
+            color: #fff;
+        }
+
+        .ne-pie-pagina .derechos-autor-pie-pagina {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .ne-pie-pagina .enlaces-inferiores-pie-pagina a {
+            color: #ccc;
+            font-size: 12px;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .ne-pie-pagina .enlaces-inferiores-pie-pagina a:hover {
+            color: #FF7F00;
+        }
+
+        /* Estilos del Modal de Ubicación */
+        #locationModal .modal-content {
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        #locationModal .modal-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            padding: 15px 20px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        #locationModal .modal-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.25rem;
+        }
+
+        #locationModal .btn-close {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        #locationModal .btn-close:hover {
+            opacity: 1;
+        }
+
+        #locationModal .modal-body {
+            padding: 20px;
+        }
+
+        #locationModal .form-label {
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        #locationModal .form-control {
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            height: auto;
+        }
+
+        #locationModal .form-control:focus {
+            border-color: #FF7F00;
+            box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
+        }
+
+        #locationModal .input-group .btn-primary {
+            background-color: #FF7F00;
+            border-color: #FF7F00;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 0 4px 4px 0;
+            font-weight: 600;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        #locationModal .input-group .btn-primary:hover {
+            background-color: #E66E00;
+            border-color: #E66E00;
+        }
+
+        #locationModal #dontKnowCodeLink {
+            color: #FF7F00;
+            font-weight: 500;
+            margin-top: 15px;
+            display: block;
+            text-align: center;
+            transition: color 0.2s ease;
+        }
+
+        #locationModal #dontKnowCodeLink:hover {
+            color: #E66E00;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Barra de Navegación Principal -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion">
+        <div class="container-fluid container">
+            <a class="navbar-brand" href="#">
+                <img src="https://placehold.co/150x40/FF7F00/ffffff?text=MercadoNEA+Logo" alt="MercadoNEA Logo">
+            </a>
+            <form class="d-flex flex-grow-1 mx-3 position-relative">
+                <input class="form-control" type="search" placeholder="Buscar productos, marcas y más..."
+                    aria-label="Search">
+                <button class="btn btn-search" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <!-- Contenedor de enlaces de usuario y carrito para pantallas grandes -->
+            <div class="d-none d-lg-flex align-items-center">
+                <div class="ne-user-links">
+                    <a class="nav-link bold" href="crearCuenta.html">Crea tu cuenta</a>
+                    <a class="nav-link" href="iniciarSesion.html">Ingresa</a>
+                </div>
+                <!-- Carrito de compras con contador -->
+                <div class="ne-cart-icon-container">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="ne-cart-count" id="cartItemCount">0</span>
+                </div>
+            </div>
+            <button class="navbar-toggler mt-2 bg-light-subtle" type="button" data-bs-toggle="collapse"
+                data-bs-target="#neNavbarNav" aria-controls="neNavbarNav" aria-expanded="false"
+                aria-label="Toggle navigation" id="botonMenuMovil">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Barra de Navegación Secundaria (sin modificaciones de enlaces) -->
+    <nav class="navbar navbar-expand-lg ne-barra-navegacion-secundaria">
+        <div class="container-fluid container">
+            <a class="ne-info-envio me-auto d-none d-lg-flex align-items-center" href="#" data-bs-toggle="modal"
+                data-bs-target="#modalUbicacion" id="botonModalUbicacion">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    Enviar a <span class="ne-texto-pequeno text-warning" id="textoUbicacionActual">Resistencia,
+                        Chaco</span>
+                </div>
+            </a>
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCategorias" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategorias">
+                        <li><a class="dropdown-item" href="#">Electrónica</a></li>
+                        <li><a class="dropdown-item" href="#">Moda y Accesorios</a></li>
+                        <li><a class="dropdown-item" href="#">Hogar y Muebles</a></li>
+                        <li><a class="dropdown-item" href="#">Deportes y Fitness</a></li>
+                        <li><a class="dropdown-item" href="#">Herramientas y Construcción</a></li>
+                        <li><a class="dropdown-item" href="#">Libros, Revistas y Comics</a></li>
+                        <li><a class="dropdown-item" href="#">Juguetes y Bebés</a></li>
+                        <li><a class="dropdown-item" href="#">Belleza y Cuidado Personal</a></li>
+                        <li><a class="dropdown-item" href="#">Accesorios para Vehículos</a></li>
+                        <li><a class="dropdown-item" href="#">Animales y Mascotas</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Ver todas las categorías</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+            </ul>
+            <!-- Contenido para móvil -->
+            <div class="collapse navbar-collapse" id="neNavbarNav">
+                <ul class="navbar-nav ms-auto d-lg-none">
+                    <li class="nav-item"><a class="nav-link bold" href="crearCuenta.html">Crea tu cuenta</a></li>
+                    <li class="nav-item"><a class="nav-link" href="iniciarSesion.html">Ingresa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mis compras</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mi carrito</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Categorías</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Tiendas oficiales</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container ne-contenedor-mis-ventas">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h1>Mis Ventas</h1>
+                    <div class="ne-controles-vista">
+                        <button class="btn-vista active" id="gridViewBtn" title="Vista de Cuadrícula">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button class="btn-vista" id="listViewBtn" title="Vista de Lista">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="saleListContainer" class="ne-lista-ventas">
+                    <!-- Tarjeta de Venta 1 -->
+                    <div class="ne-tarjeta-venta">
+                        <div class="venta-header">
+                            <h5>Venta #V001234</h5>
+                            <span class="fecha">14 de Julio de 2024</span>
+                        </div>
+                        <div class="venta-item">
+                            <img src="https://placehold.co/80x80/28a745/ffffff?text=ProdA" alt="Producto A">
+                            <div class="info-producto">
+                                <h6>Consola de Videojuegos Retro</h6>
+                                <p>Comprador: Ana Gómez</p>
+                            </div>
+                            <div class="estado-precio">
+                                <p class="precio">$20.000</p>
+                                <span class="estado vendido">Vendido y Entregado</span>
+                            </div>
+                        </div>
+                        <div class="venta-footer">
+                            <button class="btn btn-outline-secondary">Ver Detalle</button>
+                            <button class="btn btn-outline-secondary">Contactar Comprador</button>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de Venta 2 -->
+                    <div class="ne-tarjeta-venta">
+                        <div class="venta-header">
+                            <h5>Venta #V005678</h5>
+                            <span class="fecha">08 de Julio de 2024</span>
+                        </div>
+                        <div class="venta-item">
+                            <img src="https://placehold.co/80x80/007bff/ffffff?text=ProdB" alt="Producto B">
+                            <div class="info-producto">
+                                <h6>Cámara Digital Compacta</h6>
+                                <p>Comprador: Carlos Ruiz</p>
+                            </div>
+                            <div class="estado-precio">
+                                <p class="precio">$35.000</p>
+                                <span class="estado enviado">Enviado</span>
+                            </div>
+                        </div>
+                        <div class="venta-footer">
+                            <button class="btn btn-outline-secondary">Ver Detalle</button>
+                            <button class="btn btn-outline-secondary">Seguir Envío</button>
+                            <button class="btn btn-outline-secondary">Contactar Comprador</button>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de Venta 3 -->
+                    <div class="ne-tarjeta-venta">
+                        <div class="venta-header">
+                            <h5>Venta #V009012</h5>
+                            <span class="fecha">03 de Julio de 2024</span>
+                        </div>
+                        <div class="venta-item">
+                            <img src="https://placehold.co/80x80/ffc107/ffffff?text=ProdC" alt="Producto C">
+                            <div class="info-producto">
+                                <h6>Mochila Urbana Impermeable</h6>
+                                <p>Comprador: Laura Fernández</p>
+                            </div>
+                            <div class="estado-precio">
+                                <p class="precio">$7.000</p>
+                                <span class="estado pendiente">Pago Pendiente</span>
+                            </div>
+                        </div>
+                        <div class="venta-footer">
+                            <button class="btn btn-outline-secondary">Ver Detalle</button>
+                            <button class="btn btn-outline-secondary">Recordar Pago</button>
+                            <button class="btn btn-outline-secondary">Contactar Comprador</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botón para volver al perfil -->
+                <div class="text-center mt-4">
+                    <a href="#" class="btn btn-primary" onclick="history.back()">Volver a Mi Perfil</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Ubicación (Mantener por si se usa en el futuro) -->
+    <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title" id="locationModalLabel">Elegí dónde recibir tus compras</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <p class="text-muted mb-3">Podrás ver costos y tiempos de entrega precisos en todo lo que busques.
+                    </p>
+                    <div class="mb-3">
+                        <label for="postalCodeInput" class="form-label">Código Postal</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="postalCodeInput"
+                                placeholder="Ingresar un código postal">
+                            <button class="btn btn-primary" type="button" id="usePostalCodeBtn">Usar</button>
+                        </div>
+                    </div>
+                    <a href="#" id="dontKnowCodeLink" class="text-decoration-none d-block text-center">No sé mi
+                        código</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de Página -->
+    <footer class="ne-pie-pagina">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Acerca de MercadoNEA</h5>
+                    <ul>
+                        <li><a href="#">Nuestra Empresa</a></li>
+                        <li><a href="#">Inversores</a></li>
+                        <li><a href="#">Sustentabilidad</a></li>
+                        <li><a href="#">Novedades</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Mi Cuenta</h5>
+                    <ul>
+                        <li><a href="#">Ingresar</a></li>
+                        <li><a href="#">Registrarse</a></li>
+                        <li><a href="#">Mis pedidos</a></li>
+                        <li><a href="#">Configuración</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Ayuda y Soporte</h5>
+                    <ul>
+                        <li><a href="#">Centro de Ayuda</a></li>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                        <li><a href="#">Envíos y Devoluciones</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <h5 class="titulo-pie-pagina">Conéctate</h5>
+                    <div class="iconos-sociales-pie-pagina">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="enlaces-inferiores-pie-pagina text-center">
+                <a href="#">Trabaja con nosotros</a>
+                <a href="#">Términos y Condiciones</a>
+                <a href="#">Política de Privacidad</a>
+                <a href="#">Aviso Legal</a>
+            </div>
+            <p class="derechos-autor-pie-pagina">Copyright © 2024 MercadoNEA S.A. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS (bundle con Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lógica del modal de ubicación
+            const currentLocationText = document.getElementById('currentLocationText');
+            const postalCodeInput = document.getElementById('postalCodeInput');
+            const usePostalCodeBtn = document.getElementById('usePostalCodeBtn');
+            const dontKnowCodeLink = document.getElementById('dontKnowCodeLink');
+            const locationModal = new bootstrap.Modal(document.getElementById('locationModal'));
+
+            function updateLocation(location) {
+                currentLocationText.textContent = location;
+            }
+
+            usePostalCodeBtn.addEventListener('click', function () {
+                const postalCode = postalCodeInput.value.trim();
+                if (postalCode) {
+                    updateLocation(postalCode);
+                    locationModal.hide();
+                } else {
+                    alert('Por favor, ingresa un código postal.');
+                }
+            });
+
+            dontKnowCodeLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                alert('Puedes buscar tu código postal en el sitio web del correo local.');
+                locationModal.hide();
+            });
+
+            document.getElementById('locationModal').addEventListener('show.bs.modal', function () {
+                postalCodeInput.value = currentLocationText.textContent === 'Resistencia, Chaco' ? '' : currentLocationText.textContent;
+            });
+
+            // Lógica para cambiar la vista de ventas (cuadrícula/lista)
+            const gridViewBtn = document.getElementById('gridViewBtn');
+            const listViewBtn = document.getElementById('listViewBtn');
+            const saleListContainer = document.getElementById('saleListContainer');
+
+            // Función para activar la vista de cuadrícula
+            function activateGridView() {
+                saleListContainer.classList.remove('list-view');
+                gridViewBtn.classList.add('active');
+                listViewBtn.classList.remove('active');
+            }
+
+            // Función para activar la vista de lista
+            function activateListView() {
+                saleListContainer.classList.add('list-view');
+                listViewBtn.classList.add('active');
+                gridViewBtn.classList.remove('active');
+            }
+
+            // Event Listeners para los botones de vista
+            gridViewBtn.addEventListener('click', activateGridView);
+            listViewBtn.addEventListener('click', activateListView);
+
+            // Activar la vista de cuadrícula por defecto al cargar la página
+            activateGridView();
+        });
+    </script>
+</body>
+
+</html>
