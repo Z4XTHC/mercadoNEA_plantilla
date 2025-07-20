@@ -1,99 +1,114 @@
-MercadoNEA 🛍️
-Descripción del Proyecto 📝
-MercadoNEA es una plataforma de e-commerce diseñada para conectar compradores y vendedores de la región del Nordeste Argentino (NEA). Nuestro objetivo es facilitar la compra y venta de una amplia variedad de productos, desde electrónica y moda hasta artículos para el hogar y herramientas, promoviendo el comercio local y regional. Ofrecemos una experiencia de usuario intuitiva y segura, con funcionalidades clave para la publicación de productos, gestión de perfiles de usuario, y un sistema de ofertas dinámico.
+<h1>MercadoNEA &#128717;</h1>
 
-Este proyecto ha sido desarrollado por Mango Soft. 🥭
+<h2>&#128221; Descripción del Proyecto</h2>
+    <p>
+        MercadoNEA es una plataforma de e-commerce diseñada para conectar compradores y vendedores de la región
+        del Nordeste Argentino (NEA). Nuestro objetivo es facilitar la compra y venta de una amplia variedad de
+        productos, desde electrónica y moda hasta artículos para el hogar y herramientas, promoviendo el
+        comercio local y regional. Ofrecemos una experiencia de usuario intuitiva y segura, con funcionalidades
+        clave para la publicación de productos, gestión de perfiles de usuario, y un sistema de ofertas
+        dinámico.
+    </p>
+    <p>
+        Este proyecto ha sido desarrollado por <b>Mango Soft</b>. 🥭
+    </p>
 
-Características Principales ✨
-Publicación de Productos: Interfaz sencilla para que los vendedores puedan listar sus productos con descripciones detalladas, precios, stock, condición y opciones de envío. 📦
+  <h2>&#10024; Características Principales</h2>
+    <ul>
+        <li>
+            &#128230; <b>Publicación de Productos:</b> Interfaz sencilla para que los
+            vendedores puedan listar sus productos con descripciones detalladas, precios, stock, condición y
+            opciones de envío.
+        </li>
+        <li>
+            &#128100; <b>Gestión de Perfil de Usuario:</b> Los usuarios pueden crear y
+            gestionar sus perfiles, incluyendo información personal y de ubicación.
+        </li>
+        <li>
+            &#128269; <b>Búsqueda y Navegación:</b> Sistema de búsqueda eficiente y
+            categorías organizadas para encontrar productos fácilmente.
+        </li>
+        <li>
+            &#9203; <b>Ofertas del Día:</b> Sección dedicada a promociones y descuentos
+            especiales con temporizadores para incentivar la compra.
+        </li>
+        <li>
+            &#128722; <b>Gestión de Carrito de Compras:</b> Funcionalidad para agregar
+            productos al carrito y gestionar la compra.
+        </li>
+        <li>
+            &#128205; <b>Ubicación y Envío:</b> Integración para definir la ubicación del
+            usuario (código postal) y adaptar las opciones de envío.
+        </li>
+        <li>
+            &#128241; <b>Diseño Responsivo:</b> Interfaz optimizada para una experiencia
+            fluida en dispositivos móviles, tablets y computadoras de escritorio.
+        </li>
+        <li>
+            &#128276; <b>Sistema de Notificaciones:</b> Mensajes de alerta personalizados
+            para informar al usuario sobre el éxito o el error de las operaciones.
+        </li>
+    </ul>
 
-Gestión de Perfil de Usuario: Los usuarios pueden crear y gestionar sus perfiles, incluyendo información personal y de ubicación. 👤
+  <h2>&#128736; Tecnologías Utilizadas</h2>
+    <div>
+        <h3>Frontend:</h3>
+        <ul>
+            <li><b>HTML5</b></li>
+            <li><b>CSS3</b></li>
+            <li><b>JavaScript</b></li>
+          <li><b>BS5</b></li>
+          <li><b>FontAwesome</b></li>
+          <li><b>Google Font</b></li>
+        </ul>
+    </div>
 
-Búsqueda y Navegación: Sistema de búsqueda eficiente y categorías organizadas para encontrar productos fácilmente. 🔍
+  <h2>&#128640; Cómo Empezar</h2>
+    <p>
+        Para ejecutar el proyecto localmente, sigue estos pasos:
+    </p>
+    <ol>
+        <li><b>Clona el repositorio:</b>
+            <pre><code>git clone https://github.com/tu-usuario/MercadoNEA.git</code></pre>
+        </li>
+        <li><b>Navega al directorio del proyecto:</b>
+            <pre><code>cd MercadoNEA</code></pre>
+        </li>
+        <li><b>Abre <code>index.html</code> en tu navegador:</b>
+            <p>Simplemente haz doble clic en el archivo <code>index.html</code> o ábrelo con tu navegador
+                web preferido.</p>
+        </li>
+    </ol>
+    <p>
+        (Si el proyecto incluye dependencias de Node.js, se añadirán instrucciones para <code>npm install</code> y <code>npm start</code> aquí).
+    </p>
 
-Ofertas del Día: Sección dedicada a promociones y descuentos especiales con temporizadores para incentivar la compra. ⏰
+  <h2>&#129309; Contribuciones</h2>
+    <p>
+        ¡Las contribuciones son bienvenidas! Si deseas contribuir a MercadoNEA, por favor:
+    </p>
+    <ol>
+        <li>Haz un "fork" del repositorio.</li>
+        <li>Crea una nueva rama (<code>git checkout -b feature/nueva-caracteristica</code>).
+        </li>
+        <li>Realiza tus cambios y haz "commit" (<code>git commit -am 'feat: Añadir nueva característica'</code>).
+        </li>
+        <li>Sube tus cambios a tu "fork" (<code>git push origin feature/nueva-caracteristica</code>).
+        </li>
+        <li>Abre un "Pull Request" describiendo tus cambios.</li>
+    </ol>
 
-Gestión de Carrito de Compras: Funcionalidad para agregar productos al carrito y gestionar la compra. 🛒
+  <h2>&#128462; Licencia</h2>
+    <p>
+        Este proyecto está bajo la Licencia MIT. Consulta el archivo <code>LICENSE</code> para más detalles.
+    </p>
 
-Ubicación y Envío: Integración para definir la ubicación del usuario (código postal) y adaptar las opciones de envío. 📍
-
-Diseño Responsivo: Interfaz optimizada para una experiencia fluida en dispositivos móviles, tablets y computadoras de escritorio. 📱💻
-
-Sistema de Notificaciones: Mensajes de alerta personalizados para informar al usuario sobre el éxito o el error de las operaciones. 🔔
-
-Tecnologías Utilizadas 🛠️
-Frontend:
-
-HTML5
-
-CSS3 (con estilos personalizados)
-
-JavaScript (ES6+)
-
-Bootstrap 5.3 (para el framework UI y componentes responsivos)
-
-Font Awesome (para iconos)
-
-Google Fonts (para tipografía)
-
-Bibliotecas y Frameworks (Frontend):
-
-Bootstrap Bundle (incluye Popper.js)
-
-Backend / Base de Datos (Concepto - No implementado en esta plantilla de frontend):
-
-(Se podría añadir aquí si el proyecto tuviera un backend, por ejemplo: Node.js, Python/Django, Ruby on Rails, PHP/Laravel, etc.)
-
-(Se podría añadir aquí si el proyecto tuviera una base de datos, por ejemplo: Firestore, PostgreSQL, MongoDB, MySQL, etc.)
-
-Instalación y Configuración (Frontend) 🚀
-Para ejecutar este proyecto de frontend localmente, sigue estos pasos:
-
-Clona el repositorio:
-
-git clone [URL_DEL_REPOSITORIO]
-
-Navega al directorio del proyecto:
-
-cd MercadoNEA
-
-Abre los archivos HTML en tu navegador:
-Simplemente abre index.html (o ofertas.html, publicarProducto.html, miPerfil.html) directamente en tu navegador web. No se requiere un servidor local para la funcionalidad básica de frontend.
-
-Nota: Para la funcionalidad completa que involucre un backend (como el envío de datos de productos o la gestión de usuarios persistente), necesitarías configurar un servidor y una base de datos.
-
-Uso 💡
-Navegación: Utiliza la barra de navegación superior para buscar productos, acceder a categorías, ofertas, historial y tu perfil. 🧭
-
-Publicar un Producto: Ve a la sección "Vender" o "Publicar un Producto" para acceder al formulario y listar tus artículos. ✍️
-
-Cambiar Ubicación: Haz clic en "Enviar a [Tu Ubicación Actual]" en la barra secundaria para abrir el modal de ubicación y configurar tu código postal. 🗺️
-
-Agregar al Carrito: Haz clic en "Agregar al Carrito" en las tarjetas de productos para añadir artículos a tu cesta de compras. ➕
-
-Contribución 🤝
-¡Las contribuciones son bienvenidas! Si deseas contribuir a MercadoNEA, por favor:
-
-Haz un "fork" del repositorio.
-
-Crea una nueva rama (git checkout -b feature/nueva-funcionalidad).
-
-Realiza tus cambios y haz "commit" (git commit -am 'feat: Añadir nueva funcionalidad X').
-
-Sube tus cambios (git push origin feature/nueva-funcionalidad).
-
-Abre un "Pull Request" describiendo tus cambios.
-
-Licencia 📄
-Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
-
-Contacto y Soporte 📧
-Si tienes preguntas, sugerencias o necesitas soporte, puedes contactar a Mango Soft a través de:
-
-Email: mango.store.thc@gmail.com
-
-Sitio Web: https://saj-portafolio.netlify.app/
-
-Instagram: @mango.storeok
-
-Este README es una plantilla y puede ser adaptado según las necesidades específicas del proyecto y las plataformas donde se publique.
+  <h2>&#128231; Contacto</h2>
+    <p>
+        Si tienes alguna pregunta o sugerencia, no dudes en contactarnos:
+    </p>
+    <ul>
+        <li><b>Email:</b> <a href="mailto:mango.store.thc@gmail.com">mango.store.thc@gmail.com</a></li>
+        <li><b>Mango Store:</b> <a href="https://saj-portafolio.netlify.app/" target="_blank">Mi Portafolio</a></li>
+        <li><b>LinkedIn:</b> <a href="https://www.instagram.com/mango.storeok/" target="_blank">Instagram</a></li>
+    </ul>
